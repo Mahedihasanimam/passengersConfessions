@@ -9,6 +9,7 @@ export default {
       colors: {
         primary: "#FF0048",
         secondary: "#262626",
+        decriptioncolor: "#ffffffb0",
         tertiary: "#6D6D6D",
         success: "#28a745",
         danger: "#dc3545",

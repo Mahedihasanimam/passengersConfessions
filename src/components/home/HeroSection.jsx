@@ -19,7 +19,7 @@ const HeroSection = () => {
             <span>Passenger </span>
             </h1>
             <h1 className="text-white lg:text-[80px] md:text-[80px] text-4xl font-black leading-none sm:text-6xl pt-4 ">Confessions</h1>
-            <p className="mt-6 mb-8 text-[16px] font-normal sm:mb-12 text-[#ffffffb0] leading-8">
+            <p className="mt-6 mb-8 text-[16px] font-normal sm:mb-12 text-decriptioncolor leading-8">
             Whether you're here for the thrill, the taboo, or just curious, this book dives deep into the world of spontaneous connections and unapologetic fantasies. Ready to get in the driver's seat of your own desires? Let the confessions begin.
             </p>
             <div className="flex flex-col sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
