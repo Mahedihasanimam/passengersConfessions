@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
 import Home from "../pages/home/Home";
 import BooksCollections from "../components/BooksCollections/BooksCollections";
+import Confessions from "../pages/confessions/Confessions";
+import PodCast from "../pages/podCast/PodCast";
 
 export const router = createBrowserRouter([
     {
@@ -23,7 +25,15 @@ export const router = createBrowserRouter([
         {
           path:'/allBooksCollections',
           element: <BooksCollections/>
-        }
+        },
+        {
+          path:'/Confession',
+          element: <Confessions/>
+        },
+        {
+          path:'/Podcast',
+          element: <PodCast/>
+        },
       ],
     },
 

@@ -2,9 +2,8 @@ import React, { useRef, useState } from 'react';
 import { Button } from 'antd';
 import 'tailwindcss/tailwind.css';
 import podcastvideo from '../../assets/podcast.mp4';
-import { Link } from 'react-router-dom';
 
-const Podcast = () => {
+const PodCast = () => {
     const VideoComponent = ({ videoSrc }) => {
         const [isPlaying, setIsPlaying] = useState(false);
         const videoRef = useRef(null);
@@ -101,14 +100,12 @@ const Podcast = () => {
 
     return (
         <div className="container mx-auto px-4 pb-[80px]">
-            <div className="max-w-4xl mx-auto">
-                <h1 className="lg:text-6xl md:text-4xl text-2xl font-bold text-center mt-8 text-secondary pb-2">
-                    Podcast
-                </h1>
-                <p className="text-center mt-2 mb-8 text-tertiary">
-                    Podcast is a form of digital media that allows people to listen to audio content on-demand, often in the format of a series of episodes or shows.
-                </p>
-            </div>
+              <div className='pb-6'>
+      <h1 className="text-2xl font-bold  mt-8 text-secondary pb-2 ">Podcast</h1>
+      <p className=" mt-2 mb-8 text-tertiary font-normal">
+      Podcast is a form of digital media that allows people to listen to audio content on-demand, often in the format of a series of episodes or shows.
+      </p>
+      </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                 {podcasData.map((book) => (
                     <div key={book.id} className="border rounded-lg p-4 shadow-md hover:shadow-lg bg-[#C7C7C740]">
@@ -116,18 +113,21 @@ const Podcast = () => {
                         <VideoComponent videoSrc={book.pvideo} />
                         <h2 className="text-[20px] font-semibold text-secondary max-w-[250px]">{book.title}</h2>
                         <p className="text-tertiary">{book.author}</p>
+                        <div className="mt-2 ">
+              <Button type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
+                Subscribe
+              </Button>
+            </div>
                     </div>
                 ))}
             </div>
-            <div className="w-1/2 mx-auto mt-20 ">
-       <Link className='w-full  mx-auto' to="/Podcast">
-       <Button type="primary" style={{backgroundColor: "#FF0048", color: "white",height: "35px",fontSize:'16px',fontWeight:'bold'}}  className="w-full border-none text-white px-6 py-2 rounded-lg">
-        Browse more
+            <div className="flex justify-center mt-20">
+        <Button type="primary" style={{backgroundColor: "transparent", color: "#FF0048",height: "35px",fontSize:'16px',fontWeight:'bold',border: "1px solid #FF0048"}}  className="w-1/2 border-none text-white px-6 py-2 rounded-lg">
+        Load more
         </Button>
-       </Link>
       </div>
         </div>
     );
 };
 
-export default Podcast;
+export default PodCast;

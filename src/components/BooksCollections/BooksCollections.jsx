@@ -60,10 +60,10 @@ const BooksCollections = () => {
     <div className="container mx-auto px-4 pb-[80px]">
 
       <div className='pb-6'>
-      <h1 className="text-lg font-bold  mt-8 text-secondary pb-2 ">Books Collections</h1>
-      <p className=" mt-2 mb-8 text-tertiary font-normal">
-        Here you can explore all types of books in various languages. Explore our full library of provocative, bold, and steamy stories. Each book invites you to dive deeper into a world where passion knows no boundaries.
-      </p>
+        <h1 className="text-2xl font-bold  mt-8 text-secondary pb-2 ">Books Collections</h1>
+        <p className=" mt-2 mb-8 text-tertiary font-normal">
+          Here you can explore all types of books in various languages. Explore our full library of provocative, bold, and steamy stories. Each book invites you to dive deeper into a world where passion knows no boundaries.
+        </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {booksData.map((book) => (
@@ -72,18 +72,16 @@ const BooksCollections = () => {
             <h2 className="text-lg font-semibold text-secondary max-w-[250px]">{book.title}</h2>
             <p className="text-tertiary">{book.author}</p>
             <div className="mt-2 ">
-      
-       <Button type="primary" style={{backgroundColor: "#FF0048", color: "white",height: "35px",fontSize:'16px',fontWeight:'bold'}}  className="w-full border-none text-white px-6 py-2 rounded-lg">
-       Subscribe
-        </Button>
-    
-      </div>
+              <Button type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
+                Subscribe
+              </Button>
+            </div>
           </div>
         ))}
       </div>
       <div className="flex justify-center mt-20">
-        <Button type="primary" style={{backgroundColor: "transparent", color: "#FF0048",height: "35px",fontSize:'16px',fontWeight:'bold',border: "1px solid #FF0048"}}  className="w-1/2 border-none text-white px-6 py-2 rounded-lg">
-        Load more
+        <Button type="primary" style={{ backgroundColor: "transparent", color: "#FF0048", height: "35px", fontSize: '16px', fontWeight: 'bold', border: "1px solid #FF0048" }} className="w-1/2 border-none text-white px-6 py-2 rounded-lg">
+          Load more
         </Button>
       </div>
     </div>

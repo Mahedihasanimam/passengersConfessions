@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import 'tailwindcss/tailwind.css';
 import bookimage from '../../assets/confession.png'
+import { Link } from 'react-router-dom';
 const booksData = [
   {
     id: 1,
@@ -72,10 +73,12 @@ const Confessions = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-20">
-        <Button type="primary" style={{backgroundColor: "#FF0048", color: "white",height: "35px",fontSize:'16px',fontWeight:'bold'}}  className="w-1/2 border-none text-white px-6 py-2 rounded-lg">
+      <div className="w-1/2 mx-auto mt-20 ">
+       <Link className='w-full  mx-auto' to="/Confession">
+       <Button type="primary" style={{backgroundColor: "#FF0048", color: "white",height: "35px",fontSize:'16px',fontWeight:'bold'}}  className="w-full border-none text-white px-6 py-2 rounded-lg">
         Browse more
         </Button>
+       </Link>
       </div>
     </div>
   );
