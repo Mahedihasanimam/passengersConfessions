@@ -55,7 +55,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-primary">
+    <div className="bg-white">
       <nav className="w-full p-4 container mx-auto flex justify-between items-center">
         {/* Left Side: Logo */}
         <div className="flex items-center space-x-4">
@@ -66,7 +66,7 @@ const Navbar = () => {
 
         {/* Middle: Navigation Links */}
         <div className="hidden w-full lg:flex items-center justify-start space-x-2 px-2">
-          <ul className="space-x-2 list-none flex items-center gap-6 text-[16px] font-medium  py-4">
+          <ul className="space-x-2 list-none flex items-center justify-center mx-auto gap-6 text-[16px] font-medium  py-4">
             <li>
               <NavLink  className={({ isActive }) => isActive ? "text-[#262626] text-[16px]  font-bold" : "text-[#6D6D6D] text-[16px]  font-bold"} to="/" >
                 Home
