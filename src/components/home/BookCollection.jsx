@@ -67,12 +67,12 @@ const BookCollection = () => {
         {booksData.map((book) => (
           <div key={book.id} className="border rounded-lg p-4 shadow-md hover:shadow-lg bg-[#C7C7C740]">
             <img src={book.image} alt={book.title} className="w-full h-56 object-cover rounded-md mb-4" />
-            <h2 className="text-lg font-semibold text-secondary">{book.title}</h2>
+            <h2 className="text-lg font-semibold text-secondary max-w-[250px]">{book.title}</h2>
             <p className="text-tertiary">{book.author}</p>
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center mt-20">
         <Button type="primary" style={{backgroundColor: "#FF0048", color: "white",height: "35px",fontSize:'16px',fontWeight:'bold'}}  className="w-1/2 border-none text-white px-6 py-2 rounded-lg">
         Browse more
         </Button>
