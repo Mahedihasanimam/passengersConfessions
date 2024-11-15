@@ -4,6 +4,8 @@ import Home from "../pages/home/Home";
 import BooksCollections from "../components/BooksCollections/BooksCollections";
 import Confessions from "../pages/confessions/Confessions";
 import PodCast from "../pages/podCast/PodCast";
+import ForumPage from "../pages/forum/ForumPage";
+import BookDetails from "../components/BooksCollections/BooksDetais/BookDetails";
 
 export const router = createBrowserRouter([
     {
@@ -27,12 +29,20 @@ export const router = createBrowserRouter([
           element: <BooksCollections/>
         },
         {
+          path:'/booksDetails/:id',
+          element: <BookDetails/>
+        },
+        {
           path:'/Confession',
           element: <Confessions/>
         },
         {
           path:'/Podcast',
           element: <PodCast/>
+        },
+        {
+          path:'/Forum',
+          element: <ForumPage/>
         },
       ],
     },

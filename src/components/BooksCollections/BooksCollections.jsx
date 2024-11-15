@@ -72,9 +72,12 @@ const BooksCollections = () => {
             <h2 className="text-lg font-semibold text-secondary max-w-[250px]">{book.title}</h2>
             <p className="text-tertiary">{book.author}</p>
             <div className="mt-2 ">
-              <Button type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
+            <Link to={`/booksDetails/${book.id}`}>
+            
+            <Button type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
                 Subscribe
               </Button>
+            </Link>
             </div>
           </div>
         ))}

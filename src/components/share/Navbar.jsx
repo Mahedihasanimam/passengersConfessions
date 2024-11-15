@@ -73,19 +73,19 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <Link to="/Confession" className={({ isActive }) => isActive ? "text-[#262626] text-[16px]  font-bold" : "text-[#6D6D6D] text-[16px]  font-bold"}>
+              <NavLink to="/Confession" className={({ isActive }) => isActive ? "text-[#262626] text-[16px]  font-bold" : "text-[#6D6D6D] text-[16px]  font-bold"}>
               Confession
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Podcast" className={({ isActive }) => isActive ? "text-[#262626] text-[16px]  font-bold" : "text-[#6D6D6D] text-[16px]  font-bold"}>
+              <NavLink to="/Podcast" className={({ isActive }) => isActive ? "text-[#262626] text-[16px]  font-bold" : "text-[#6D6D6D] text-[16px]  font-bold"}>
               Podcast
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/Forum" className={({ isActive }) => isActive ? "text-[#262626] text-[16px]  font-bold" : "text-[#6D6D6D] text-[16px]  font-bold"}>
+              <NavLink to="/Forum" className={({ isActive }) => isActive ? "text-[#262626] text-[16px]  font-bold" : "text-[#6D6D6D] text-[16px]  font-bold"}>
               Forum
-              </Link>
+              </NavLink>
             </li>
             {/* Add more links as needed */}
           </ul>
