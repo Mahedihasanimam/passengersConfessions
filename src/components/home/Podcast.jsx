@@ -27,7 +27,7 @@ const Podcast = () => {
                     onClick={handlePlayPause}
                     onPlay={() => setIsPlaying(true)}
                     onPause={() => setIsPlaying(false)}
-                    controls={false} // Hide default controls
+                    controls={true} // Hide default controls
                 />
                 {!isPlaying && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-md">

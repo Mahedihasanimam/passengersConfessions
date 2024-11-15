@@ -55,12 +55,13 @@ const booksData = [
   // Add more book objects as needed
 ];
 
-const BookCollection = () => {
+const BooksCollections = () => {
   return (
-    <div className="container mx-auto px-4 py-[80px]">
-      <div className='max-w-4xl mx-auto'>
-      <h1 className="lg:text-6xl md:text-4xl text-2xl font-bold text-center mt-8 text-secondary pb-2 ">Books Collections</h1>
-      <p className="text-center mt-2 mb-8 text-tertiary">
+    <div className="container mx-auto px-4 pb-[80px]">
+
+      <div className='pb-6'>
+      <h1 className="text-lg font-bold  mt-8 text-secondary pb-2 ">Books Collections</h1>
+      <p className=" mt-2 mb-8 text-tertiary font-normal">
         Here you can explore all types of books in various languages. Explore our full library of provocative, bold, and steamy stories. Each book invites you to dive deeper into a world where passion knows no boundaries.
       </p>
       </div>
@@ -70,18 +71,23 @@ const BookCollection = () => {
             <img src={book.image} alt={book.title} className="w-full h-56 object-cover rounded-md mb-4" />
             <h2 className="text-lg font-semibold text-secondary max-w-[250px]">{book.title}</h2>
             <p className="text-tertiary">{book.author}</p>
+            <div className="mt-2 ">
+      
+       <Button type="primary" style={{backgroundColor: "#FF0048", color: "white",height: "35px",fontSize:'16px',fontWeight:'bold'}}  className="w-full border-none text-white px-6 py-2 rounded-lg">
+       Subscribe
+        </Button>
+    
+      </div>
           </div>
         ))}
       </div>
-      <div className="w-1/2 mx-auto mt-20 ">
-       <Link className='w-full  mx-auto' to="/allBooksCollections">
-       <Button type="primary" style={{backgroundColor: "#FF0048", color: "white",height: "35px",fontSize:'16px',fontWeight:'bold'}}  className="w-full border-none text-white px-6 py-2 rounded-lg">
-        Browse more
+      <div className="flex justify-center mt-20">
+        <Button type="primary" style={{backgroundColor: "transparent", color: "#FF0048",height: "35px",fontSize:'16px',fontWeight:'bold',border: "1px solid #FF0048"}}  className="w-1/2 border-none text-white px-6 py-2 rounded-lg">
+        Load more
         </Button>
-       </Link>
       </div>
     </div>
   );
 };
 
-export default BookCollection;
+export default BooksCollections;
