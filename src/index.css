@@ -3,4 +3,20 @@
 @tailwind utilities;
 
 
-/* Below is the code of c:\projects\passengersconfession\src\index.js */
+body {
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.flex.items-center.space-x-4 {
+  width: inherit;
+}
+
+
+
