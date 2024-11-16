@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
-import detailimg from '../../../assets/bookDetails.png'
+import detailimg from '../../assets/bookDetails.png'
 import { Button } from 'antd';
-import profile from '../../../assets/confession.png'
-import ReviewCard from '../../util/ReviewCard';
+import profile from '../../assets/confession.png'
+
 import { CloseOutlined, LeftOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
+import ReviewCard from '../../components/util/ReviewCard';
+
 const SubscriptionModal = ({ onClose }) => {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -99,9 +101,22 @@ const SubscriptionModal = ({ onClose }) => {
 };
 
 
-const BookDetails = () => {
+const ConfessionsDetails = () => {
     const navigate = useNavigate();
 
+
+
+
+
+
+
+
+
+
+
+
+
+    
     const initialPostsData = [
         {
             id: 1,
@@ -150,7 +165,18 @@ const BookDetails = () => {
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
+    const [isPlaying, setIsPlaying] = useState(false);
+    const videoRef = useRef(null);
 
+    const handlePlayPause = () => {
+        if (isPlaying) {
+            videoRef.current.pause();
+            setIsPlaying(false);
+        } else {
+            videoRef.current.play();
+            setIsPlaying(true);
+        }
+    };
     return (
         <div className="container mx-auto p-6  rounded-lg">
             <div  className='flex items-center py-4 pb-6'>
@@ -175,10 +201,15 @@ const BookDetails = () => {
                         <p className="mb-4">
                             Lorem ipsum dolor sit amet consectetur. Amet tincidunt libero felis nunc sit. Sit lacinia proin etiam odio orci. Faucibus ut risus facilisi elit. Pellentesque eget vitae sed condimentum. Lorem ipsum dolor sit amet consectetur. Amet tincidunt libero felis nunc sit. Sit lacinia proin etiam odio orci. Faucibus ut risus facilisi elit. Pellentesque eget vitae sed condimentum. Sit lacinia proin etiam odio orci. Faucibus ut risus facilisi elit. Pellentesque eget vitae sed condimentum. Pellentesque eget vitae sed condimentum.
                         </p>
+         
 
-
-                        <Button onClick={handleSubscribeClick} type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
-                            Subscribe
+                   
+                        <Button onClick={handleSubscribeClick} type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full mt-2 border-none text-white px-6 py-2 rounded-lg">
+                            <span className='pt-1'><svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5.63989V19.6399L19 12.6399L8 5.63989Z" fill="white" />
+                            </svg>
+                            </span>
+                            play
                         </Button>
                     </div>
                 </div>
@@ -279,4 +310,4 @@ const BookDetails = () => {
     );
 };
 
-export default BookDetails;
+export default ConfessionsDetails;

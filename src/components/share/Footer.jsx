@@ -43,10 +43,10 @@ const Footer = () => {
                                 <div className="gap-6">
                                     <ul className="space-y-[12px] text-decriptioncolor font-medium text-sm">
                                         <li>
-                                            <Link to={'/Books'}>Books</Link>
+                                            <Link to={'/allBooksCollections'}>Books</Link>
                                         </li>
                                         <li>
-                                            <Link to={'/Confessions'}>Confessions</Link>
+                                            <Link to={'/Confession'}>Confessions</Link>
                                         </li>
                                         <li>
                                             <Link to={'/Podcast'}>Podcast</Link>

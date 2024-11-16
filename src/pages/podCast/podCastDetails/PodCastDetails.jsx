@@ -3,9 +3,12 @@ import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
 import detailimg from '../../../assets/bookDetails.png'
 import { Button } from 'antd';
 import profile from '../../../assets/confession.png'
-import ReviewCard from '../../util/ReviewCard';
+
 import { CloseOutlined, LeftOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
+import ReviewCard from '../../../components/util/ReviewCard';
+
+import video from '../../../assets/podcast.mp4'
 const SubscriptionModal = ({ onClose }) => {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -99,7 +102,7 @@ const SubscriptionModal = ({ onClose }) => {
 };
 
 
-const BookDetails = () => {
+const PodCastDetails = () => {
     const navigate = useNavigate();
 
     const initialPostsData = [
@@ -155,15 +158,13 @@ const BookDetails = () => {
         <div className="container mx-auto p-6  rounded-lg">
             <div  className='flex items-center py-4 pb-6'>
                 <LeftOutlined onClick={() => navigate(-1)} className='text-2xl font-bold pr-1'/>
-                <h1 className="text-3xl font-bold mb-1">Sophi unconditional</h1>
+                <h1 className="text-3xl font-bold mb-1">PodCastDetails</h1>
             </div>
             <div className="lg:flex  flex-row items-center justify-between gap-4">
-                <div className=" lg:max-w-sm w-full mx-auto">
-                    <img
-                        src={detailimg} // Replace with actual image
-                        alt="Immortal Chase"
-                        className="w-full  rounded-lg mb-4"
-                    />
+                <div  className=" lg:max-w-sm w-full mx-auto">
+                   <video  className="w-full h-auto" controls>
+                       <source  src={video} type="video/mp4" />
+                   </video>
 
                 </div>
 
@@ -177,8 +178,13 @@ const BookDetails = () => {
                         </p>
 
 
-                        <Button onClick={handleSubscribeClick} type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
-                            Subscribe
+                   
+                        <Button onClick={handleSubscribeClick} type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full mt-2 border-none text-white px-6 py-2 rounded-lg">
+                            <span className='pt-1'><svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5.63989V19.6399L19 12.6399L8 5.63989Z" fill="white" />
+                            </svg>
+                            </span>
+                            play
                         </Button>
                     </div>
                 </div>
@@ -279,4 +285,4 @@ const BookDetails = () => {
     );
 };
 
-export default BookDetails;
+export default PodCastDetails;

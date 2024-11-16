@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button } from 'antd';
 import 'tailwindcss/tailwind.css';
 import podcastvideo from '../../assets/podcast.mp4';
+import { Link } from 'react-router-dom';
 
 const PodCast = () => {
     const VideoComponent = ({ videoSrc }) => {
@@ -114,9 +115,16 @@ const PodCast = () => {
                         <h2 className="text-[20px] font-semibold text-secondary max-w-[250px]">{book.title}</h2>
                         <p className="text-tertiary">{book.author}</p>
                         <div className="mt-2 ">
-              <Button type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
-                Subscribe
-              </Button>
+                        <Link to={`/PodCastDetails/${book.id}`}>
+                        <Button type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full mt-2 border-none text-white px-6 py-2 rounded-lg">
+                            <span className='pt-1'><svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5.63989V19.6399L19 12.6399L8 5.63989Z" fill="white" />
+                            </svg>
+                            </span>
+
+                            play
+                        </Button>
+                        </Link>
             </div>
                     </div>
                 ))}
