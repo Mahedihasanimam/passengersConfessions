@@ -10,6 +10,11 @@ import PaymentProducer from "../pages/paymentsProducer/PaymentProducer";
 import AddAConfession from "../pages/confessions/addConfession/AddAConfession";
 import ConfessionsDetails from "../pages/confessions/ConfessionsDetails";
 import PodCastDetails from "../pages/podCast/podCastDetails/PodCastDetails";
+import Login from "../pages/auth/Login";
+import Signup from "../pages/auth/Signup";
+import Verify from "../pages/auth/VerifyEmail";
+import ForgetPassWord from "../pages/auth/ForgetPassword";
+import CreateNewPassword from "../pages/auth/CreateNewPassword";
 
 export const router = createBrowserRouter([
     {
@@ -71,10 +76,22 @@ export const router = createBrowserRouter([
     // atuthentication routes
     {
         path: "/auth/login",
-        element: <h1>Login</h1>,
+        element: <Login/>,
     },
     {
-        path: "/register",
-        element: <h1>Register</h1>,
-    }
+        path: "/auth/signup",
+        element: <Signup/>,
+    },
+    {
+      path: "/auth/verify-email",
+      element: <Verify/>,
+    },
+    {
+        path: "/forgot-password",
+        element: <ForgetPassWord/>,
+    },
+    {
+        path: "/create-newPassword",
+        element: <CreateNewPassword/>,
+    },
   ]);

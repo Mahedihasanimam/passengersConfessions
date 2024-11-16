@@ -18,6 +18,31 @@ body {
   }
 }
 
+.custom-checkbox .ant-checkbox-inner {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid #FFCCDA;
+  transition: background-color 0.2s, border-color 0.2s; /* Smooth transition */
+}
+
+.custom-checkbox:hover .ant-checkbox-inner {
+  border-color: #FFCCDA; /* Change the border color on hover */
+}
+
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #FF4D7F;
+  border-color: #FF4D7F;
+}
+
+.custom-checkbox:hover .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #FFCCDA; /* Change background color on hover when checked */
+  border-color: #FFCCDA; /* Change border color on hover when checked */
+}
+
+.custom-checkbox .ant-checkbox-inner:after {
+  border-color: #fff;
+}
 
 
 
