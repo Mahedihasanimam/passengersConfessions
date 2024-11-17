@@ -1,14 +1,28 @@
-import { LeftOutlined } from '@ant-design/icons';
+import { CloseOutlined, LeftOutlined, MenuOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggleSidebar }) => {
+  
   return (
-    <div className="w-64 bg-[#F6F6F6] h-screen p-4 rounded-[16px]">
+<div>
+
+      <button className="absolute md:hidden p-2 bg-[#FF6691] text-white rounded-md" onClick={toggleSidebar}>
+        <MenuOutlined />
+      </button>
+ 
+<div className={`fixed top-0 md:top-20 h-full w-64 bg-[#F6F6F6] p-4 rounded-[16px] z-50 transform transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:translate-x-0 md:block`}>
       <div className="flex items-center mb-6">
         <LeftOutlined className="text-[18px] pr-2" />
         <span className="text-[18px] font-semibold">Back</span>
       </div>
+
+      <div className='absolute md:hidden top-4 right-2'>
+        <button onClick={toggleSidebar}>
+        <CloseOutlined/>
+        </button>      </div>
       <ul>
         <li className="mb-4">
           <NavLink
@@ -147,6 +161,7 @@ const Sidebar = () => {
 
       </ul>
     </div>
+</div>
   );
 };
 
