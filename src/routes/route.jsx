@@ -17,10 +17,15 @@ import ForgetPassWord from "../pages/auth/ForgetPassword";
 import CreateNewPassword from "../pages/auth/CreateNewPassword";
 import ProfileLayout from "../Layouts/profileLayout/profileLyout";
 import ProfileForm from './../pages/profile/ProfileForm';
-import ChageProfilePass from "../pages/auth/chageProfilePass";
+
 import ConfessionList from "../components/profile/ConfessionList";
 import MyForumList from "../components/profile/MyForumList";
 import Myaffiliatelist from "../components/profile/Myaffiliatelist";
+import Becomeanaffiliate from "../pages/auth/Becomeanaffiliate";
+import ChageProfilePass from './../pages/auth/ChageProfilePass';
+import FAQPage from "../pages/FAQ/FAQpage";
+import TermsAndConditions from "../pages/temCondition/TermsAndConditions";
+import AboutPage from "../pages/aboutpage/AboutPage";
 
 
 export const router = createBrowserRouter([
@@ -76,6 +81,18 @@ export const router = createBrowserRouter([
           path:'/Forum',
           element: <ForumPage/>
         },
+        {
+          path:'/FAQ',
+          element: <FAQPage/>
+        },
+        {
+          path:'/termsAndConditions',
+          element: <TermsAndConditions/>
+        },
+        {
+          path:'/aboutus',
+          element: <AboutPage/>
+        },
       ],
     },
 
@@ -101,6 +118,19 @@ export const router = createBrowserRouter([
         path: "/create-newPassword",
         element: <CreateNewPassword/>,
     },
+    {
+        path: "/auth/Becomeanaffiliate",
+        element: <Becomeanaffiliate/>,
+    },
+
+
+
+
+
+
+
+
+    // profile routes -----------
     {
       path: "/profile",
       element:<ProfileLayout/>,

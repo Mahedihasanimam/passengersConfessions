@@ -1,18 +1,17 @@
-import React from "react";
-import { Form, Input, Button, Checkbox, message, Space } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import logoimage from "../../assets/login.png";
+
+import { Form, Input, Button, message } from "antd";
+import { useNavigate } from "react-router-dom";
+
 
 
 const ChageProfilePass = () => {
-    const [messageApi, contextHolder] = message.useMessage();
     const navigate = useNavigate();
 
     const onFinish = (values) => {
         console.log("Success:", values);
         if (values) {
             
-            messageApi.success("Password created successfully");
+            message.success("Password created successfully");
         }
         setTimeout(() => {
             navigate("/");

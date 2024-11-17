@@ -40,7 +40,7 @@ const HeroSection = () => {
           </div>
           
           {/* RIGHT HERO SECTION */}
-          <div  className="w-full lg:max-w-[600px] mx-auto md:max-w-[600px] hidden    ">
+          <div  className="w-full lg:max-w-[600px] mx-auto md:max-w-[600px]     ">
             <div>
               <img className="w-full min-h-[516px] object-cover "  src={heroimg} alt="heroimg" />
             </div>
