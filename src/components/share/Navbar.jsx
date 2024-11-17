@@ -29,24 +29,28 @@ const Navbar = () => {
         color: "#6D6D6D",
         
       }}
+      
     >
       <Menu.Item key="1" style={{ color: "#6D6D6D",fontSize: "14px",fontWeight:"700" }}>
+        <Link to="/profile">My Profile</Link>
+      </Menu.Item>
+      <Menu.Item key="2" style={{ color: "#6D6D6D",fontSize: "14px",fontWeight:"700" }}>
         <Link to="/auth/login">Log in</Link>
       </Menu.Item>
-      <Menu.Item key="2" style={{ color: "#6D6D6D" ,fontSize: "14px",fontWeight:"700" }}>
+      <Menu.Item key="3" style={{ color: "#6D6D6D" ,fontSize: "14px",fontWeight:"700" }}>
         <Link to="/auth/signup">Sign Up</Link>
       </Menu.Item>
-      <Menu.Item key="3" style={{ color: "#6D6D6D",fontSize: "14px",fontWeight:"700"  }}>
+      <Menu.Item key="4" style={{ color: "#6D6D6D",fontSize: "14px",fontWeight:"700"  }}>
         <a href="/FAQ">FAQ</a>
       </Menu.Item>
-      <Menu.Item key="4" style={{ color: "#6D6D6D",fontSize: "14px",fontWeight:"700"  }}>
+      <Menu.Item key="5" style={{ color: "#6D6D6D",fontSize: "14px",fontWeight:"700"  }}>
         <a href="/termsAndConditions">Terms & Conditions</a>
       </Menu.Item>
-      <Menu.Item key="5" style={{ color: "#6D6D6D",fontSize: "14px",fontWeight:"700"  }}>
+      <Menu.Item key="6" style={{ color: "#6D6D6D",fontSize: "14px",fontWeight:"700"  }}>
         <a href="/aboutus">About Us</a>
       </Menu.Item>
 
-      <Menu.Item key="6" style={{ color: "#EBCA7E",fontSize: "14px",fontWeight:"700"}}>
+      <Menu.Item key="7" style={{ color: "#EBCA7E",fontSize: "14px",fontWeight:"700"}}>
         <button onClick={handleLogout} className="text-red-500">
           Logout
         </button>

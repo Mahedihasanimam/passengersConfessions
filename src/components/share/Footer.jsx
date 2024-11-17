@@ -51,6 +51,9 @@ const Footer = () => {
                                         <li>
                                             <Link to={'/Podcast'}>Podcast</Link>
                                         </li>
+                                        <li>
+                                            <Link to={'/Becomeanaffiliate'}>Become an affiliate</Link>
+                                        </li>
 
                                         {/* Add more menu items here */}
                                     </ul>

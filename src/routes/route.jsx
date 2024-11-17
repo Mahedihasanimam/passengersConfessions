@@ -15,6 +15,8 @@ import Signup from "../pages/auth/Signup";
 import Verify from "../pages/auth/VerifyEmail";
 import ForgetPassWord from "../pages/auth/ForgetPassword";
 import CreateNewPassword from "../pages/auth/CreateNewPassword";
+import ProfileLayout from "../Layouts/profileLayout/profileLyout";
+import ProfileForm from './../pages/profile/ProfileForm';
 
 export const router = createBrowserRouter([
     {
@@ -94,4 +96,36 @@ export const router = createBrowserRouter([
         path: "/create-newPassword",
         element: <CreateNewPassword/>,
     },
+    {
+      path: "/profile",
+      element:<ProfileLayout/>,
+      children: [
+        {
+          path: "/profile",
+          element: <ProfileForm/>,
+        },
+        {
+          path: "/profile/confessionsList",
+          element: <ProfileForm/>,
+        },
+        {
+          path: "/profile/affiliates",
+          element: <ProfileForm/>,
+        },
+        {
+          path: "/profile/edit",
+          element: <h1>Edit Profile</h1>,
+        },
+        {
+          path: "/profile/change-password",
+          element: <h1>Change Password</h1>,
+        },
+      ],
+    },
+
+
+    {
+      path: "*",
+      element: <h1>Page Not Found</h1>,
+    }
   ]);
