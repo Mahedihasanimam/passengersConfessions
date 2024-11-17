@@ -15,7 +15,7 @@ const ProfileLayout = () => {
       <Navbar  />
       <div className="flex container mx-auto">
         <Sidebar toggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
-        <div className='pl-72 w-full'>
+        <div className='lg:pl-72 md:pl-72 w-full'>
         <Outlet />
         </div>
       </div>

@@ -17,6 +17,11 @@ import ForgetPassWord from "../pages/auth/ForgetPassword";
 import CreateNewPassword from "../pages/auth/CreateNewPassword";
 import ProfileLayout from "../Layouts/profileLayout/profileLyout";
 import ProfileForm from './../pages/profile/ProfileForm';
+import ChageProfilePass from "../pages/auth/chageProfilePass";
+import ConfessionList from "../components/profile/ConfessionList";
+import MyForumList from "../components/profile/MyForumList";
+import Myaffiliatelist from "../components/profile/Myaffiliatelist";
+
 
 export const router = createBrowserRouter([
     {
@@ -106,19 +111,19 @@ export const router = createBrowserRouter([
         },
         {
           path: "/profile/confessionsList",
-          element: <ProfileForm/>,
+          element: <ConfessionList/>,
         },
         {
           path: "/profile/affiliates",
-          element: <ProfileForm/>,
+          element: <Myaffiliatelist/>,
         },
         {
-          path: "/profile/edit",
-          element: <h1>Edit Profile</h1>,
+          path: "/profile/myfoums-list",
+          element: <MyForumList/>,
         },
         {
           path: "/profile/change-password",
-          element: <h1>Change Password</h1>,
+          element: <ChageProfilePass/>,
         },
       ],
     },

@@ -151,7 +151,7 @@ const ProfileForm = () => {
 
 
           <div className="flex items-end justify-end pt-1 pb-4 ">
-            <Link className="text-[16px] font-semibold text-primary hover:text-primary  w-fit " to="/change-password">Change password</Link>
+            <Link className="text-[16px] font-semibold text-primary hover:text-primary  w-fit " to="/profile/change-password">Change password</Link>
           </div>
 
 
@@ -159,9 +159,10 @@ const ProfileForm = () => {
 
         <Form.Item>
 
+          <div className="w-1/2 mx-auto">
           <Button type="primary" htmlType="submit" style={{ backgroundColor: "#FF0048", color: "white", height: "44px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
             Update
-          </Button>
+          </Button></div>
         </Form.Item>
       </Form>
     </div>

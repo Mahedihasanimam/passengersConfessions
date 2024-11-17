@@ -27,8 +27,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <li className="mb-4">
           <NavLink
             to="/profile"
+            end
             className={({ isActive }) =>
-              isActive ? 'flex items-center text-[#FF6691] font-bold' : 'flex items-center text-[#B0B0B0] font-bold'
+              isActive ? 'flex items-center text-[#FF6691] font-bold bg-white shadow-xl px-4 py-1 rounded-[20px] transition-all ease-out duration-300' : 'flex items-center text-[#B0B0B0] font-bold'
             }
           >
             {({ isActive }) => (
@@ -58,7 +59,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <NavLink
             to="/profile/confessionsList"
             className={({ isActive }) =>
-              isActive ? 'flex items-center text-[#FF6691] font-bold' : 'flex items-center text-[#B0B0B0] font-bold'
+              isActive ? 'flex items-center text-[#FF6691] font-bold bg-white shadow-xl px-4 py-1 rounded-[20px] transition-all ease-out duration-300' : 'flex items-center text-[#B0B0B0] font-bold'
             }
           >
             {({ isActive }) => (
@@ -98,9 +99,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
         <li className="mb-4">
           <NavLink
-            to="/profile/forums"
+            to="/profile/myfoums-list"
             className={({ isActive }) =>
-              isActive ? 'flex items-center text-[#FF6691] font-bold' : 'flex items-center text-[#B0B0B0] font-bold'
+              isActive ? 'flex items-center text-[#FF6691] font-bold bg-white shadow-xl px-4 py-1 rounded-[20px] transition-all ease-out duration-300' : 'flex items-center text-[#B0B0B0] font-bold'
             }
           >
             {({ isActive }) => (
@@ -134,7 +135,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <NavLink
             to="/profile/affiliates"
             className={({ isActive }) =>
-              isActive ? 'flex items-center text-[#FF6691] font-bold' : 'flex items-center text-[#B0B0B0] font-bold'
+              isActive ? 'flex items-center text-[#FF6691] font-bold bg-white shadow-xl px-4 py-1 rounded-[20px] transition-all ease-out duration-300' : 'flex items-center text-[#B0B0B0] font-bold'
             }
           >
             {({ isActive }) => (
