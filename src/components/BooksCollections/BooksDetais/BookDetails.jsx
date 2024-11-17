@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
 import detailimg from '../../../assets/bookDetails.png'
-import { Button } from 'antd';
+import { Button, message, Modal } from 'antd';
 import profile from '../../../assets/confession.png'
 import ReviewCard from '../../util/ReviewCard';
 import { CloseOutlined, LeftOutlined } from '@ant-design/icons';
@@ -85,6 +85,7 @@ const SubscriptionModal = ({ onClose }) => {
                             Subscribe
                         </Button>
                        </Link>
+                       
                     </div>
                 </div>
                 <p
@@ -151,6 +152,34 @@ const BookDetails = () => {
         setIsModalOpen(false);
     };
 
+
+    const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleOk = async() => {
+
+    setConfirmLoading(true);  // Start loading
+    try {
+      await navigator.clipboard.writeText('http:/search?sca_esv=3c7b9bf68f65825c&sxsrf=ADLYWIIaNaXmb4fX8Tf1hMWZ');
+      message.success('URL copied to clipboard!');
+    } catch (err) {
+      message.error('Failed to copy URL');
+    } finally {
+      setConfirmLoading(false);  // Stop loading
+    }
+  };
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setOpen(false);
+  };
+
+
     return (
         <div className="container mx-auto p-6  rounded-lg">
             <div  className='flex items-center py-4 pb-6'>
@@ -180,6 +209,10 @@ const BookDetails = () => {
                         <Button onClick={handleSubscribeClick} type="primary" style={{ backgroundColor: "#FF0048", color: "white", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full border-none text-white px-6 py-2 rounded-lg">
                             Subscribe
                         </Button>
+                        <Button onClick={showModal}  type="primary" style={{ backgroundColor: "#F6F6F6", color: "#FF0048", height: "35px", fontSize: '16px', fontWeight: 'bold' }} className="w-full mt-2 border-none text-white px-6 py-2 rounded-lg">
+                        Get affiliate link
+                        </Button>
+                        
                     </div>
                 </div>
 
@@ -264,6 +297,30 @@ const BookDetails = () => {
                 </div>
 
             </div>
+
+            <>
+     
+      <Modal
+     
+   width="40%"
+        open={open}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+        footer={
+            <div className='w-full flex items-center justify-center space-x-6 '>
+                <Button style={{backgroundColor: '#F6F6F6',fontSize:'16px',fontWeight:'600',color:'#FF0048'}}  className='w-full rounded-lg' onClick={handleCancel}>Cancel</Button>
+                <Button  style={{backgroundColor: '#FF0048',fontSize:'16px',fontWeight:'600'}} className='w-full rounded-lg ' type="primary" onClick={handleOk} loading={confirmLoading}>
+                    Copy
+                </Button>
+            </div>
+        }
+      >
+       <p className='p-2 border border-primary w-fit rounded-lg text-[16px] font-semibold '>http:/search?sca_esv=3c7b9bf68f65825c&sxsrf=ADLYWIIaNaXmb4fX8Tf1hMWZ</p>
+
+       
+      </Modal>
+    </>
 
             <div>
                 <h2 className="text-2xl font-semibold mb-4">Customer Review</h2>
