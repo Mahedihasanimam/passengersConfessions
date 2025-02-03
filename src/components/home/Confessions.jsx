@@ -1,9 +1,12 @@
 import "tailwindcss/tailwind.css";
 
 import { Button } from "antd";
-import React from "react";
 import { Link } from "react-router-dom";
+import React from "react";
 import bookimage from "../../assets/confession.png";
+import confession from "../../assets/confession.webp";
+import { useGetAllConfessionsQuery } from "../../../redux/apiSlices/confessionApiSlice";
+
 const booksData = [
   {
     id: 1,
@@ -55,8 +58,11 @@ const booksData = [
   },
   // Add more book objects as needed
 ];
-
 const Confessions = () => {
+  const { data: confessionData } = useGetAllConfessionsQuery({});
+
+  console.log("confessionData ===============", confessionData);
+
   return (
     <div className="container mx-auto px-4 pb-[80px]">
       <div className="max-w-4xl mx-auto">
@@ -71,19 +77,19 @@ const Confessions = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {booksData.map((book) => (
+        {confessionData?.data?.result?.map((book) => (
           <div
             key={book.id}
             className="border rounded-lg p-4 shadow-md hover:shadow-lg bg-[#C7C7C740] "
           >
             <div className="relative">
               <img
-                src={book.image}
+                src={confession}
                 alt={book.title}
                 className="w-full h-56 object-cover rounded-md mb-4"
               />
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-md">
-                <button className="text-white text-4xl" aria-label="Play Video">
+                {/* <button className="text-white text-4xl" aria-label="Play Video">
                   <svg
                     width="36"
                     height="46"
@@ -97,7 +103,7 @@ const Confessions = () => {
                       fill-opacity="0.8"
                     />
                   </svg>
-                </button>
+                </button> */}
               </div>
             </div>
             <h2 className="text-[20px] font-semibold text-secondary max-w-[250px]">

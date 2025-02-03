@@ -3,7 +3,7 @@ import { api } from "../api/baseApi";
 const confessionsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllConfessions: builder.query({
-      query: (token) => ({
+      query: () => ({
         url: `/confessions/get-all-confessions`,
       }),
       providesTags: ["confession"],
