@@ -1,11 +1,13 @@
 import "./index.css";
 
-import { Provider } from "react-redux";
-import { RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { router } from "./routes/route";
+import { Provider } from "react-redux";
+import { RouterProvider } from "react-router-dom";
 import store from "../redux/store";
+import { router } from "./routes/route";
+
+export const DashboardUrl = import.meta.env.VITE_ADMIN_URL;
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

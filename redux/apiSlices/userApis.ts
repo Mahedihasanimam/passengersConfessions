@@ -1,4 +1,5 @@
 import { api } from "../api/baseApi";
+import { setUser } from "./userSlices";
 
 const userApis = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -6,6 +7,16 @@ const userApis = api.injectEndpoints({
       query: (token) => ({
         url: `/users/profile`,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          // console.log(data?.data);
+          // Dispatch an action to update the user slice
+          dispatch(setUser(data?.data));
+        } catch (error) {
+          console.error("Error updating user slice:", error);
+        }
+      },
       providesTags: ["user"],
     }),
     getUserById: builder.query({
@@ -45,7 +56,6 @@ const userApis = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["user"],
     }),
     singUpAsAffiliate: builder.mutation({
       query: (data) => ({
@@ -53,7 +63,6 @@ const userApis = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["user"],
     }),
     singUpAsGoogle: builder.mutation({
       query: (data) => ({
@@ -61,7 +70,6 @@ const userApis = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["user"],
     }),
     createAdmin: builder.mutation({
       query: (data) => ({
@@ -69,7 +77,6 @@ const userApis = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["user"],
     }),
 
     verifyEmail: builder.mutation({
@@ -78,7 +85,13 @@ const userApis = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["user"],
+    }),
+    sendOtpAgain: builder.mutation({
+      query: (data) => ({
+        url: `/users/auth/send-otp-again`,
+        method: "POST",
+        body: data,
+      }),
     }),
     forgotPassword: builder.mutation({
       query: (email) => ({
@@ -86,7 +99,6 @@ const userApis = api.injectEndpoints({
         method: "POST",
         body: { email },
       }),
-      invalidatesTags: ["user"],
     }),
     resetPassword: builder.mutation({
       query: (data) => ({
@@ -94,7 +106,6 @@ const userApis = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["user"],
     }),
     changePassword: builder.mutation({
       query: (data) => ({
@@ -148,4 +159,5 @@ export const {
   useUpdateUserProfileByIdMutation,
   useUpdateUserProfileMutation,
   useVerifyEmailMutation,
+  useSendOtpAgainMutation,
 } = userApis;

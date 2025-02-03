@@ -40,7 +40,7 @@ const bookApi = api.injectEndpoints({
   }),
 });
 
-const {
+export const {
   useAddBookMutation,
   useDeleteBookMutation,
   useGetAllBooksQuery,

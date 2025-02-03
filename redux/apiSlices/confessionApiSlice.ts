@@ -40,7 +40,7 @@ const confessionsApi = api.injectEndpoints({
   }),
 });
 
-const {
+export const {
   useAddConfessionMutation,
   useDeleteConfessionMutation,
   useGetAllConfessionsQuery,

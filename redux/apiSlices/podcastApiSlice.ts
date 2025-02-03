@@ -40,7 +40,7 @@ const podCastApi = api.injectEndpoints({
   }),
 });
 
-const {
+export const {
   useAddPodCastMutation,
   useDeletePodCastMutation,
   useGetAllPodCastQuery,

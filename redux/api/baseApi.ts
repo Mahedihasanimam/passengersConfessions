@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Swal from "sweetalert2";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://13.51.122.138:3000",
+  baseUrl: "http://10.0.80.85:1010/",
   // baseUrl: "https://nail-flags-gnome-receiver.trycloudflare.com/",
   // timeout: 10000,
   prepareHeaders: async (headers, { getState }) => {
@@ -62,9 +62,19 @@ export const api = createApi({
   baseQuery: baseQueryWithRath,
 
   endpoints: () => ({}),
-  tagTypes: ["user", "book", "podCast", "confession"],
+  tagTypes: [
+    "user",
+    "book",
+    "podCast",
+    "confession",
+    "payment",
+    "review",
+    "terms",
+    "faq",
+    "notification",
+  ],
 });
 
 // export const imageUrl = "https://nail-flags-gnome-receiver.trycloudflare.com/";
 // export const imageUrl = "http://10.0.80.85:3000/";
-export const imageUrl = "http://13.51.122.138:3000/";
+export const imageUrl = "http://10.0.80.85:1010/";

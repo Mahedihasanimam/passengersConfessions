@@ -2,48 +2,32 @@ import { api } from "../api/baseApi";
 
 const paymentApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAllBooks: builder.query({
-      query: (token) => ({
-        url: `/books/get-all-books`,
-      }),
-      providesTags: ["book"],
-    }),
-    getBookById: builder.query({
-      query: (id) => ({
-        url: `/books/get-book-by-id/${id}`,
-      }),
-      providesTags: ["book"],
-    }),
-    addBook: builder.mutation({
+    PaymentIntent: builder.mutation({
       query: (data) => ({
-        url: `/books/add-book`,
+        url: `/payment/create-payment-intent`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["book"],
+      invalidatesTags: ["payment"],
     }),
-    updateBook: builder.mutation({
-      query: ({ data, id }) => ({
-        url: `/books/update-book-by-id/${id}`,
-        method: "PUT",
-        body: data,
-      }),
-      invalidatesTags: ["book"],
-    }),
-    deleteBook: builder.mutation({
+    getPaymentById: builder.mutation({
       query: (id) => ({
-        url: `/books/delete-book-by-id/${id}`,
-        method: "DELETE",
+        url: `/payment/get-payment-intent`,
+        method: "POST",
+        body: { paymentId: id },
       }),
-      invalidatesTags: ["book"],
+    }),
+    getAllIntent: builder.query({
+      query: (data) => ({
+        url: `/payment/get-all-payment-intents`,
+      }),
+      // providesTags: ["payment"],
     }),
   }),
 });
 
-const {
-  useAddBookMutation,
-  useDeleteBookMutation,
-  useGetAllBooksQuery,
-  useGetBookByIdQuery,
-  useUpdateBookMutation,
+export const {
+  useGetAllIntentQuery,
+  useGetPaymentByIdMutation,
+  usePaymentIntentMutation,
 } = paymentApi;
