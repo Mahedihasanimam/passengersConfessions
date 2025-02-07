@@ -1,67 +1,15 @@
 import "tailwindcss/tailwind.css";
 
 import { Button } from "antd";
-import { Link } from "react-router-dom";
 import React from "react";
-import bookimage from "../../assets/confession.png";
-import confession from "../../assets/confession.webp";
+import { Link } from "react-router-dom";
 import { useGetAllConfessionsQuery } from "../../../redux/apiSlices/confessionApiSlice";
+import confession from "../../assets/confession.webp";
 
-const booksData = [
-  {
-    id: 1,
-    title: "The Truth I’ve Been Hiding",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 2,
-    title: "The Truth I’ve Been Hiding",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 3,
-    title: "The Truth I’ve Been Hiding",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 4,
-    title: "The Truth I’ve Been Hiding",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 5,
-    title: "The Truth I’ve Been Hiding",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 6,
-    title: "What I’ve Never Told Anyone",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 7,
-    title: "What I’ve Never Told Anyone",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 8,
-    title: "What I’ve Never Told Anyone",
-    author: "Author name",
-    image: bookimage,
-  },
-  // Add more book objects as needed
-];
 const Confessions = () => {
   const { data: confessionData } = useGetAllConfessionsQuery({});
 
-  console.log("confessionData ===============", confessionData);
+  // console.log("confessionData ===============", confessionData);
 
   return (
     <div className="container mx-auto px-4 pb-[80px]">
@@ -78,7 +26,8 @@ const Confessions = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {confessionData?.data?.result?.map((book) => (
-          <div
+          <Link
+            to={`/confessionDetails/${book?._id}`}
             key={book.id}
             className="border rounded-lg p-4 shadow-md hover:shadow-lg bg-[#C7C7C740] "
           >
@@ -110,7 +59,7 @@ const Confessions = () => {
               {book.title}
             </h2>
             <p className="text-tertiary">{book.author}</p>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="w-1/2 mx-auto mt-20 ">

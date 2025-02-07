@@ -5,59 +5,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { imageUrl } from "../../../redux/api/baseApi";
 import { useGetAllBooksQuery } from "../../../redux/apiSlices/bookApiSlice";
-import bookimage from "../../assets/booksimage.png";
-
-const booksData = [
-  {
-    id: 1,
-    title: "Book Name",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 2,
-    title: "Book Name",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 3,
-    title: "Book Name",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 4,
-    title: "Book Name",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 5,
-    title: "Book Name",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 6,
-    title: "Book Name",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 7,
-    title: "Book Name",
-    author: "Author name",
-    image: bookimage,
-  },
-  {
-    id: 8,
-    title: "Book Name",
-    author: "Author name",
-    image: bookimage,
-  },
-  // Add more book objects as needed
-];
 
 const BooksCollections = () => {
   const { data: book } = useGetAllBooksQuery({});

@@ -1,11 +1,11 @@
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 
-import { useDropzone } from "react-dropzone";
 import { MdOutlineChevronLeft } from "react-icons/md";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useAddConfessionMutation } from "../../../../redux/apiSlices/confessionApiSlice";
+import { useDropzone } from "react-dropzone";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AddAConfession = () => {
   const navigate = useNavigate();

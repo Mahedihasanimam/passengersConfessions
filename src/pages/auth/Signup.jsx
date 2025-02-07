@@ -1,9 +1,9 @@
 import { Alert, Button, Checkbox, Form, Input, message } from "antd";
-import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import React, { useCallback, useState } from "react";
 
-import { useSingUpUserMutation } from "../../../redux/apiSlices/userApis";
 import logoimage from "../../assets/signup.png";
+import { useSingUpUserMutation } from "../../../redux/apiSlices/userApis";
 
 const Signup = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -20,7 +20,7 @@ const Signup = () => {
         navigate("/auth/verify-email?email=" + values.email);
       } catch (error) {
         console.error("Error signing up:", error);
-        message.error("Signup failed");
+        message.error(error.data.message);
       }
     },
     [signUp, navigate]

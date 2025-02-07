@@ -20,7 +20,10 @@ const Login = () => {
 
         console.log(response?.data?.user?.role);
 
-        if (response?.data?.user?.role == "admin") {
+        if (
+          response?.data?.user?.role == "admin" ||
+          response?.data?.user?.role == "superadmin"
+        ) {
           window.location.href =
             DashboardUrl + "?token=" + response?.data?.token;
         } else {

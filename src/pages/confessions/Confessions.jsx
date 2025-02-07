@@ -81,7 +81,7 @@ const Confessions = () => {
             </h2>
             <p className="text-tertiary">{book.author}</p>
 
-            <Link to={`/confessionDetails/${book.id}`}>
+            <Link to={`/confessionDetails/${book._id}`}>
               <Button
                 type="primary"
                 style={{

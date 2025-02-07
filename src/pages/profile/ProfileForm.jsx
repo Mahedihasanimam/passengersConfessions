@@ -1,106 +1,132 @@
-import { Button, DatePicker, Form, Image, Input, Upload } from "antd";
-import React, { useState } from "react";
+import { Button, Form, Image, Input, Upload, message } from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+} from "../../../redux/apiSlices/userApis";
 
-import { PlusOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { useGetUserProfileQuery } from "../../../redux/apiSlices/userApis";
+import { PlusOutlined } from "@ant-design/icons";
+import { imageUrl } from "../../../redux/api/baseApi";
 
 const ProfileForm = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState([]);
   const { data } = useGetUserProfileQuery();
+  const [updateProfile] = useUpdateUserProfileMutation();
 
   const [form] = Form.useForm();
 
-  console.log(data);
+  // console.log(data);
 
-  // Form submission handler
+  useEffect(() => {
+    if (data?.data) {
+      form.setFieldsValue({
+        name: data.data.name,
+        email: data.data.email,
+        phone: data.data.phone,
+      });
+      if (data.data.image) {
+        setFileList([
+          {
+            uid: "-1",
+            name: "profile_image",
+            status: "done",
+            url: imageUrl + data.data.image,
+          },
+        ]);
+      }
+    }
+  }, [data?.data, form]);
 
-  const onFinish = (values) => {
-    console.log("Form Values:", values);
-  };
+  const getBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
-
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
   };
 
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+  const handleUploadChange = ({ fileList: newFileList }) => {
+    const validFiles = newFileList.map((file) => {
+      if (file.status === "error") {
+        // message.error(`Error uploading: ${file.name}`);
+        console.log(`Error uploading: ${file.name}`);
+      }
+      return {
+        ...file,
+        status: file.status === "error" ? "done" : file.status,
+      };
+    });
+    setFileList(validFiles);
+  };
 
-  const uploadButton = (
-    <button style={{ border: 0, background: "none" }} type="button">
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
-  );
+  const onFinish = (values) => {
+    console.log("Form Values:", values, fileList);
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("phone", values.phone);
+    if (fileList.length > 0) {
+      formData.append("image", fileList[0].originFileObj);
+    }
+    // console.log("Form Data:", formData);
+
+    // Handle form submission
+    updateProfile(formData)
+      .unwrap()
+      .then((res) => {
+        // console.log(res);
+        message.success("Profile updated successfully");
+      })
+      .catch((error) => {
+        // console.error("Error updating profile:", error);
+        message.error("Failed to update profile");
+      });
+  };
 
   return (
     <div className="p-6 bg-white rounded-md shadow-md w-full">
-      {/* Ant Design Form */}
       <Form form={form} onFinish={onFinish} layout="vertical">
-        <Form.Item
-          label={
-            <label className="block text-secondary text-[16px] font-semibold">
-              Profile Image
-            </label>
-          }
-          name="image"
-          required={false}
-        >
-          <Upload
-            listType="picture-circle"
-            fileList={fileList}
-            onPreview={handlePreview}
-            onChange={(info) => {
-              const { file, fileList } = info;
-
-              // Filter out files with upload errors
-              const filteredFileList = fileList.map((file) => {
-                if (file.status === "error") {
-                  // Optionally, log or notify the error
-                  console.error(`Error uploading file: ${file.name}`);
-                }
-                return {
-                  ...file,
-                  status: file.status === "error" ? "done" : file.status,
-                };
-              });
-
-              // Update the state with the filtered file list
-              setFileList(filteredFileList);
+        <Form.Item label="Profile Image" name="image">
+          <div className="flex items-center justify-center">
+            <Upload
+              listType="picture-circle"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleUploadChange}
+              maxCount={1}
+            >
+              {fileList.length < 1 && (
+                <div>
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>Upload</div>
+                </div>
+              )}
+            </Upload>
+          </div>
+          <Image
+            wrapperStyle={{ display: "none" }}
+            preview={{
+              visible: previewOpen,
+              onVisibleChange: (visible) => setPreviewOpen(visible),
             }}
-          >
-            {fileList.length >= 1 || previewImage ? null : uploadButton}
-          </Upload>
-          {previewImage ? (
-            <Image
-              wrapperStyle={{ display: "none" }}
-              preview={{
-                visible: previewOpen,
-                onVisibleChange: (visible) => setPreviewOpen(visible),
-                afterOpenChange: (visible) => !visible && setPreviewImage(""),
-              }}
-              src={previewImage}
-            />
-          ) : (
-            ""
-          )}
+            src={previewImage}
+          />
         </Form.Item>
 
         <Form.Item
-          label={
-            <label className="block text-secondary text-[16px] font-semibold ">
-              Name
-            </label>
-          }
+          label="Name"
           name="name"
           rules={[{ required: true, message: "Please input your name!" }]}
-          required={false}
         >
           <Input
             prefix={
@@ -141,16 +167,12 @@ const ProfileForm = () => {
         </Form.Item>
 
         <Form.Item
-          label={
-            <label className="block text-secondary text-[16px] font-semibold ">
-              Mobile Number
-            </label>
-          }
-          name="mobileNumber"
+          label="Mobile Number"
+          name="phone"
           rules={[
             { required: true, message: "Please input your mobile number!" },
+            // { pattern: /^[0-9]{10}$/, message: "Enter a valid phone number!" },
           ]}
-          required={false}
         >
           <Input
             style={{
@@ -187,31 +209,6 @@ const ProfileForm = () => {
               </svg>
             }
             placeholder="88018-56325894"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label={
-            <label className="block text-secondary text-[16px] font-semibold ">
-              Date Of Birth
-            </label>
-          }
-          name="date"
-          rules={[
-            { required: true, message: "Please input your date of birth!" },
-          ]}
-          required={false}
-        >
-          <DatePicker
-            format="YYYY-MM-DD"
-            style={{
-              backgroundColor: "#FFE5ED4D",
-              color: "#6D6D6D",
-              fontSize: "16px",
-              fontWeight: "500",
-            }}
-            className="border border-[#D0D5DD] w-full h-[44px] text-[16px] text-[#667085] font-normal hover:border-[#D0D5DD] focus:border-[#dde2eb]"
-            placeholder="Select your date of birth"
           />
         </Form.Item>
 
