@@ -94,10 +94,10 @@ const userApis = api.injectEndpoints({
       }),
     }),
     forgotPassword: builder.mutation({
-      query: (email) => ({
+      query: (data) => ({
         url: `/users/auth/forgot-password`,
         method: "POST",
-        body: { email },
+        body: data,
       }),
     }),
     resetPassword: builder.mutation({

@@ -5,8 +5,8 @@ import {
   useUpdateUserProfileMutation,
 } from "../../../redux/apiSlices/userApis";
 
-import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import { imageUrl } from "../../../redux/api/baseApi";
 
 const ProfileForm = () => {
@@ -95,6 +95,8 @@ const ProfileForm = () => {
 
   return (
     <div className="p-6 bg-white rounded-md shadow-md w-full">
+      {/* 1st Box: Plan Purchased Status */}
+
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item label="Profile Image" name="image">
           <div className="flex items-center justify-center">

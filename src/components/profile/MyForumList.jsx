@@ -1,79 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import profile from '../../assets/confession.png'
-import { Input } from 'antd';
-import ReviewCard from './../../components/util/ReviewCard';
+import { Input, message } from "antd";
+import React, { useState } from "react";
+import {
+  useAddForumMutation,
+  useDeleteForumMutation,
+  useGetAllForumsQuery,
+  useUpdateForumMutation,
+} from "../../../redux/apiSlices/forumsApiSlices";
+
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { imageUrl } from "../../../redux/api/baseApi";
+import MyForumCard from "./components/MyForumCard";
+
 // Simulating fetching data from a JSON file
 
 const MyForumList = () => {
+  const { data: allForums } = useGetAllForumsQuery({});
 
-    const initialPostsData = [
-        {
-          id: 1,
-          author: 'Md Hasan',
-          text: 'Efficiently visualize backward-compatible action items before enterprise-wide total linkage. Progressively aggregate stand-alone sources after functionalized technologies. Monotonectally exploit excellent ideas for effective outsourcing. Professionally productize transparent resou',
-          image: profile,
-        },
-        {
-          id: 2,
-          author: 'Md Hasan',
-          text: 'Efficiently visualize backward-compatible action items before enterprise-wide total linkage. Progressively aggregate stand-alone sources after functionalized technologies. Monotonectally exploit excellent ideas for effective outsourcing. Professionally productize transparent resou',
-          image: profile,
-        },
-        {
-          id: 3,
-          author: 'Md Hasan',
-          text: 'Efficiently visualize backward-compatible action items before enterprise-wide total linkage. Progressively aggregate stand-alone sources after functionalized technologies. Monotonectally exploit excellent ideas for effective outsourcing. Professionally productize transparent resou',
-          image: profile,
-        },
-        {
-          id: 4,
-          author: 'Md Hasan',
-          text: 'Efficiently visualize backward-compatible action items before enterprise-wide total linkage. Progressively aggregate stand-alone sources after functionalized technologies. Monotonectally exploit excellent ideas for effective outsourcing. Professionally productize transparent resou',
-          image: profile,
-        },
-        {
-          id: 5,
-          author: 'Md Hasan',
-          text: 'Efficiently visualize backward-compatible action items before enterprise-wide total linkage. Progressively aggregate stand-alone sources after functionalized technologies. Monotonectally exploit excellent ideas for effective outsourcing. Professionally productize transparent resou',
-          image: profile,
-        },
-        {
-          id: 6,
-          author: 'Md Hasan',
-          text: 'Efficiently visualize backward-compatible action items before enterprise-wide total linkage. Progressively aggregate stand-alone sources after functionalized technologies. Monotonectally exploit excellent ideas for effective outsourcing. Professionally productize transparent resou',
-          image: profile,
-        },
-        {
-          id: 7,
-          author: 'Md Hasan',
-          text: 'Efficiently visualize backward-compatible action items before enterprise-wide total linkage. Progressively aggregate stand-alone sources after functionalized technologies. Monotonectally exploit excellent ideas for effective outsourcing. Professionally productize transparent resou',
-          image: profile,
-        },
-        {
-          id: 8,
-          author: 'Md Hasan',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est porttitor urna non interdum.',
-          image: profile,
-        },
-      ];
-      
-  const [posts, setPosts] = useState([]);
-  const [inputText, setInputText] = useState('');
+  const handleEdit = async (id) => {
+    try {
+      const res = await updatedForum({
+        id,
+        post: editContent,
+      }).unwrap();
+      message.success(res.message);
+    } catch (error) {
+      message.error(error.data.message);
+    }
+  };
 
-  // Load initial posts from JSON data
-  useEffect(() => {
-    setPosts(initialPostsData);
-  }, []);
+  const [addNewForums] = useAddForumMutation();
+
+  const user = useSelector((state) => state.user.user);
+
+  // console.log(allForums);
+
+  const [inputText, setInputText] = useState("");
+  const [deletedForum] = useDeleteForumMutation();
+  const [updatedForum] = useUpdateForumMutation();
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (inputText.trim()) {
-      const newPost = { id: posts.length + 1, author: 'Md Hasan', text: inputText };
-      setPosts([newPost, ...posts]);
-      setInputText('');
+      try {
+        const res = await addNewForums({
+          post: inputText,
+        }).unwrap();
+
+        setInputText("");
+
+        message.success(res.message);
+      } catch (error) {
+        message.error(error.data.message);
+        // console.log(error);
+      }
+    }
+  };
+
+  const handleDeleted = async (id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await deletedForum(id).unwrap();
+          if (res.success) {
+            message.success(res.message);
+          }
+        }
+      });
+    } catch (error) {
+      message.error(error.data.message);
     }
   };
 
@@ -81,20 +87,18 @@ const MyForumList = () => {
     <div className="container mx-auto p-6 border border-[#E7E7E7s] rounded-lg mb-[80px]">
       <h1 className="text-xl font-semibold mb-2">My posts</h1>
       <p className="text-gray-600 mb-4">Here you can see all of your status.</p>
-     
-      <div className="grid grid-cols-1 gap-4">
-        {posts.map((post) => (
-         <ReviewCard key={post.id} post={post} />
-        ))}
-      </div>
 
-      <div className="flex mt-6 ">
-        <Input  prefix={
+      <div className="flex mb-6">
+        <Input
+          prefix={
             <div>
-                <img src={profile} alt="Profile" className="w-8 h-8 rounded-full" />
+              <img
+                src={(user?.image && imageUrl + user?.image) || ""}
+                alt="Profile"
+                className="w-8 h-8 rounded-full"
+              />
             </div>
-        }
-
+          }
           type="text"
           value={inputText}
           onChange={handleInputChange}
@@ -107,6 +111,12 @@ const MyForumList = () => {
         >
           Submit
         </button>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        {allForums?.data?.result.map((post) => (
+          <MyForumCard post={post} key={post?._id} />
+        ))}
       </div>
     </div>
   );

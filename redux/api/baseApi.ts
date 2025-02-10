@@ -73,6 +73,7 @@ export const api = createApi({
     "faq",
     "notification",
     "forum",
+    "comment",
   ],
 });
 

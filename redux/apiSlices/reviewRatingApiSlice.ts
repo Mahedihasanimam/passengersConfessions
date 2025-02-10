@@ -21,9 +21,23 @@ const reviewRatingApi = api.injectEndpoints({
       }),
       providesTags: ["review"],
     }),
+    getReviewByBookId: builder.query({
+      query: (id) => ({
+        url: `/review/get-reviews-by-book/${id}`,
+      }),
+      providesTags: ["review"],
+    }),
     addNewReview: builder.mutation({
       query: (data) => ({
-        url: `/review/add-review`,
+        url: `/review/add-review-to-book`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["review"],
+    }),
+    addNewBookReview: builder.mutation({
+      query: (data) => ({
+        url: `/review/add-review-to-book`,
         method: "POST",
         body: data,
       }),
@@ -48,10 +62,12 @@ const reviewRatingApi = api.injectEndpoints({
 });
 
 export const {
-  useAddNewReviewMutation,
+  useAddNewBookReviewMutation,
   useDeleteReviewMutation,
   useGetAllReviewsQuery,
   useGetReviewByIdQuery,
   useGetReviewByUserQuery,
   useReviewUpdateMutation,
+  useGetReviewByBookIdQuery,
+  useAddNewReviewMutation,
 } = reviewRatingApi;

@@ -73,9 +73,9 @@ const Footer = () => {
                     <li>
                       <Link to={"/FAQ"}>FAQ</Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to={"/contact"}>Contact us</Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link to={"/termsAndConditions"}>Terms & conditions</Link>
                     </li>

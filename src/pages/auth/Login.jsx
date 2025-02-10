@@ -183,6 +183,17 @@ const Login = () => {
                 Log in
               </Button>
             </Form.Item>
+            {/* Forgot Password Button */}
+            <div className="text-end mb-3">
+              <Link
+                to={"/forgot-password"}
+                type="link"
+                className="text-[#FF0048] hover:text-[#FF0048]"
+                style={{ padding: 0 }}
+              >
+                Forgot Password?
+              </Link>
+            </div>
 
             <p className="text-[16px] font-semibold text-secondary text-center ">
               Don't have an account?{" "}

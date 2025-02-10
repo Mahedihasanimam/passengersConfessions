@@ -17,6 +17,9 @@ const Verify = () => {
 
   const params = new URLSearchParams(window.location.search);
   const emailParam = params.get("email");
+  const route = params.get("route");
+
+  console.log(emailParam, route);
 
   const inputRefs = [useRef(), useRef(), useRef(), useRef()];
 
@@ -49,8 +52,13 @@ const Verify = () => {
         if (response?.success) {
           message.success(response?.message);
           form.resetFields();
-          localStorage.setItem("token", response?.data?.token);
-          navigate("/");
+          if (route == "forget") {
+            navigate("/create-newPassword?email=" + emailParam);
+          }
+          if (route == "signup") {
+            localStorage.setItem("token", response?.data?.token);
+            navigate("/");
+          }
         }
       } catch (error) {
         console.log(error);
