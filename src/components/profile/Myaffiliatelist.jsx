@@ -63,7 +63,7 @@ const Myaffiliatelist = () => {
 
       <Row gutter={[16, 16]}>
         {/* 1st Box: Plan Purchased Status */}
-        <Col span={8}>
+        {/* <Col span={8}>
           <Card title="Plan Purchased Status" bordered={true}>
             <p>
               Your current plan: <strong>Premium</strong>
@@ -72,7 +72,7 @@ const Myaffiliatelist = () => {
               Plan expiration: <strong>December 31, 2025</strong>
             </p>
           </Card>
-        </Col>
+        </Col> */}
 
         {/* 2nd Box: Affiliate Earnings */}
         <Col span={8}>

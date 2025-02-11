@@ -25,6 +25,7 @@ import PodCastDetails from "../pages/podCast/podCastDetails/PodCastDetails";
 import TermsAndConditions from "../pages/temCondition/TermsAndConditions";
 import ChageProfilePass from "./../pages/auth/ChageProfilePass";
 import ProfileForm from "./../pages/profile/ProfileForm";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -49,8 +50,12 @@ export const router = createBrowserRouter([
         element: <BookDetails />,
       },
       {
-        path: "/booksDetails/:id/payment",
-        element: <PaymentProducer />,
+        path: "/payment",
+        element: (
+          <PrivateRoute>
+            <PaymentProducer />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/confessionDetails/:id",

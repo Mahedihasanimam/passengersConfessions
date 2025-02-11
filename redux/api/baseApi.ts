@@ -74,6 +74,7 @@ export const api = createApi({
     "notification",
     "forum",
     "comment",
+    "subscription",
   ],
 });
 

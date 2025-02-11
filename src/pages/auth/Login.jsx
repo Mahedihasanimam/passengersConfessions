@@ -1,24 +1,33 @@
 import { Button, Form, Input, message } from "antd";
 import React, { useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../../../redux/apiSlices/userApis";
+import { setUser } from "../../../redux/apiSlices/userSlices";
 import logoimage from "../../assets/login.png";
 import { DashboardUrl } from "../../main";
 
 const Login = () => {
   const navigate = useNavigate();
 
+  const location = useLocation();
+
   const [loginUser] = useLoginMutation();
+
+  const dispatch = useDispatch();
 
   const onFinish = useCallback(
     async (values) => {
       try {
         const response = await loginUser(values).unwrap();
-        message.success("Login successful!");
-        localStorage.setItem("token", response?.data?.token);
 
-        console.log(response?.data?.user?.role);
+        if (response?.success) {
+          dispatch(setUser(response?.data?.user));
+        }
+        // console.log(response);
+        message.success(response?.message);
+        localStorage.setItem("token", response?.data?.token);
 
         if (
           response?.data?.user?.role == "admin" ||
@@ -27,7 +36,11 @@ const Login = () => {
           window.location.href =
             DashboardUrl + "?token=" + response?.data?.token;
         } else {
-          navigate("/");
+          if (location?.state?.pathname) {
+            navigate(location?.state?.pathname);
+          } else {
+            navigate("/");
+          }
         }
       } catch (error) {
         console.log("Error logging in:", error);
