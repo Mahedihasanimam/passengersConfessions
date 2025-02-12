@@ -102,7 +102,7 @@ const Signup = () => {
           >
             <Form.Item
               label="Name"
-              name="user"
+              name="name"
               rules={[
                 {
                   required: true,

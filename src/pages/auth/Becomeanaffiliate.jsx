@@ -1,6 +1,6 @@
 import { Alert, Button, Divider, Form, Input, message } from "antd";
-import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useSingUpAsAffiliateMutation } from "../../../redux/apiSlices/userApis";
 
@@ -11,12 +11,14 @@ const Becomeanaffiliate = () => {
   const [singAsAffiliate] = useSingUpAsAffiliateMutation();
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     if (values) {
       try {
         const res = await singAsAffiliate(values).unwrap();
-        message.success(res.message);
-        navigate("/");
+        if (res.success) {
+          message.success(res.message);
+          navigate("/");
+        }
         // console.log(res);
       } catch (error) {
         message.error(error.data.message);
@@ -98,7 +100,7 @@ const Becomeanaffiliate = () => {
           >
             <Form.Item
               label="Name"
-              name="user"
+              name="name"
               rules={[
                 {
                   required: true,

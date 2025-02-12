@@ -1,9 +1,16 @@
 import "antd/dist/reset.css";
 
-import { Card, Col, Pagination, Row, Statistic, Table } from "antd";
+import { Button, Card, Col, Row, Statistic, Table, message } from "antd";
 import React, { useState } from "react";
 
+import { useSelector } from "react-redux";
+import { useConnectToStripMutation } from "../../../redux/apiSlices/userApis";
+
 const Myaffiliatelist = () => {
+  const user = useSelector((state) => state?.user?.user);
+  const [connectStipe] = useConnectToStripMutation();
+  console.log(user);
+
   // Sample data to replicate the table
   const data = Array.from({ length: 100 }, (_, index) => ({
     key: index + 1,
@@ -57,62 +64,84 @@ const Myaffiliatelist = () => {
     },
   ];
 
+  const handleConnectStrip = async () => {
+    try {
+      const res = await connectStipe({
+        frontendURL: window.location.href,
+      }).unwrap();
+      if (res.success) {
+        message.success(res.message);
+        window.location.href = res?.data?.url;
+      }
+    } catch (error) {
+      message.error(error?.data?.message);
+    }
+  };
+
   return (
     <div className="p-4 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold text-gray-800 mb-4">My affiliate</h1>
 
       <Row gutter={[16, 16]}>
         {/* 1st Box: Plan Purchased Status */}
-        {/* <Col span={8}>
-          <Card title="Plan Purchased Status" bordered={true}>
-            <p>
-              Your current plan: <strong>Premium</strong>
-            </p>
-            <p>
-              Plan expiration: <strong>December 31, 2025</strong>
-            </p>
-          </Card>
-        </Col> */}
+        {!user?.affiliate?.stripeAccountId && (
+          <Col span={8}>
+            <Card title="Plan Purchased Status" bordered={true}>
+              <p className="font-medium text-gray-400">
+                Please Connect your stipe :
+                <Button
+                  onClick={handleConnectStrip}
+                  size="small"
+                  style={{ background: "#FF0048" }}
+                  className="text-white font-semibold hover:!text-blue-800 hover:!bg-white"
+                >
+                  Connect Stripe
+                </Button>
+              </p>
+            </Card>
+          </Col>
+        )}
+        {user?.affiliate?.stripeAccountId && (
+          <>
+            {/* 2nd Box: Affiliate Earnings */}
+            <Col span={8}>
+              <Card title="Affiliate Earnings" bordered={true}>
+                <Statistic
+                  title="Total Earnings"
+                  value={user?.balance}
+                  precision={2}
+                  prefix="$"
+                  valueStyle={{ color: "#3f8600" }}
+                />
+              </Card>
+            </Col>
 
-        {/* 2nd Box: Affiliate Earnings */}
-        <Col span={8}>
-          <Card title="Affiliate Earnings" bordered={true}>
-            <Statistic
-              title="Total Earnings"
-              value={1250.5}
-              precision={2}
-              prefix="$"
-              valueStyle={{ color: "#3f8600" }}
-            />
-          </Card>
-        </Col>
-
-        {/* 3rd Box: Affiliate Referral Code */}
-        <Col span={8}>
-          <Card title="Affiliate Referral Code" bordered={true}>
-            <p>
-              Your referral code: <strong>ABC123</strong>
-            </p>
-            <p>Share this code to earn rewards!</p>
-          </Card>
-        </Col>
+            {/* 3rd Box: Affiliate Referral Code */}
+            <Col span={8}>
+              <Card title="Affiliate Referral Code" bordered={true}>
+                <p>
+                  Your referral code:{" "}
+                  <strong>{user?.affiliate?.affiliateCode}</strong>
+                </p>
+                <p>Share this code to earn rewards!</p>
+              </Card>
+            </Col>
+          </>
+        )}
       </Row>
-
-      <Table
-        columns={columns}
-        dataSource={paginatedData}
-        pagination={false}
-        className="border rounded-md shadow-md mt-3"
-      />
-      <div className="flex justify-between items-center mt-4">
-        <Pagination
-          current={currentPage}
-          total={data.length}
-          pageSize={pageSize}
-          onChange={handlePageChange}
-          showSizeChanger={false}
-        />
-      </div>
+      {user?.affiliate?.stripeAccountId && (
+        <>
+          <Table
+            columns={columns}
+            dataSource={paginatedData}
+            pagination={{
+              pageSize: 10, // Number of rows per page
+              //   showSizeChanger: true, // Allow users to change page size
+            }}
+            className="border rounded-md shadow-md mt-3"
+          />
+        </>
+      )}
     </div>
   );
 };

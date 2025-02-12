@@ -139,6 +139,14 @@ const userApis = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    connectToStrip: builder.mutation({
+      query: (data) => ({
+        url: `/users/auth/connect-stripe-account`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
@@ -160,4 +168,5 @@ export const {
   useUpdateUserProfileMutation,
   useVerifyEmailMutation,
   useSendOtpAgainMutation,
+  useConnectToStripMutation,
 } = userApis;
