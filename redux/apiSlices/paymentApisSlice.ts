@@ -7,6 +7,11 @@ const paymentApi = api.injectEndpoints({
         url: `/payment/get-all-payment-intents`,
       }),
     }),
+    getAllTransactionsById: builder.query({
+      query: (id) => ({
+        url: `/payment/get-all-transactions-by-affiliate/${id}`,
+      }),
+    }),
 
     createPaymentIntent: builder.mutation({
       query: (data) => ({
@@ -37,4 +42,5 @@ export const {
   useLazyGetAffiliateByCodeQuery,
   useCreatePaymentIntentMutation,
   useGetAllIntentQuery,
+  useGetAllTransactionsByIdQuery,
 } = paymentApi;

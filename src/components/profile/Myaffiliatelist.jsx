@@ -1,60 +1,43 @@
 import "antd/dist/reset.css";
 
 import { Button, Card, Col, Row, Statistic, Table, message } from "antd";
-import React, { useState } from "react";
 
+import React from "react";
 import { useSelector } from "react-redux";
+import { useGetAllTransactionsByIdQuery } from "../../../redux/apiSlices/paymentApisSlice";
 import { useConnectToStripMutation } from "../../../redux/apiSlices/userApis";
 
 const Myaffiliatelist = () => {
   const user = useSelector((state) => state?.user?.user);
-  const [connectStipe] = useConnectToStripMutation();
-  console.log(user);
-
-  // Sample data to replicate the table
-  const data = Array.from({ length: 100 }, (_, index) => ({
-    key: index + 1,
-    title: [
-      "The Truth I've Been Hiding",
-      "Secrets I never told ch...",
-      "The love I never told you...",
-      "What I have done never t...",
-    ][index % 4],
-    link: "http://search?245sca...",
-    earnings: ["$240,000", "$9,999,900", "$2,000,000", "$3,000,000"][index % 4],
-    level: (index % 4) + 1,
-  }));
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10;
-
-  // Pagination handling
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  // Data for current page
-  const paginatedData = data.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
+  const { data: affiliateTransactions } = useGetAllTransactionsByIdQuery(
+    user?.affiliate?._id
   );
+  const [connectStipe] = useConnectToStripMutation();
+  // console.log(affiliateTransactions, user);
 
   // Columns definition
   const columns = [
     {
       title: "Title",
-      dataIndex: "title",
-      key: "title",
-      render: (text) => (
-        <span className="text-gray-900 font-semibold">{text}</span>
-      ),
+      dataIndex: "subscription",
+      key: "subscription",
+      render: (text) => {
+        // console.log(text);
+        return (
+          <span className="text-gray-900 font-semibold">{text?.name}</span>
+        );
+      },
     },
 
     {
       title: "Earnings",
-      dataIndex: "earnings",
-      key: "earnings",
-      render: (text) => <span className="text-green-500">{text}</span>,
+      dataIndex: "subscription",
+      key: "subscription",
+      render: (text) => (
+        <span className="text-green-500">
+          ${text?.affiliateComission / 100}
+        </span>
+      ),
     },
     {
       title: "Level",
@@ -133,7 +116,7 @@ const Myaffiliatelist = () => {
         <>
           <Table
             columns={columns}
-            dataSource={paginatedData}
+            dataSource={affiliateTransactions?.data}
             pagination={{
               pageSize: 10, // Number of rows per page
               //   showSizeChanger: true, // Allow users to change page size

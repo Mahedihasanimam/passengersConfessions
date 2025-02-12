@@ -125,7 +125,11 @@ export const router = createBrowserRouter([
   // profile routes -----------
   {
     path: "/profile",
-    element: <ProfileLayout />,
+    element: (
+      <PrivateRoute>
+        <ProfileLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/profile",
