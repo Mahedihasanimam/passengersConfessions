@@ -1,20 +1,22 @@
 import "tailwindcss/tailwind.css";
 
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { Button } from "antd";
-import React from "react";
 import { useSelector } from "react-redux";
 import { useGetAllConfessionsQuery } from "../../../redux/apiSlices/confessionApiSlice";
 import confession from "../../assets/confession.webp";
+import { AddConfessionModal } from "../../components/common/AddConfessionModal";
 
 const Confessions = () => {
+  const [visibleModal, setVisibleModal] = useState();
+
   const { data: confessionData } = useGetAllConfessionsQuery({});
   const user = useSelector((state) => state.user.user);
 
   //   console.log("confessionData ===============", user);
 
-  const navigate = useNavigate();
   return (
     <div className="container mx-auto px-4 pt-6 pb-[80px]">
       <div className="pb-6">
@@ -24,7 +26,10 @@ const Confessions = () => {
           </h1>
           {user?._id && (
             <Button
-              onClick={() => navigate("/addConfession")}
+              onClick={() => {
+                setVisibleModal(true);
+                // navigate("/addConfession")
+              }}
               type="primary"
               style={{
                 backgroundColor: "#FF0048",
@@ -129,6 +134,11 @@ const Confessions = () => {
           Load more
         </Button>
       </div>
+
+      <AddConfessionModal
+        visible={visibleModal}
+        onCancel={() => setVisibleModal(false)}
+      />
     </div>
   );
 };

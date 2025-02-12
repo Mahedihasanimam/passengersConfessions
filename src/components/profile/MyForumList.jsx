@@ -1,123 +1,90 @@
-import { Input, message } from "antd";
-import React, { useState } from "react";
-import {
-  useAddForumMutation,
-  useDeleteForumMutation,
-  useGetAllForumsQuery,
-  useUpdateForumMutation,
-} from "../../../redux/apiSlices/forumsApiSlices";
+import React, { useEffect, useState } from "react";
 
+import { Button } from "antd";
 import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { imageUrl } from "../../../redux/api/baseApi";
+import { useGetForumUserByIdQuery } from "../../../redux/apiSlices/forumsApiSlices";
+import { AddForumModal } from "../common/AddForumModal";
+import ViewForumModal from "../common/ViewForumModal";
 import MyForumCard from "./components/MyForumCard";
 
 // Simulating fetching data from a JSON file
 
 const MyForumList = () => {
-  const { data: allForums } = useGetAllForumsQuery({});
-
-  const handleEdit = async (id) => {
-    try {
-      const res = await updatedForum({
-        id,
-        post: editContent,
-      }).unwrap();
-      message.success(res.message);
-    } catch (error) {
-      message.error(error.data.message);
-    }
-  };
-
-  const [addNewForums] = useAddForumMutation();
-
   const user = useSelector((state) => state.user.user);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [viewModal, setViewModal] = useState(false);
+  const [viewModalData, setViewModalData] = useState(null);
+  const [forums, setForums] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // console.log(allForums);
+  const { data: fetchedData, isFetching } = useGetForumUserByIdQuery({
+    id: user?._id,
+    limit: 10,
+    page: currentPage,
+  });
 
-  const [inputText, setInputText] = useState("");
-  const [deletedForum] = useDeleteForumMutation();
-  const [updatedForum] = useUpdateForumMutation();
-
-  const handleInputChange = (e) => {
-    setInputText(e.target.value);
-  };
-
-  const handleSubmit = async () => {
-    if (inputText.trim()) {
-      try {
-        const res = await addNewForums({
-          post: inputText,
-        }).unwrap();
-
-        setInputText("");
-
-        message.success(res.message);
-      } catch (error) {
-        message.error(error.data.message);
-        // console.log(error);
-      }
+  useEffect(() => {
+    if (fetchedData) {
+      setForums(fetchedData.data.result);
     }
-  };
+  }, [fetchedData]);
 
-  const handleDeleted = async (id) => {
-    try {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const res = await deletedForum(id).unwrap();
-          if (res.success) {
-            message.success(res.message);
-          }
-        }
-      });
-    } catch (error) {
-      message.error(error.data.message);
-    }
+  const handleViewPost = (post) => {
+    setViewModalData(post);
+    setViewModal(true);
   };
-
   return (
     <div className="container mx-auto p-6 border border-[#E7E7E7s] rounded-lg mb-[80px]">
-      <h1 className="text-xl font-semibold mb-2">My posts</h1>
-      <p className="text-gray-600 mb-4">Here you can see all of your status.</p>
-
-      <div className="flex mb-6">
-        <Input
-          prefix={
-            <div>
-              <img
-                src={(user?.image && imageUrl + user?.image) || ""}
-                alt="Profile"
-                className="w-8 h-8 rounded-full"
-              />
-            </div>
-          }
-          type="text"
-          value={inputText}
-          onChange={handleInputChange}
-          placeholder="Enter forum text"
-          className="flex-1 p-2 border border-gray-300 rounded-l-md rounded-r-none focus:outline-none text-tertiary text-[16px] font-bold"
-        />
-        <button
-          onClick={handleSubmit}
-          className="bg-primary text-white px-6 py-3 rounded-r-md hover:bg-primary"
+      <div className="flex mb-6 justify-between items-center">
+        <div>
+          <h1 className="text-xl font-semibold mb-2">My posts</h1>
+          <p className="text-gray-600 mb-4">
+            Here you can see all of your status.
+          </p>
+        </div>
+        <Button
+          onClick={() => setVisibleModal(true)}
+          type="primary"
+          style={{
+            backgroundColor: "#FF0048",
+            color: "white",
+            height: "35px",
+            fontSize: "16px",
+            fontWeight: "bold",
+          }}
+          className="w-fit border-none text-white px-6 py-2 rounded-full"
         >
-          Submit
-        </button>
+          Add yours
+        </Button>
       </div>
 
       <div className="flex flex-col gap-4">
-        {allForums?.data?.result.map((post) => (
-          <MyForumCard post={post} key={post?._id} />
+        {forums.map((post) => (
+          <MyForumCard
+            post={post}
+            key={post?._id}
+            handleViewPost={handleViewPost}
+          />
         ))}
+        {isFetching && <p>Loading...</p>}
       </div>
+      {/* <div className="mt-6 flex justify-center">
+        <Pagination
+          current={currentPage}
+          pageSize={10}
+          total={fetchedData?.data?.count || 0}
+          onChange={handlePageChange}
+        />
+      </div> */}
+      <AddForumModal
+        visible={visibleModal}
+        onCancel={() => setVisibleModal(false)}
+      />
+      <ViewForumModal
+        post={viewModalData}
+        visible={viewModal}
+        onCancel={() => setViewModal(false)}
+      />
     </div>
   );
 };

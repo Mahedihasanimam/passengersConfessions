@@ -1,18 +1,19 @@
 import "tailwindcss/tailwind.css";
 
 import { Button, Dropdown } from "antd";
+import React, { useState } from "react";
 import {
   useDeleteConfessionMutation,
   useGetAllConfessionsQuery,
 } from "../../../redux/apiSlices/confessionApiSlice";
 
 import { DeleteFilled } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import React from "react";
 import Swal from "sweetalert2";
 import confession from "../../assets/confession.webp";
+import { AddConfessionModal } from "../common/AddConfessionModal";
 
 const ConfessionList = () => {
+  const [visibleModal, setVisibleModal] = useState();
   const { data: confessionData } = useGetAllConfessionsQuery({});
   const [deleteConfession] = useDeleteConfessionMutation();
 
@@ -20,6 +21,26 @@ const ConfessionList = () => {
 
   return (
     <div className="container mx-auto px-4 pb-[80px]">
+      <div className="flex justify-end pb-8 ">
+        {/* <Link className="w-full  mx-auto" to="/addConfession"> */}
+        <Button
+          onClick={() => {
+            setVisibleModal(true);
+          }}
+          type="primary"
+          style={{
+            backgroundColor: "#FF0048",
+            color: "white",
+            height: "35px",
+            fontSize: "16px",
+            fontWeight: "bold",
+          }}
+          className=" border-none text-white px-6 py-2 rounded-lg"
+        >
+          Add confession
+        </Button>
+        {/* </Link> */}
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {confessionData?.data?.result?.map((book) => (
           <div
@@ -101,23 +122,11 @@ const ConfessionList = () => {
           </div>
         ))}
       </div>
-      <div className="w-1/2 mx-auto mt-20 ">
-        <Link className="w-full  mx-auto" to="/addConfession">
-          <Button
-            type="primary"
-            style={{
-              backgroundColor: "#FF0048",
-              color: "white",
-              height: "35px",
-              fontSize: "16px",
-              fontWeight: "bold",
-            }}
-            className="w-full border-none text-white px-6 py-2 rounded-lg"
-          >
-            Add confession
-          </Button>
-        </Link>
-      </div>
+
+      <AddConfessionModal
+        visible={visibleModal}
+        onCancel={() => setVisibleModal(false)}
+      />
     </div>
   );
 };

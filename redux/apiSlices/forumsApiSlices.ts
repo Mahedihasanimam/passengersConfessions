@@ -3,8 +3,8 @@ import { api } from "../api/baseApi";
 const forumsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllForums: builder.query({
-      query: (token) => ({
-        url: `/forum/get-all-posts`,
+      query: ({ limit, page, search }) => ({
+        url: `/forum/get-all-posts?limit=${limit}&page=${page}`,
       }),
       providesTags: ["forum"],
     }),
@@ -15,8 +15,8 @@ const forumsApi = api.injectEndpoints({
       providesTags: ["forum"],
     }),
     getForumUserById: builder.query({
-      query: (id) => ({
-        url: `/forum/get-post-by-user-id/${id}`,
+      query: ({ id, limit, page, search }) => ({
+        url: `/forum/get-post-by-user-id/${id}?limit=${limit}&page=${page}`,
       }),
       providesTags: ["forum"],
     }),
