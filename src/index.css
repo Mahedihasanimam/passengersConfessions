@@ -46,3 +46,41 @@ body {
 
 
 
+/* Customize player buttons */
+.custom-audio-player .rhap_button-clear {
+  background-color: #ff0048 !important; /* Red color */
+  border-radius: 4px;
+  color: white !important;
+}
+
+.custom-audio-player .rhap_button-clear:hover {
+  background-color: #e6003d !important; /* Darker red */
+}
+
+/* Customize play/pause button */
+.custom-audio-player .rhap_main-controls button {
+  background-color: #ff0048 !important; /* Red background for play/pause */
+  border-radius: 50%;
+  color: white !important;
+}
+
+.custom-audio-player .rhap_main-controls button:hover {
+  background-color: #e6003d !important;
+}
+
+/* Progress bar customization */
+.custom-audio-player .rhap_progress-filled {
+  background-color: #ff0048 !important; /* Red fill for progress */
+}
+
+.custom-audio-player .rhap_progress-indicator {
+  background-color: #ff0048 !important; /* Red color for progress indicator (dot) */
+}
+
+.custom-audio-player .rhap_progress-container:hover .rhap_progress-filled {
+  background-color: #e6003d !important; /* Darker red on hover */
+}
+
+.custom-audio-player .rhap_progress-container:hover .rhap_progress-indicator {
+  background-color: #e6003d !important; /* Darker red indicator on hover */
+}
