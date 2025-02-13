@@ -75,7 +75,7 @@ const Podcast = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {allPodCasts?.data?.result.map((book) => (
+        {allPodCasts?.data?.result?.slice(0, 8)?.map((book) => (
           <Link
             to={`/podcastDetails/${book._id}`}
             key={book.id}

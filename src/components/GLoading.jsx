@@ -3,7 +3,7 @@ import { BiLoader } from "react-icons/bi";
 
 const GLoading = () => {
   return (
-    <div className="inset-0 fixed flex justify-center items-center h-screen">
+    <div className=" flex justify-center items-center h-[40vh]">
       <span className="animate-spin">
         <BiLoader color="#FF0048" size={50} />
       </span>

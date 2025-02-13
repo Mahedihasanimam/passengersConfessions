@@ -3,8 +3,8 @@ import { api } from "../api/baseApi";
 const podCastApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllPodCast: builder.query({
-      query: (token) => ({
-        url: `/podcasts/get-all-podcasts`,
+      query: ({ limit, page }) => ({
+        url: `/podcasts/get-all-podcasts?limit=${limit}&page=${page}`,
       }),
       providesTags: ["podCast"],
     }),
@@ -44,6 +44,7 @@ export const {
   useAddPodCastMutation,
   useDeletePodCastMutation,
   useGetAllPodCastQuery,
+  useLazyGetAllPodCastQuery,
   useGetPodCastByIdQuery,
   useUpdatePodCastMutation,
 } = podCastApi;
