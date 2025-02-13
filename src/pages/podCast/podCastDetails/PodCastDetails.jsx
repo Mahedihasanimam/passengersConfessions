@@ -222,44 +222,45 @@ const PodCastDetails = () => {
             </div>
           ))}
         </div>
+        {user?._id && (
+          <div className="p-4 border rounded-lg shadow-md">
+            <h3 className="text-xl font-semibold mb-4">Add Your Comment</h3>
 
-        <div className="p-4 border rounded-lg shadow-md">
-          <h3 className="text-xl font-semibold mb-4">Add Your Comment</h3>
-
-          <Form form={form} layout="vertical" onFinish={handleSubmit}>
-            <Form.Item
-              name="comment"
-              label="Your Comment"
-              rules={[
-                { required: true, message: "Please enter your comment!" },
-              ]}
-            >
-              <Input.TextArea
-                style={{
-                  border: "none",
-                  outline: "none",
-                }}
-                rows={4}
-                placeholder="Write your comment here..."
-              />
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                style={{
-                  backgroundColor: "#FF0048",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                }}
-                type="primary"
-                htmlType="submit"
-                loading={submitting}
+            <Form form={form} layout="vertical" onFinish={handleSubmit}>
+              <Form.Item
+                name="comment"
+                label="Your Comment"
+                rules={[
+                  { required: true, message: "Please enter your comment!" },
+                ]}
               >
-                Submit Comment
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
+                <Input.TextArea
+                  style={{
+                    border: "none",
+                    outline: "none",
+                  }}
+                  rows={4}
+                  placeholder="Write your comment here..."
+                />
+              </Form.Item>
+
+              <Form.Item>
+                <Button
+                  style={{
+                    backgroundColor: "#FF0048",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                  type="primary"
+                  htmlType="submit"
+                  loading={submitting}
+                >
+                  Submit Comment
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+        )}
       </div>
 
       <SubscriptionModal onCancel={handleCloseModal} visible={isModalOpen} />

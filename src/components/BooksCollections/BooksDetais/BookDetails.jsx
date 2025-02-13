@@ -224,49 +224,54 @@ const BookDetails = () => {
             </div>
           ))}
         </div>
+        {user?._id && (
+          <>
+            {allReview?.data?.find(
+              (review) => review?.user?._id === user?._id
+            ) ? (
+              <i className="text-tertiary mt-2 text-xs">
+                You have reviewed this book
+              </i>
+            ) : (
+              <div className="p-4 border rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-4">Add Your Review</h3>
 
-        {allReview?.data?.find((review) => review?.user?._id === user?._id) ? (
-          <i className="text-tertiary mt-2 text-xs">
-            You have reviewed this book
-          </i>
-        ) : (
-          <div className="p-4 border rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4">Add Your Review</h3>
+                <Form form={form} layout="vertical" onFinish={handleSubmit}>
+                  <Form.Item
+                    name="review"
+                    label="Your Review"
+                    rules={[
+                      { required: true, message: "Please enter your review!" },
+                    ]}
+                  >
+                    <Input.TextArea
+                      style={{
+                        border: "none",
+                        outline: "none",
+                      }}
+                      rows={4}
+                      placeholder="Write your review here..."
+                    />
+                  </Form.Item>
 
-            <Form form={form} layout="vertical" onFinish={handleSubmit}>
-              <Form.Item
-                name="review"
-                label="Your Review"
-                rules={[
-                  { required: true, message: "Please enter your review!" },
-                ]}
-              >
-                <Input.TextArea
-                  style={{
-                    border: "none",
-                    outline: "none",
-                  }}
-                  rows={4}
-                  placeholder="Write your review here..."
-                />
-              </Form.Item>
-
-              <Form.Item>
-                <Button
-                  style={{
-                    backgroundColor: "#FF0048",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                  type="primary"
-                  htmlType="submit"
-                  loading={submitting}
-                >
-                  Submit Review
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
+                  <Form.Item>
+                    <Button
+                      style={{
+                        backgroundColor: "#FF0048",
+                        fontSize: "14px",
+                        fontWeight: "500",
+                      }}
+                      type="primary"
+                      htmlType="submit"
+                      loading={submitting}
+                    >
+                      Submit Review
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </div>
+            )}
+          </>
         )}
       </div>
 
