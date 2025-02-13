@@ -3,8 +3,8 @@ import { api } from "../api/baseApi";
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllBooks: builder.query({
-      query: (token) => ({
-        url: `/books/get-all-books`,
+      query: ({ limit, page }) => ({
+        url: `/books/get-all-books?limit=${limit}&page=${page}`,
       }),
       providesTags: ["book"],
     }),
@@ -46,4 +46,5 @@ export const {
   useGetAllBooksQuery,
   useGetBookByIdQuery,
   useUpdateBookMutation,
+  useLazyGetAllBooksQuery,
 } = bookApi;

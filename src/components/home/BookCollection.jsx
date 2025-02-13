@@ -23,7 +23,7 @@ const BookCollection = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {book?.data?.result?.map((book) => (
+        {book?.data?.result?.slice(0, 8)?.map((book) => (
           <Link
             to={`/booksDetails/${book?._id}`}
             key={book.id}
