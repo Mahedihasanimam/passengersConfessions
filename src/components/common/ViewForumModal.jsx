@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Pagination } from "antd";
+import { Button, Input, Modal, Pagination, Switch } from "antd";
 import React, { useState } from "react";
 import {
   useAddPostCommentMutation,
@@ -16,7 +16,7 @@ const ViewForumModal = ({ post, visible, onCancel }) => {
   const [loading, setLoading] = useState(false); // Loading state for the comment submission
   const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
   const commentsPerPage = 4; // Number of comments per page
-
+  const [isVideoMode, setIsVideoMode] = useState(false);
   const {
     data: allComments,
     isLoading,
@@ -83,14 +83,40 @@ const ViewForumModal = ({ post, visible, onCancel }) => {
               <p className="text-tertiary">{post?.post}</p>
             </div>
           </div>
-          {post?.audioPost && (
+          {post?.videoPost && (
+            <div className="flex items-center mb-3">
+              <span className="mr-2 font-semibold">Audio</span>
+              <Switch
+                checkedChildren="Audio"
+                unCheckedChildren="Video"
+                autoFocus
+                style={{ backgroundColor: isVideoMode ? "#FF0048" : undefined }}
+                checked={isVideoMode}
+                onChange={() => setIsVideoMode(!isVideoMode)}
+              />
+              <span className="ml-2 font-semibold">Video</span>
+            </div>
+          )}
+          {post?.videoPost && isVideoMode ? (
             <div className="w-full mt-3">
-              <AudioPlayer
-                className="w-full bg-primary custom-audio-player"
-                src={imageUrl + post?.audioPost}
-                onPlay={(e) => console.log("onPlay")}
+              <video
+                className="w-full bg-primary custom-audio-player rounded-md"
+                src={imageUrl + post?.videoPost}
+                controls
               />
             </div>
+          ) : (
+            <>
+              {post?.audioPost && (
+                <div className="w-full mt-3">
+                  <AudioPlayer
+                    className="w-full bg-primary custom-audio-player"
+                    src={imageUrl + post?.audioPost}
+                    onPlay={(e) => console.log("onPlay")}
+                  />
+                </div>
+              )}
+            </>
           )}
 
           <div className="border mt-5 rounded-md p-2">

@@ -17,9 +17,22 @@ const subscriptionApi = api.injectEndpoints({
       }),
       invalidatesTags: ["subscription"],
     }),
+    deleteSubscriptionPlan: builder.mutation({
+      query: (id) => ({
+        url: `/subscription/delete-subscription-plan-by-id/${id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["subscription"],
+    }),
     getAllSubscriptions: builder.query({
       query: (id) => ({
         url: `/subscription/get-all-subscriptions`,
+      }),
+      providesTags: ["subscription"],
+    }),
+    getAllSubscriptionsPlans: builder.query({
+      query: (id) => ({
+        url: `/subscription/get-all-subscription-plans`,
       }),
       providesTags: ["subscription"],
     }),
@@ -53,4 +66,6 @@ export const {
   useGetSubscriptionsByIdQuery,
   useGetSubscriptionsByUserIdQuery,
   useUpdateSubscriptionMutation,
+  useGetAllSubscriptionsPlansQuery,
+  useDeleteSubscriptionPlanMutation,
 } = subscriptionApi;

@@ -2,18 +2,18 @@ import "tailwindcss/tailwind.css"; // Ensure Tailwind CSS is imported
 
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import {
   useAddNewBookReviewMutation,
   useGetReviewByBookIdQuery,
 } from "../../../../redux/apiSlices/reviewRatingApiSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
+import GLoading from "../../GLoading";
 import { LeftOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { SubscriptionModal } from "../../common/SubsciptionModal";
 import { imageUrl } from "../../../../redux/api/baseApi";
 import { useGetBookByIdQuery } from "../../../../redux/apiSlices/bookApiSlice";
-import { SubscriptionModal } from "../../common/SubsciptionModal";
-import GLoading from "../../GLoading";
+import { useSelector } from "react-redux";
 
 const BookDetails = () => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const BookDetails = () => {
 
   const user = useSelector((state) => state.user.user);
 
-  // console.log(Book);
+  // console.log(user);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -124,6 +124,13 @@ const BookDetails = () => {
                     ))}
                   </div>
                 )}
+                {Book?.data?.price &&
+                  !user?.isBasicSubscribed &&
+                  !user?.isPremiumSubscribed && (
+                    <h1 className="text-3xl font-bold mb-2 text-primary">
+                      ${Book?.data?.price}
+                    </h1>
+                  )}
 
                 <h1 className="text-3xl font-bold mb-2">
                   {Book?.data?.bookName}
@@ -131,20 +138,40 @@ const BookDetails = () => {
                 <h2 className="text-gray-600 mb-4">{Book?.data?.authorName}</h2>
                 <p className="mb-4">{Book?.data?.description}</p>
                 {!user?.isBasicSubscribed && !user?.isPremiumSubscribed && (
-                  <Button
-                    onClick={handleSubscribeClick}
-                    type="primary"
-                    style={{
-                      backgroundColor: "#FF0048",
-                      color: "white",
-                      height: "35px",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                    className="w-full border-none text-white px-6 py-2 rounded-lg"
-                  >
-                    Subscribe
-                  </Button>
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <Button
+                      onClick={() =>
+                        navigate(`/product-payment/${params.id}`, {
+                          state: Book?.data,
+                        })
+                      }
+                      type="primary"
+                      style={{
+                        backgroundColor: "#FF0048",
+                        color: "white",
+                        height: "35px",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                      className="w-full border-none text-white px-6 py-2 rounded-lg"
+                    >
+                      Buy
+                    </Button>
+                    <Button
+                      onClick={handleSubscribeClick}
+                      type="primary"
+                      style={{
+                        backgroundColor: "#FF0048",
+                        color: "white",
+                        height: "35px",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                      className="w-full border-none text-white px-6 py-2 rounded-lg"
+                    >
+                      Subscribe
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>

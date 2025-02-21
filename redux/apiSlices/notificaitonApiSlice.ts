@@ -18,8 +18,19 @@ const notificationApi = api.injectEndpoints({
       }),
       providesTags: ["notification"],
     }),
+    getAllNotificationsByUser: builder.query({
+      query: (userId) => ({
+        url: `/users/notifications-by-user`,
+        method: "GET",
+        body: { userId },
+      }),
+      providesTags: ["notification"],
+    }),
   }),
 });
 
-export const { useGetAllNotificationsQuery, useGetNotificationQuery } =
-  notificationApi;
+export const {
+  useGetAllNotificationsQuery,
+  useGetNotificationQuery,
+  useGetAllNotificationsByUserQuery,
+} = notificationApi;

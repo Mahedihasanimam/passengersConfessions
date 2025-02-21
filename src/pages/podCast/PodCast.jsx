@@ -40,7 +40,7 @@ const PodCast = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 pb-[80px]">
+    <div className="container mx-auto px-4 pb-[80px] min-h-[58vh]">
       <div className="pb-6">
         <h1 className="text-2xl font-bold  mt-8 text-secondary pb-2 ">
           Podcast

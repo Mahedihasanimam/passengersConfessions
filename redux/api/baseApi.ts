@@ -49,7 +49,7 @@ const baseQueryWithRath: typeof baseQuery = async (args, api, extraOptions) => {
     //   text: "Session Expired. Please Login Again",
     //   confirmButtonText: "Ok",
     // });
-    // localStorage?.removeItem("token");
+    localStorage?.removeItem("token");
   }
 
   return result;

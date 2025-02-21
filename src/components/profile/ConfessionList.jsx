@@ -1,31 +1,72 @@
 import "tailwindcss/tailwind.css";
 
-import { Button, Dropdown } from "antd";
+import { DeleteFilled, EditOutlined, EyeFilled } from "@ant-design/icons";
+import { Button, Dropdown, Pagination, message } from "antd";
 import React, { useState } from "react";
 import {
   useDeleteConfessionMutation,
   useGetAllConfessionsQuery,
 } from "../../../redux/apiSlices/confessionApiSlice";
 
-import { DeleteFilled } from "@ant-design/icons";
 import Swal from "sweetalert2";
-import confession from "../../assets/confession.webp";
+import { imageUrl } from "../../../redux/api/baseApi";
+import confessionImage from "../../assets/confession.webp";
 import { AddConfessionModal } from "../common/AddConfessionModal";
+import ViewConfessionModal from "../common/ViewConfessionModal";
 
 const ConfessionList = () => {
-  const [visibleModal, setVisibleModal] = useState();
-  const { data: confessionData } = useGetAllConfessionsQuery({});
-  const [deleteConfession] = useDeleteConfessionMutation();
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [viewModal, setViewModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedConfession, setSelectedConfession] = useState(null); // Track selected confession for editing
+  const { data: confessionData } = useGetAllConfessionsQuery({
+    limit: 8,
+    page: currentPage,
+    status: "approved",
+  });
 
   console.log(confessionData);
+
+  const [deleteConfession] = useDeleteConfessionMutation();
+
+  const handleEditConfession = (confession) => {
+    setSelectedConfession(confession); // Set selected confession for editing
+    setVisibleModal(true); // Show the modal in edit mode
+  };
+
+  const handleDeleteConfession = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FF0048",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteConfession(id);
+        message.success("Successfully deleted confession");
+      }
+    });
+  };
+
+  const handleViewModal = (confession) => {
+    setSelectedConfession(confession);
+    setViewModal(true);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="container mx-auto px-4 pb-[80px]">
       <div className="flex justify-end pb-8 ">
-        {/* <Link className="w-full  mx-auto" to="/addConfession"> */}
         <Button
           onClick={() => {
-            setVisibleModal(true);
+            setSelectedConfession(null); // Clear selected confession for new confession
+            setVisibleModal(true); // Show modal for new confession
           }}
           type="primary"
           style={{
@@ -35,24 +76,44 @@ const ConfessionList = () => {
             fontSize: "16px",
             fontWeight: "bold",
           }}
-          className=" border-none text-white px-6 py-2 rounded-lg"
+          className="border-none text-white px-6 py-2 rounded-lg"
         >
           Add confession
         </Button>
-        {/* </Link> */}
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {confessionData?.data?.result?.map((book) => (
+        {confessionData?.data?.result?.map((confession) => (
           <div
-            key={book.id}
-            className="border rounded-lg p-4 shadow-md hover:shadow-lg bg-[#C7C7C740]  "
+            key={confession._id}
+            className="border rounded-lg p-4 shadow-md hover:shadow-lg bg-[#C7C7C740]"
           >
             <div className="relative">
-              <img
-                src={confession}
-                alt={book.title}
-                className="w-full h-56 object-cover rounded-md mb-4"
-              />
+              {confession?.confessionAudioUrl &&
+              !confession?.confessionVideoUrl ? (
+                <img
+                  src={confessionImage}
+                  alt={confession.title}
+                  className="w-full h-56 object-cover rounded-md mb-4"
+                />
+              ) : (
+                <>
+                  {
+                    <div className="flex mb-4 ">
+                      <img
+                        src={confessionImage}
+                        alt={confession.title}
+                        className="w-[50%] h-56 object-cover rounded-l-md "
+                      />
+                      <video
+                        src={imageUrl + confession?.confessionVideoUrl}
+                        className="w-[50%] h-56 object-cover rounded-r-md "
+                      />
+                    </div>
+                  }
+                </>
+              )}
+
               <div className="absolute top-[4px] right-[4px]">
                 <Dropdown
                   menu={{
@@ -61,32 +122,51 @@ const ConfessionList = () => {
                         key: "1",
                         label: (
                           <Button
+                            className="!w-full"
+                            size="small"
+                            style={{
+                              // color: "white",
+                              borderRadius: "5px",
+                            }}
+                            onClick={() => handleViewModal(confession)}
+                            icon={<EyeFilled />}
+                          >
+                            View
+                          </Button>
+                        ),
+                      },
+                      {
+                        key: "1",
+                        label: (
+                          <Button
+                            className="!w-full"
+                            size="small"
+                            style={{
+                              // color: "white",
+                              borderRadius: "5px",
+                            }}
+                            onClick={() => handleEditConfession(confession)}
+                            icon={<EditOutlined />}
+                          >
+                            Edit
+                          </Button>
+                        ),
+                      },
+                      {
+                        key: "2",
+                        label: (
+                          <Button
+                            size="small"
                             type="primary"
+                            className="!w-full"
                             style={{
                               backgroundColor: "#FF0048",
                               color: "white",
                               borderRadius: "5px",
                             }}
-                            onClick={() => {
-                              Swal.fire({
-                                title: "Are you sure?",
-                                text: "You won't be able to revert this!",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#FF0048",
-                                cancelButtonColor: "#d33",
-                                confirmButtonText: "Yes, delete it!",
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  deleteConfession(book._id);
-                                  Swal.fire(
-                                    "Deleted!",
-                                    "Your file has been deleted.",
-                                    "success"
-                                  );
-                                }
-                              });
-                            }}
+                            onClick={() =>
+                              handleDeleteConfession(confession._id)
+                            }
                             icon={<DeleteFilled />}
                           >
                             Delete
@@ -116,16 +196,38 @@ const ConfessionList = () => {
               </div>
             </div>
             <h2 className="text-[20px] font-semibold text-secondary max-w-[250px]">
-              {book.title}
+              {confession.title}
             </h2>
-            <p className="text-tertiary">{book.author}</p>
+            <p className="text-tertiary">{confession.author}</p>
           </div>
         ))}
       </div>
 
+      <div className="mt-6 flex justify-center">
+        <Pagination
+          current={currentPage}
+          pageSize={confessionData?.data?.limit || 0}
+          total={confessionData?.data?.count || 0}
+          onChange={handlePageChange}
+        />
+      </div>
+
       <AddConfessionModal
         visible={visibleModal}
-        onCancel={() => setVisibleModal(false)}
+        onCancel={() => {
+          setVisibleModal(false);
+          setSelectedConfession(null);
+        }}
+        existingConfession={selectedConfession} // Pass the selected confession for editing
+      />
+      {/* View Modal  */}
+      <ViewConfessionModal
+        visible={viewModal}
+        confession={selectedConfession}
+        onCancel={() => {
+          setViewModal(false);
+          setSelectedConfession(null);
+        }}
       />
     </div>
   );

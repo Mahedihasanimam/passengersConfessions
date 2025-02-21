@@ -1,4 +1,4 @@
-import { Button, Input, message } from "antd";
+import { Button, Dropdown, Input, Menu, message } from "antd";
 import React, { useState } from "react";
 import {
   useDeleteForumMutation,
@@ -50,9 +50,59 @@ const MyForumCard = ({ post, handleViewPost }) => {
     }
   };
 
+  const menu = (
+    <Menu>
+      {isEdit ? (
+        <>
+          <Menu.Item
+            onClick={() => {
+              handleEdit(post?._id);
+              setIsEdit(false);
+            }}
+          >
+            Save
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              setIsEdit(false);
+            }}
+            danger
+          >
+            Cancel
+          </Menu.Item>
+        </>
+      ) : (
+        <>
+          <Menu.Item
+            onClick={() => {
+              handleViewPost && handleViewPost(post);
+            }}
+          >
+            View
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              setIsEdit(true);
+            }}
+          >
+            Edit
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              handleDeleted(post?._id);
+            }}
+            danger
+          >
+            Delete
+          </Menu.Item>
+        </>
+      )}
+    </Menu>
+  );
+
   return (
     <div className="p-4 border border-gray-200 rounded-lg bg-white shadow-sm flex justify-between">
-      <div className="w-full">
+      <div className="w-full flex-1">
         <div className="flex w-full">
           <div className="w-12 h-12 rounded-full bg-gray-300 mr-4 flex-shrink-0">
             {/* Placeholder for the profile image */}
@@ -62,11 +112,13 @@ const MyForumCard = ({ post, handleViewPost }) => {
               className="w-full h-full object-cover rounded-full"
             />
           </div>
-          <div>
-            <h2 className="font-semibold text-secondary">{post?.user?.name}</h2>
+          <div className="w-full">
+            <h2 className="font-semibold text-secondary text-wrap">
+              {post?.user?.name}
+            </h2>
             {isEdit ? (
               <Input.TextArea
-                className=" lg:w-[60vw]"
+                className=" lg:w-full md:w-full sm:w-full "
                 defaultValue={post?.post}
                 rows={4}
                 value={editContent}
@@ -78,74 +130,18 @@ const MyForumCard = ({ post, handleViewPost }) => {
             )}
           </div>
         </div>
-        {/* {post?.audioPost && (
-          <div className="w-full mt-3 px-3">
-            <AudioPlayer
-              className="w-full bg-primary custom-audio-player"
-              src={imageUrl + post?.audioPost}
-              onPlay={(e) => console.log("onPlay")}
-            />
-          </div>
-        )} */}
       </div>
 
-      <div className="flex flex-col gap-2">
-        {isEdit ? (
-          <>
-            <Button
-              type="default"
-              onClick={() => {
-                handleEdit(post?._id);
-                setIsEdit(false);
-              }}
-              size="small"
-            >
-              Save
-            </Button>
-            <Button
-              size="small"
-              type="default"
-              danger
-              onClick={() => {
-                setIsEdit(false);
-              }}
-            >
-              Cancel
-            </Button>
-          </>
-        ) : (
-          <>
-            <Button
-              size="small"
-              type="default"
-              onClick={() => {
-                handleViewPost && handleViewPost(post);
-              }}
-            >
-              View
-            </Button>
-            <Button
-              size="small"
-              type="default"
-              onClick={() => {
-                setIsEdit(true);
-              }}
-            >
-              Edit
-            </Button>
-            <Button
-              size="small"
-              type="primary"
-              style={{ backgroundColor: "#FF0048" }}
-              danger
-              onClick={() => {
-                handleDeleted(post?._id);
-              }}
-            >
-              Delete
-            </Button>
-          </>
-        )}
+      <div className="flex flex-col gap-2  px-3">
+        <Dropdown overlay={menu} trigger={["click"]}>
+          <Button
+            size="small"
+            type="default"
+            style={{ backgroundColor: "#FF0048", color: "white" }}
+          >
+            Actions
+          </Button>
+        </Dropdown>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import logo from "../../assets/logo.png";
 const Footer = () => {
   return (
     <div>
-      <footer className="px-4 divide-y bg-[#000000] text-decriptioncolor relative z-50">
+      <footer className="px-4 divide-y bg-[#000000] text-decriptioncolor relative z-40">
         <div className="container mx-auto">
           <div className="flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
             {/* left side menu */}

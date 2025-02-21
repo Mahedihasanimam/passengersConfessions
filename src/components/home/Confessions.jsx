@@ -1,15 +1,23 @@
 import "tailwindcss/tailwind.css";
 
 import { Button } from "antd";
-import React from "react";
 import { Link } from "react-router-dom";
-import { useGetAllConfessionsQuery } from "../../../redux/apiSlices/confessionApiSlice";
 import confession from "../../assets/confession.webp";
+import { imageUrl } from "../../../redux/api/baseApi";
+// import { isSubscriber } from "../util/utils";
+import { useGetAllConfessionsQuery } from "../../../redux/apiSlices/confessionApiSlice";
+import { useSelector } from "react-redux";
 
 const Confessions = () => {
-  const { data: confessionData } = useGetAllConfessionsQuery({});
+  const { data: confessionData } = useGetAllConfessionsQuery({
+    status: "approved",
+  });
+
+  const user = useSelector((state) => state?.user?.user);
 
   // console.log("confessionData ===============", confessionData);
+
+  // console.log(isSubscriber({ user }));
 
   return (
     <div className="container mx-auto px-4 pb-[80px]">
@@ -25,18 +33,38 @@ const Confessions = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {confessionData?.data?.result?.slice(0, 8)?.map((book) => (
+        {confessionData?.data?.result?.slice(0, 8)?.map((Confession) => (
           <Link
-            to={`/confessionDetails/${book?._id}`}
-            key={book.id}
-            className="border rounded-lg p-4 shadow-md hover:shadow-lg bg-[#C7C7C740] "
+            to={`/confessionDetails/${Confession?._id}`}
+            key={Confession.id}
+            className="border rounded-lg p-4 shadow-md hover:shadow-lg  "
           >
             <div className="relative">
-              <img
-                src={confession}
-                alt={book.title}
-                className="w-full h-56 object-cover rounded-md mb-4"
-              />
+              {Confession?.confessionAudioUrl &&
+              !Confession?.confessionVideoUrl ? (
+                <img
+                  src={confession}
+                  alt={Confession.title}
+                  className="w-full h-56 object-cover rounded-md mb-4"
+                />
+              ) : (
+                <>
+                  {
+                    <div className="flex mb-4 ">
+                      <img
+                        src={confession}
+                        alt={Confession.title}
+                        className="w-[50%] h-56 object-cover rounded-l-md "
+                      />
+                      <video
+                        src={imageUrl + Confession?.confessionVideoUrl}
+                        className="w-[50%] h-56 object-cover rounded-r-md "
+                      />
+                    </div>
+                  }
+                </>
+              )}
+
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-md">
                 {/* <button className="text-white text-4xl" aria-label="Play Video">
                   <svg
@@ -56,29 +84,31 @@ const Confessions = () => {
               </div>
             </div>
             <h2 className="text-[20px] font-semibold text-secondary max-w-[250px]">
-              {book.title}
+              {Confession.title}
             </h2>
-            <p className="text-tertiary">{book.author}</p>
+            <p className="text-tertiary">{Confession.author}</p>
           </Link>
         ))}
       </div>
-      <div className="w-1/2 mx-auto mt-20 ">
-        <Link className="w-full  mx-auto" to="/Confession">
-          <Button
-            type="primary"
-            style={{
-              backgroundColor: "#FF0048",
-              color: "white",
-              height: "35px",
-              fontSize: "16px",
-              fontWeight: "bold",
-            }}
-            className="w-full border-none text-white px-6 py-2 rounded-lg"
-          >
-            Browse more
-          </Button>
-        </Link>
-      </div>
+      {confessionData?.data?.count !== 0 && (
+        <div className="w-1/2 mx-auto mt-20 ">
+          <Link className="w-full  mx-auto" to="/Confession">
+            <Button
+              type="primary"
+              style={{
+                backgroundColor: "#FF0048",
+                color: "white",
+                height: "35px",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+              className="w-full border-none text-white px-6 py-2 rounded-lg"
+            >
+              Browse more
+            </Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
