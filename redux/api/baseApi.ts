@@ -74,6 +74,7 @@ export const api = createApi({
     "forum",
     "comment",
     "subscription",
+    "about",
   ],
 });
 

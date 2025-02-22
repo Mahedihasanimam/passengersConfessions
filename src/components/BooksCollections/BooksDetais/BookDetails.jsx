@@ -2,18 +2,18 @@ import "tailwindcss/tailwind.css"; // Ensure Tailwind CSS is imported
 
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useAddNewBookReviewMutation,
   useGetReviewByBookIdQuery,
 } from "../../../../redux/apiSlices/reviewRatingApiSlice";
-import { useNavigate, useParams } from "react-router-dom";
 
-import GLoading from "../../GLoading";
 import { LeftOutlined } from "@ant-design/icons";
-import { SubscriptionModal } from "../../common/SubsciptionModal";
+import { useSelector } from "react-redux";
 import { imageUrl } from "../../../../redux/api/baseApi";
 import { useGetBookByIdQuery } from "../../../../redux/apiSlices/bookApiSlice";
-import { useSelector } from "react-redux";
+import { SubscriptionModal } from "../../common/SubsciptionModal";
+import GLoading from "../../GLoading";
 
 const BookDetails = () => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const BookDetails = () => {
 
   const user = useSelector((state) => state.user.user);
 
-  // console.log(user);
+  console.log(user);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -1,7 +1,7 @@
 import { Image } from "antd";
 import React from "react";
-import { useGetAllNotificationsByUserQuery } from "../../../../redux/apiSlices/notificaitonApiSlice";
 import { useSelector } from "react-redux";
+import { useGetAllNotificationsByUserQuery } from "../../../../redux/apiSlices/notificaitonApiSlice";
 
 const Notifications = () => {
   const user = useSelector((state) => state.user.user);
@@ -11,9 +11,9 @@ const Notifications = () => {
     isFetching,
   } = useGetAllNotificationsByUserQuery(user?._id);
 
-  console.log(user?._id);
+  // console.log(user?._id);
 
-  console.log(notifications);
+  // console.log(notifications);
   return (
     <div className="min-h-screen text-secondary  p-4 z-50">
       <div className="modal-content w-full ">

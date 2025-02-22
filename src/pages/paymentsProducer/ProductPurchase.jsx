@@ -1,20 +1,22 @@
-import { Button, Card, Input, Tag, Typography, message } from "antd";
 import {
   CardElement,
   Elements,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { Button, Card, Input, Tag, Typography, message } from "antd";
 import React, { useState } from "react";
 import {
   useConfirmPaymentMutation,
   useCreatePaymentIntentMutation,
+  useLazyGetAffiliateByCodeQuery,
 } from "../../../redux/apiSlices/paymentApisSlice";
 
-import PaySuccessModal from "../../components/util/paySuccessModal";
-import { imageUrl } from "../../../redux/api/baseApi";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
+import { imageUrl } from "../../../redux/api/baseApi";
+import PaySuccessModal from "../../components/util/paySuccessModal";
 
 // Load your Stripe public key
 const stripePromise = loadStripe(import.meta.env.VITE_ADMIN_STRIPE_KEY);
@@ -24,11 +26,13 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
   const elements = useElements();
   const [cardholderName, setCardholderName] = useState("");
   const [email, setEmail] = useState("");
+  const [referCode, setReferCode] = useState("");
 
   const [loading, setLoading] = useState(false);
 
   const [createPaymentIntent] = useCreatePaymentIntentMutation();
   const [confirmPayment] = useConfirmPaymentMutation();
+  const [checkAffiliateCode] = useLazyGetAffiliateByCodeQuery();
 
   //   console.log(import.meta.env.VITE_ADMIN_STRIPE_KEY);
 
@@ -45,9 +49,10 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
 
       // Step 1: Call your backend to create a PaymentIntent
       const res = await createPaymentIntent({
-        bookId: data?._id,
+        subscriptionPlan: "premium",
         paymentMethodId: "pm_card_visa", // Use actual card method ID
         amount: data?.price,
+        bookId: data?._id,
       }).unwrap();
 
       //   console.log(res);
@@ -73,14 +78,55 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
       );
 
       if (paymentIntent?.id) {
-        const confirmData = await confirmPayment({
-          paymentIntentId: paymentIntent.id,
-          bookId: data?._id,
-          price: data?.price,
-        }).unwrap();
-        if (confirmData?.success) {
-          onPaymentSuccess();
+        const { value: referralCode } = await Swal.fire({
+          title: "Enter Referral Code",
+          input: "text", // Type of input (text, email, number, etc.)
+          inputPlaceholder: "Enter your referral code here...",
+          showCancelButton: true,
+          confirmButtonText: "Submit",
+          cancelButtonText: "Continue without referral",
+          confirmButtonColor: "#17a2b8",
+          cancelButtonColor: "#FF0048",
+          inputValidator: async (value) => {
+            setReferCode(value);
+            if (!value) {
+              return "Please enter a referral code!";
+            }
+            if (value) {
+              const affiliateRes = await checkAffiliateCode(value);
+              if (affiliateRes?.error?.data?.message) {
+                return affiliateRes?.error?.data?.message;
+              }
+            }
+          },
+        });
+
+        if (referralCode) {
+          // Process the referral code
+          const res = await confirmPayment({
+            paymentIntentId: paymentIntent.id,
+            subscriptionPlan: "premium",
+            affiliateCode: referralCode,
+            price: data?.price,
+            bookId: data?._id,
+          }).unwrap();
           setLoading(false);
+          if (res?.success) {
+            onPaymentSuccess();
+            setLoading(false);
+          }
+        } else {
+          const confirmData = await confirmPayment({
+            paymentIntentId: paymentIntent.id,
+            subscriptionPlan: "premium",
+            affiliateCode: referralCode,
+            bookId: data?._id,
+            price: data?.price,
+          }).unwrap();
+          if (confirmData?.success) {
+            onPaymentSuccess();
+            setLoading(false);
+          }
         }
       }
 
@@ -99,9 +145,22 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
     }
   };
   //   console.log(data);
-
+  const isYearly = data?.duration === 365;
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* <Card className="rounded-lg shadow-lg border ">
+        <h2 className="text-xl font-semibold text-gray-800 ">
+          Plan: <span className="capitalize">{data?.name}</span>
+        </h2>
+        <p className="text-lg text-gray-700">
+          <span className="font-semibold text-gray-700">Price: </span>
+          <span className="text-gray-800 font-medium">{data?.price}</span>
+        </p>
+        <p className="text-lg text-gray-700">
+          <span className="font-semibold text-gray-700">Duration: </span>
+          <span>{isYearly ? "Yearly" : "Monthly"}</span>
+        </p>
+      </Card> */}
       <div className="space-y-4">
         <Input
           placeholder="Cardholder Name"
@@ -155,7 +214,7 @@ const ProductPurchase = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(state);
+  // console.log(state);
 
   const handlePaymentSuccess = () => {
     setIsModalOpen(true);
