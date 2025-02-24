@@ -36,7 +36,7 @@ const BookDetails = () => {
 
   const user = useSelector((state) => state.user.user);
 
-  console.log(user);
+  // console.log(user);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

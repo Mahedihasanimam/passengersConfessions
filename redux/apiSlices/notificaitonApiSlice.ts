@@ -20,9 +20,8 @@ const notificationApi = api.injectEndpoints({
     }),
     getAllNotificationsByUser: builder.query({
       query: (userId) => ({
-        url: `/users/notifications-by-user`,
+        url: `/notification/notifications-by-user/${userId}`,
         method: "GET",
-        body: { userId },
       }),
       providesTags: ["notification"],
     }),
