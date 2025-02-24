@@ -1,6 +1,7 @@
 import { Image } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
+import { imageUrl } from "../../../../redux/api/baseApi";
 import { useGetAllNotificationsByUserQuery } from "../../../../redux/apiSlices/notificaitonApiSlice";
 
 const Notifications = () => {
@@ -51,7 +52,7 @@ const Notifications = () => {
                   className="rounded-full"
                   height={40}
                   width={40}
-                  src={notification?.image}
+                  src={imageUrl + notification?.admin?.image}
                   alt="User avatar"
                 />
                 <div className="flex items-center justify-between w-full">
