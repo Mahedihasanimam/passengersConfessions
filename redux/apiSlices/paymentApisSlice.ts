@@ -37,6 +37,7 @@ const paymentApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["payment", "user"],
     }),
   }),
 });

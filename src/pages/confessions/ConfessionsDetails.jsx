@@ -87,20 +87,23 @@ const ConfessionsDetails = () => {
               {Confession?.data?.title}
             </h1>
           </div>
-          {Confession?.data?.confessionVideoUrl && (
-            <div className="flex items-center mb-3">
-              <span className="mr-2 font-semibold">Audio</span>
-              <Switch
-                checkedChildren="Audio"
-                unCheckedChildren="Video"
-                autoFocus
-                style={{ backgroundColor: isVideoMode ? "#FF0048" : undefined }}
-                checked={isVideoMode}
-                onChange={() => setIsVideoMode(!isVideoMode)}
-              />
-              <span className="ml-2 font-semibold">Video</span>
-            </div>
-          )}
+          {Confession?.data?.confessionVideoUrl &&
+            user?.isPremiumSubscribed && (
+              <div className="flex items-center mb-3">
+                <span className="mr-2 font-semibold">Audio</span>
+                <Switch
+                  checkedChildren="Audio"
+                  unCheckedChildren="Video"
+                  autoFocus
+                  style={{
+                    backgroundColor: isVideoMode ? "#FF0048" : undefined,
+                  }}
+                  checked={isVideoMode}
+                  onChange={() => setIsVideoMode(!isVideoMode)}
+                />
+                <span className="ml-2 font-semibold">Video</span>
+              </div>
+            )}
 
           <div className="lg:flex flex-row items-center justify-between gap-4">
             <div className=" h-[40vh]">

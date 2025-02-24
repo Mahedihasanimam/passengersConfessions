@@ -48,6 +48,18 @@ const subscriptionApi = api.injectEndpoints({
       }),
       providesTags: ["subscription"],
     }),
+    getSubscriptionTimeLeft: builder.query({
+      query: (id) => ({
+        url: `/subscription/get-subscription-time-left-of-a-user`,
+      }),
+      providesTags: ["subscription"],
+    }),
+    getAllUserSubscriptionTimeLeft: builder.query({
+      query: (id) => ({
+        url: `/subscription/get-subscription-time-left-of-all-users`,
+      }),
+      providesTags: ["subscription"],
+    }),
     createSubscription: builder.mutation({
       query: (data) => ({
         url: `/subscription/create-subscription`,
@@ -68,4 +80,6 @@ export const {
   useUpdateSubscriptionMutation,
   useGetAllSubscriptionsPlansQuery,
   useDeleteSubscriptionPlanMutation,
+  useGetAllUserSubscriptionTimeLeftQuery,
+  useGetSubscriptionTimeLeftQuery,
 } = subscriptionApi;
