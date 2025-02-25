@@ -128,6 +128,18 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
+                to="/allBooksCollections"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+              >
+                Books
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/Confession"
                 className={({ isActive }) =>
                   isActive
@@ -160,6 +172,18 @@ const Navbar = () => {
                 }
               >
                 Forum
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/affiliate-program"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+              >
+                Affiliate Program
               </NavLink>
             </li>
             {/* Add more links as needed */}

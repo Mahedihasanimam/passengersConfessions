@@ -1,24 +1,46 @@
 import { Button, Form, Input, Modal, message } from "antd";
 import { useEffect, useState } from "react";
+import {
+  useAddForumMutation,
+  useUpdateForumMutation,
+} from "../../../redux/apiSlices/forumsApiSlices";
 
 import { useDropzone } from "react-dropzone";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useAddForumMutation } from "../../../redux/apiSlices/forumsApiSlices";
+import { imageUrl } from "../../../redux/api/baseApi";
 
-export const AddForumModal = ({ visible, onCancel }) => {
-  const navigate = useNavigate();
+export const AddForumModal = ({ visible, onCancel, existingPost = null }) => {
   const [form] = Form.useForm();
-  const [file, setFile] = useState(null); // Only one file is allowed
+  const [file, setFile] = useState(null); // Audio file
+  const [videoFile, setVideoFile] = useState(null); // Video file
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0); // Progress tracking
   const [duration, setDuration] = useState(null); // For storing audio duration
-  const maxFileSize = 5 * 1024 * 1024; // 5 MB size limit
-
+  const [videoDuration, setVideoDuration] = useState(null); // For storing video duration
+  const maxFileSize = 100 * 1024 * 1024; // 100 MB size limit for both
   const maxFiles = 1; // Restrict to one file upload
 
-  // Handle file drop
-  const onDrop = (acceptedFiles) => {
+  const [addNewForums] = useAddForumMutation();
+  const [updateForum] = useUpdateForumMutation();
+
+  // console.log(existingPost);
+
+  // Prepopulate form when editing an existing post
+  useEffect(() => {
+    if (existingPost) {
+      form.setFieldsValue({
+        post: existingPost.post, // Prepopulate the form with existing post content
+      });
+      // Set existing audio and video files from the server
+      if (existingPost.audioPost) {
+        setFile(imageUrl + existingPost.audioPost);
+      }
+      if (existingPost.videoPost) {
+        setVideoFile(imageUrl + existingPost.videoPost);
+      }
+    }
+  }, [existingPost, form]);
+
+  // Handle file drop for audio
+  const onDropAudio = (acceptedFiles) => {
     if (acceptedFiles.length > maxFiles) {
       message.error(`You can only upload up to ${maxFiles} audio file.`);
       return;
@@ -26,7 +48,7 @@ export const AddForumModal = ({ visible, onCancel }) => {
 
     const newFile = acceptedFiles[0];
     if (newFile.size > maxFileSize) {
-      message.error("File size must be less than 5 MB.");
+      message.error("File size must be less than 100 MB.");
       return;
     }
 
@@ -39,67 +61,104 @@ export const AddForumModal = ({ visible, onCancel }) => {
     };
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: "audio/wav", // Restrict to .wav files
-    maxFiles,
-  });
-
-  const [addNewForums] = useAddForumMutation();
-  const user = useSelector((state) => state.user.user);
-  // Handle form submission
-  const handleFormSubmit = async (values) => {
-    setUploading(true);
-    if (!file) {
-      message.error("Please select an audio file to upload.");
+  // Handle file drop for video
+  const onDropVideo = (acceptedFiles) => {
+    if (acceptedFiles.length > maxFiles) {
+      message.error(`You can only upload up to ${maxFiles} video file.`);
       return;
     }
 
-    const formData = new FormData();
+    const newFile = acceptedFiles[0];
+    if (newFile.size > maxFileSize) {
+      message.error("File size must be less than 100 MB.");
+      return;
+    }
 
+    setVideoFile(
+      Object.assign(newFile, { preview: URL.createObjectURL(newFile) })
+    );
+
+    // Extract and set video duration
+    const video = document.createElement("video");
+    video.src = URL.createObjectURL(newFile);
+    video.onloadedmetadata = () => {
+      setVideoDuration(video.duration.toFixed(2)); // Duration in seconds
+    };
+  };
+
+  const { getRootProps: getRootPropsAudio, getInputProps: getInputPropsAudio } =
+    useDropzone({
+      onDrop: onDropAudio,
+      accept: "audio/wav", // Restrict to .wav files
+      maxFiles,
+    });
+
+  const { getRootProps: getRootPropsVideo, getInputProps: getInputPropsVideo } =
+    useDropzone({
+      onDrop: onDropVideo,
+      accept: "video/mp4", // Restrict to .mp4, .webm, .ogg files
+      maxFiles,
+    });
+
+  // Handle form submission
+  const handleFormSubmit = async (values) => {
+    setUploading(true);
+
+    const formData = new FormData();
     formData.append("post", values.post);
-    formData.append("audioFile", file);
+    if (file) formData.append("audioFile", file);
+    if (videoFile) formData.append("videoFile", videoFile);
 
     try {
-      const response = await addNewForums(formData).unwrap();
-      // console.log("Confession added:", response);
-      if (response.success) {
-        message.success("Confession added successfully!");
-        setUploading(false);
-        form.resetFields();
-        setFile(null);
-        onCancel && onCancel();
+      if (existingPost) {
+        // If editing an existing post, update it
+        const response = await updateForum({
+          id: existingPost._id,
+          data: formData,
+        }).unwrap();
+        if (response.success) {
+          message.success("Post updated successfully!");
+        }
+      } else {
+        // If adding a new post
+        const response = await addNewForums(formData).unwrap();
+        if (response.success) {
+          message.success("Post added successfully!");
+        }
       }
+      setUploading(false);
+      form.resetFields();
+      setFile(null);
+      setVideoFile(null);
+      onCancel && onCancel();
     } catch (error) {
       setUploading(false);
       message.error(error.data.message);
-      console.error("Error adding confession:", error);
+
+      console.error("Error submitting post:", error);
     }
   };
 
-  useEffect(() => {
-    return () => {
-      // Revoke preview URLs to avoid memory leaks
-      if (file) {
-        URL.revokeObjectURL(file.preview);
-      }
-    };
-  }, [file]);
+  const handleCancel = () => {
+    form.resetFields();
+    setFile(null);
+    setVideoFile(null);
+    onCancel && onCancel();
+  };
 
   return (
     <Modal
       open={visible}
-      onCancel={onCancel}
+      onCancel={handleCancel}
       centered
       footer={null}
-      className="lg:!w-[50vw] sm:!w=full "
-      // width={800}
+      className="lg:!w-[50vw] sm:!w=full"
     >
       <div className="container mx-auto text-secondary">
         <div className="flex items-center justify-between py-6 ">
           <div>
             <h2 className="text-[24px] flex space-x-2 items-center font-bold">
-              Add Post
+              {existingPost ? "Edit Post" : "Add Post"}
             </h2>
           </div>
         </div>
@@ -132,19 +191,9 @@ export const AddForumModal = ({ visible, onCancel }) => {
               />
             </Form.Item>
 
-            <Form.Item
-              label="Upload Audio"
-              rules={[
-                {
-                  validator: () =>
-                    file
-                      ? Promise.resolve()
-                      : Promise.reject("File is required."),
-                },
-              ]}
-            >
+            <Form.Item label="Upload Audio">
               <div
-                {...getRootProps()}
+                {...getRootPropsAudio()}
                 style={{
                   border: "2px dashed #7C7C7C",
                   borderRadius: "20px",
@@ -153,35 +202,61 @@ export const AddForumModal = ({ visible, onCancel }) => {
                   cursor: "pointer",
                 }}
               >
-                <input {...getInputProps()} />
+                <input {...getInputPropsAudio()} />
                 <p className="text-center text-[16px] font-medium text-secondary">
-                  Drop your .wav file here, or{" "}
+                  Drop your audio file here, or{" "}
                   <span className="text-primary">browse</span>
                 </p>
               </div>
+              {(existingPost?.audioPost || file) && (
+                <div className="p-6 border text-secondary rounded-lg">
+                  <audio
+                    controls
+                    src={
+                      existingPost?.audioPost
+                        ? imageUrl + existingPost?.audioPost
+                        : file?.preview
+                    }
+                    className="w-full"
+                  >
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+              )}
+            </Form.Item>
 
-              <div className="p-6 border text-secondary rounded-lg">
-                {file && (
-                  <div>
-                    <ul className="text-secondary mb-4">
-                      <li>
-                        <strong>File Name:</strong> {file.name}
-                      </li>
-                      <li>
-                        <strong>File Size:</strong>{" "}
-                        {(file.size / 1024 / 1024).toFixed(2)} MB
-                      </li>
-                      <li>
-                        <strong>Duration:</strong>{" "}
-                        {duration ? `${duration} seconds` : "Loading..."}
-                      </li>
-                    </ul>
-                    <audio controls src={file.preview} className="w-full">
-                      Your browser does not support the audio element.
-                    </audio>
-                  </div>
-                )}
+            <Form.Item label="Upload Video">
+              <div
+                {...getRootPropsVideo()}
+                style={{
+                  border: "2px dashed #7C7C7C",
+                  borderRadius: "20px",
+                  padding: "20px",
+                  marginBottom: "10px",
+                  cursor: "pointer",
+                }}
+              >
+                <input {...getInputPropsVideo()} />
+                <p className="text-center text-[16px] font-medium text-secondary">
+                  Drop your video file here, or{" "}
+                  <span className="text-primary">browse</span>
+                </p>
               </div>
+              {(existingPost?.videoPost || videoFile) && (
+                <div className="p-6 border text-secondary rounded-lg">
+                  <video
+                    controls
+                    src={
+                      existingPost?.videoPost
+                        ? imageUrl + existingPost?.videoPost
+                        : videoFile?.preview
+                    }
+                    className="w-full"
+                  >
+                    Your browser does not support the video element.
+                  </video>
+                </div>
+              )}
             </Form.Item>
 
             <div className="py-4 flex justify-center">
@@ -196,9 +271,13 @@ export const AddForumModal = ({ visible, onCancel }) => {
                   fontSize: "16px",
                   fontWeight: "bold",
                 }}
-                disabled={uploading || !file}
+                disabled={uploading}
               >
-                {uploading ? "Uploading..." : "Submit"}
+                {uploading
+                  ? "Uploading..."
+                  : existingPost
+                  ? "Update"
+                  : "Submit"}
               </Button>
             </div>
           </Form>

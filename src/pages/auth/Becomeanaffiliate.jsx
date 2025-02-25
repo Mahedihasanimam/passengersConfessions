@@ -173,13 +173,13 @@ const Becomeanaffiliate = () => {
                 Terms & conditions
               </Link>{" "}
               &{" "}
-              <Link
+              {/* <Link
                 to={"/termsAndConditions"}
                 className="text-[16px] font-semibold text-primary hover:text-primary pt-1 w-fit "
               >
                 {" "}
                 Privacy policy
-              </Link>{" "}
+              </Link>{" "} */}
               <Link
                 to="/auth/login"
                 className="text-[16px] font-semibold text-primary hover:text-primary pt-1 w-fit "

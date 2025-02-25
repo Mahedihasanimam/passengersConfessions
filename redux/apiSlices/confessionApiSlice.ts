@@ -3,8 +3,8 @@ import { api } from "../api/baseApi";
 const confessionsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllConfessions: builder.query({
-      query: ({ limit, page }) => ({
-        url: `/confessions/get-all-confessions?limit=${limit}&page=${page}`,
+      query: ({ limit, page, status }) => ({
+        url: `/confessions/get-all-confessions?limit=${limit}&page=${page}&status=${status}`,
       }),
       providesTags: ["confession"],
     }),

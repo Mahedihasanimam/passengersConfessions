@@ -84,3 +84,76 @@ body {
 .custom-audio-player .rhap_progress-container:hover .rhap_progress-indicator {
   background-color: #e6003d !important; /* Darker red indicator on hover */
 }
+
+
+/* scrollbar  */
+/* Customize scrollbar for Webkit-based browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+  height: 8px; /* Height of horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #FF0048; /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners for thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #e6003a; /* Darker color when hovering over the thumb */
+}
+
+/* For Firefox */
+scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+scrollbar-thumb {
+  background-color: #FF0048;
+  border-radius: 10px;
+}
+
+scrollbar-thumb:hover {
+  background-color: #e6003a;
+}
+
+
+/* For IE */
+::-ms-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-ms-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-ms-scrollbar-thumb {
+  background-color: #FF0048;
+  border-radius: 10px;
+}
+
+::-ms-scrollbar-thumb:hover {
+  background-color: #e6003a;
+}
+
+
+/* smooth scroll  */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth scroll between elements */
+html {
+  scroll-snap-type: y mandatory;
+}
+

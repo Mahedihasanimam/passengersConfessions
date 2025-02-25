@@ -32,7 +32,7 @@ const ForumPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 border border-[#E7E7E7] rounded-lg mb-[80px]">
+    <div className="container mx-auto p-6 border border-[#E7E7E7] rounded-lg mb-[80px] min-h-[58vh]">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold mb-2">People Forum</h1>

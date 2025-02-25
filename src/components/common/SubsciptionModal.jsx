@@ -2,12 +2,13 @@ import { Button, Modal } from "antd";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useGetAllSubscriptionsQuery } from "../../../redux/apiSlices/subscription";
+import { useGetAllSubscriptionsPlansQuery } from "../../../redux/apiSlices/subscription";
 
 export const SubscriptionModal = ({ visible, onCancel }) => {
   const navigate = useNavigate();
 
-  const { data: subscriptions } = useGetAllSubscriptionsQuery({});
+  const { data: subscriptions } = useGetAllSubscriptionsPlansQuery({});
+
   const user = useSelector((state) => state?.user?.user);
 
   // console.log(subscriptions);
@@ -22,7 +23,7 @@ export const SubscriptionModal = ({ visible, onCancel }) => {
       onCancel={onCancel}
       centered
       footer={null}
-      className="lg:!w-[50vw] sm:!w=full "
+      className=" "
       // width={800}
     >
       <div className=" rounded-lg lg:!p-6 p-0 h-full w-full ">

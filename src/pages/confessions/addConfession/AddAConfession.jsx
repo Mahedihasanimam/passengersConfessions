@@ -1,11 +1,11 @@
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 
-import { MdOutlineChevronLeft } from "react-icons/md";
-import { useAddConfessionMutation } from "../../../../redux/apiSlices/confessionApiSlice";
 import { useDropzone } from "react-dropzone";
-import { useNavigate } from "react-router-dom";
+import { MdOutlineChevronLeft } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useAddConfessionMutation } from "../../../../redux/apiSlices/confessionApiSlice";
 
 const AddAConfession = () => {
   const navigate = useNavigate();
@@ -176,19 +176,6 @@ const AddAConfession = () => {
             <div className="p-6 border text-secondary rounded-lg">
               {file && (
                 <div>
-                  <ul className="text-secondary mb-4">
-                    <li>
-                      <strong>File Name:</strong> {file.name}
-                    </li>
-                    <li>
-                      <strong>File Size:</strong>{" "}
-                      {(file.size / 1024 / 1024).toFixed(2)} MB
-                    </li>
-                    <li>
-                      <strong>Duration:</strong>{" "}
-                      {duration ? `${duration} seconds` : "Loading..."}
-                    </li>
-                  </ul>
                   <audio controls src={file.preview} className="w-full">
                     Your browser does not support the audio element.
                   </audio>

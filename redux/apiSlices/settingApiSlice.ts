@@ -17,6 +17,21 @@ const paymentApi = api.injectEndpoints({
       }),
       invalidatesTags: ["terms"],
     }),
+    //===================  About us nad conditions ================
+    getAboutUs: builder.query({
+      query: (data) => ({
+        url: `/about-us/get-about-us`,
+      }),
+      providesTags: ["about"],
+    }),
+    createAboutUs: builder.mutation({
+      query: (data) => ({
+        url: `/about-us/add-about-us`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["about"],
+    }),
     //====================== faq apis =========================
     getAllFAQs: builder.query({
       query: () => ({
@@ -57,4 +72,6 @@ export const {
   useGetAllFAQsQuery,
   useGetTermsAndConditionQuery,
   useUpdateFAQMutation,
+  useGetAboutUsQuery,
+  useCreateAboutUsMutation,
 } = paymentApi;

@@ -1,4 +1,5 @@
 import { CloseOutlined, LeftOutlined, MenuOutlined } from "@ant-design/icons";
+import { BiBell } from "react-icons/bi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import React from "react";
@@ -20,7 +21,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </button>
 
       <div
-        className={`fixed top-0 md:top-20 h-[85vh] w-64 bg-[#F6F6F6] p-4 rounded-[16px] z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 md:top-20 h-full md:h-[85vh] w-64 bg-[#F6F6F6] p-4 rounded-[16px] z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:block`}
       >
@@ -206,6 +207,25 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     )}
                   </span>
                   Forums List
+                </>
+              )}
+            </NavLink>
+          </li>
+          <li className="mb-4">
+            <NavLink
+              to="/profile/notifications"
+              className={({ isActive }) =>
+                isActive
+                  ? "flex items-center text-[#FF6691] font-bold bg-white shadow-xl px-4 py-1 rounded-[20px] transition-all ease-out duration-300"
+                  : "flex items-center text-[#B0B0B0] font-bold"
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <span className="mr-2">
+                    <BiBell />
+                  </span>
+                  Notifications
                 </>
               )}
             </NavLink>
