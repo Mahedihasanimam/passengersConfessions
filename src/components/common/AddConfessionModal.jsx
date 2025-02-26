@@ -1,13 +1,13 @@
 import { Button, Form, Input, Modal, message } from "antd";
-import { useEffect, useState } from "react";
 import {
   useAddConfessionMutation,
   useUpdateConfessionMutation,
 } from "../../../redux/apiSlices/confessionApiSlice";
+import { useEffect, useState } from "react";
 
+import { imageUrl } from "../../../redux/api/baseApi";
 import { useDropzone } from "react-dropzone";
 import { useSelector } from "react-redux";
-import { imageUrl } from "../../../redux/api/baseApi";
 
 export const AddConfessionModal = ({
   visible,
@@ -133,7 +133,9 @@ export const AddConfessionModal = ({
         // If adding a new confession
         const response = await addConfession(formData).unwrap();
         if (response.success) {
-          message.success("Confession added successfully!");
+          message.success(
+            "Confession added successfully!, Please wait for admin approval"
+          );
         }
       }
       setUploading(false);
@@ -255,7 +257,7 @@ export const AddConfessionModal = ({
               )}
             </Form.Item>
 
-            <Form.Item label="Upload Video">
+            <Form.Item label="Upload Video (optional)">
               <div
                 {...getRootPropsVideo()}
                 style={{

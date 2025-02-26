@@ -3,12 +3,15 @@ import "antd/dist/reset.css";
 import { Button, Card, Col, Row, Statistic, Table, message } from "antd";
 
 import React from "react";
-import { useSelector } from "react-redux";
-import { useGetAllTransactionsByIdQuery } from "../../../redux/apiSlices/paymentApisSlice";
 import { useConnectToStripMutation } from "../../../redux/apiSlices/userApis";
+import { useGetAllTransactionsByIdQuery } from "../../../redux/apiSlices/paymentApisSlice";
+import { useSelector } from "react-redux";
 
 const Myaffiliatelist = () => {
   const user = useSelector((state) => state?.user?.user);
+
+  // console.log(user);
+
   const { data: affiliateTransactions } = useGetAllTransactionsByIdQuery(
     user?.affiliate?._id
   );
@@ -91,7 +94,14 @@ const Myaffiliatelist = () => {
               <Card title="Affiliate Earnings" bordered={true}>
                 <Statistic
                   title="Total Earnings"
-                  value={user?.balance}
+                  // value={user?.balance}
+                  value={
+                    affiliateTransactions?.data?.reduce(
+                      (total, transaction) =>
+                        total + transaction?.subscription?.affiliateComission,
+                      0
+                    ) / 100
+                  }
                   precision={2}
                   prefix="$"
                   valueStyle={{ color: "#3f8600" }}

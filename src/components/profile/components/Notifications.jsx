@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 
 import { Image } from "antd";
-import { useSelector } from "react-redux";
 import { imageUrl } from "../../../../redux/api/baseApi";
 import { useGetAllNotificationsByUserQuery } from "../../../../redux/apiSlices/notificaitonApiSlice";
 import { useGetSubscriptionTimeLeftQuery } from "../../../../redux/apiSlices/subscription";
+import { useSelector } from "react-redux";
 
 const Notifications = () => {
   const user = useSelector((state) => state.user.user);
@@ -34,9 +34,10 @@ const Notifications = () => {
     <div className="min-h-screen text-secondary p-4 z-50">
       <div className="modal-content w-full">
         {/* Display the formatted subscription time in boxes */}
-        <div className="flex space-x-4 mb-4 items-center border border-primary p-4 rounded-lg">
-          <span>Subscription Time Left</span>
-          {/* {timeLeft?.yearsLeft > 0 && (
+        {timeLeft?.timeLeft && (
+          <div className="flex space-x-4 mb-4 items-center border border-primary p-4 rounded-lg">
+            <span>Subscription Time Left</span>
+            {/* {timeLeft?.yearsLeft > 0 && (
             <div className="flex items-center justify-center p-4 bg-[#FF0048] text-white rounded-md">
               {Math.floor(timeLeft.yearsLeft)} Year
             </div>
@@ -51,22 +52,24 @@ const Notifications = () => {
               {timeLeft.daysLeft} Days
             </div>
           )} */}
-          {timeLeft?.hoursLeft > 0 && (
-            <div className="flex items-center justify-center p-3 bg-[#FF0048] text-white rounded-md">
-              {timeLeft?.hoursLeft} Hours
-            </div>
-          )}
-          {timeLeft?.timeLeft > 0 && (
-            <div className="flex items-center justify-center p-3 bg-[#FF0048] text-white rounded-md">
-              {new Date(timeLeft?.timeLeft).getMinutes()} Minutes
-            </div>
-          )}
-          {timeLeft?.timeLeft > 0 && (
-            <div className="flex items-center justify-center p-3 bg-[#FF0048] text-white rounded-md">
-              {new Date(timeLeft?.timeLeft).getSeconds()} Second
-            </div>
-          )}
-        </div>
+            {timeLeft?.hoursLeft > 0 && (
+              <div className="flex items-center justify-center p-3 bg-[#FF0048] text-white rounded-md">
+                {timeLeft?.hoursLeft} Hours
+              </div>
+            )}
+            {timeLeft?.timeLeft > 0 && (
+              <div className="flex items-center justify-center p-3 bg-[#FF0048] text-white rounded-md">
+                {new Date(timeLeft?.timeLeft).getMinutes()} Minutes
+              </div>
+            )}
+            {timeLeft?.timeLeft > 0 && (
+              <div className="flex items-center justify-center p-3 bg-[#FF0048] text-white rounded-md">
+                {new Date(timeLeft?.timeLeft).getSeconds()} Second
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="flex items-center justify-between">
           <h2 className="text-xl flex text-secondary space-x-2 items-center font-semibold mb-6 ">
             Notifications
