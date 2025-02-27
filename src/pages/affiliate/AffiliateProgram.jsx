@@ -45,28 +45,36 @@ const AffiliateProgram = () => {
             <h3 className="text-xl font-semibold text-primary">Level 1</h3>
             <p className="mt-2 text-gray-600">
               Earn up to <strong>$240,000</strong> in commissions
-              {/*and unlock exclusive affiliate perks. */}
+            </p>
+            <p className="mt-4 text-gray-500">
+              1 - 250,000 sales — <strong>$1.5</strong> per sale
             </p>
           </div>
           <div className="p-6 bg-white shadow-lg rounded-lg text-center">
             <h3 className="text-xl font-semibold text-primary">Level 2</h3>
             <p className="mt-2 text-gray-600">
               Earn up to <strong>$500,000</strong> in commissions
-              {/*and receive additional rewards. */}
+            </p>
+            <p className="mt-4 text-gray-500">
+              250,000 - 500,000 sales — <strong>$3</strong> per sale
             </p>
           </div>
           <div className="p-6 bg-white shadow-lg rounded-lg text-center">
             <h3 className="text-xl font-semibold text-primary">Level 3</h3>
             <p className="mt-2 text-gray-600">
-              Earn up to <strong>$1,000,000</strong> in commissions
-              {/*and enjoy premium affiliate benefits. */}
+              Earn up to <strong>$1M</strong> in commissions
+            </p>
+            <p className="mt-4 text-gray-500">
+              500,000 - 1M sales — <strong>$5</strong> per sale
             </p>
           </div>
           <div className="p-6 bg-white shadow-lg rounded-lg text-center">
             <h3 className="text-xl font-semibold text-primary">Level 4</h3>
             <p className="mt-2 text-gray-600">
-              Earn over <strong>$2,000,000</strong> in commissions
-              {/*and access VIP affiliate services. */}
+              Earn over <strong>$2M</strong> in commissions
+            </p>
+            <p className="mt-4 text-gray-500">
+              1M - 2M sales — <strong>$7</strong> per sale
             </p>
           </div>
         </div>
