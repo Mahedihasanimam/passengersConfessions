@@ -1,8 +1,23 @@
-import { Button } from "antd";
+import { Button, Modal } from "antd";
+
 import React from "react";
 import { Link } from "react-router-dom"; // If you are using react-router for routing
 
 const AffiliateProgram = () => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Hero Section */}
@@ -41,37 +56,51 @@ const AffiliateProgram = () => {
           Here’s how the levels work:
         </p>
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center">
+          <div
+            onClick={showModal}
+            className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer"
+          >
             <h3 className="text-xl font-semibold text-primary">Level 1</h3>
             <p className="mt-2 text-gray-600">
-              Earn up to <strong>$240,000</strong> in commissions
+              Highest you earn from level 1 to
+              <strong> ${250000 * 1.5}</strong>
             </p>
             <p className="mt-4 text-gray-500">
               1 - 250,000 sales — <strong>$1.5</strong> per sale
             </p>
           </div>
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center">
+          <div
+            onClick={showModal}
+            className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer"
+          >
             <h3 className="text-xl font-semibold text-primary">Level 2</h3>
             <p className="mt-2 text-gray-600">
-              Earn up to <strong>$500,000</strong> in commissions
+              Highest you earn from level 2 to
+              <strong> ${250000 * 3}</strong>
             </p>
             <p className="mt-4 text-gray-500">
-              250,000 - 500,000 sales — <strong>$3</strong> per sale
+              250,000 - 500,000 sales — <strong> $3</strong> per sale
             </p>
           </div>
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center">
+          <div
+            onClick={showModal}
+            className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer"
+          >
             <h3 className="text-xl font-semibold text-primary">Level 3</h3>
             <p className="mt-2 text-gray-600">
-              Earn up to <strong>$1M</strong> in commissions
+              Highest you earn from level 3 to <strong> $2.5M</strong>
             </p>
             <p className="mt-4 text-gray-500">
               500,000 - 1M sales — <strong>$5</strong> per sale
             </p>
           </div>
-          <div className="p-6 bg-white shadow-lg rounded-lg text-center">
+          <div
+            onClick={showModal}
+            className="p-6 bg-white shadow-lg rounded-lg text-center cursor-pointer"
+          >
             <h3 className="text-xl font-semibold text-primary">Level 4</h3>
             <p className="mt-2 text-gray-600">
-              Earn over <strong>$2M</strong> in commissions
+              Highest you earn from level 4 to <strong> $7M</strong>
             </p>
             <p className="mt-4 text-gray-500">
               1M - 2M sales — <strong>$7</strong> per sale
@@ -169,6 +198,145 @@ const AffiliateProgram = () => {
           </Link>
         </div>
       </section>
+
+      <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        centered
+      >
+        <div className="mt-8 flex flex-col gap-8">
+          <div className="px-6 bg-white shadow-lg rounded-lg text-center">
+            <h3 className="text-2xl font-semibold text-primary">Level 1</h3>
+            <p className="mt-2 text-gray-600">
+              Highest you earn from level 1 to
+              <strong> ${250000 * 1.5}</strong>
+            </p>
+            <p className="mt-4 text-gray-500">
+              1 - 250,000 sales — <strong>$1.5</strong> per sale
+            </p>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            width="25"
+            height="25"
+            x="0"
+            y="0"
+            viewBox="0 0 2.54 2.54"
+            xmlSpace="preserve"
+            fillRule="evenodd"
+            className="self-center"
+          >
+            <g>
+              <circle
+                cx="1.27"
+                cy="1.27"
+                r="1.27"
+                fill="#ff4141"
+                opacity="1"
+                data-original="#ff4141"
+              ></circle>
+              <path
+                fill="#ffffff"
+                d="M1.143 1.658V.575c0-.07.058-.127.127-.127.07 0 .127.058.127.127v1.083l.346-.345c.05-.05.13-.05.18 0a.128.128 0 0 1 0 .18l-.127.126a.124.124 0 0 1-.004.004l-.429.428-.003.004a.124.124 0 0 1-.036.025l-.003.001a.128.128 0 0 1-.14-.027H1.18l-.128-.128a.119.119 0 0 1-.003-.003l-.431-.431a.127.127 0 0 1 .18-.18l.128.129a.138.138 0 0 1 .003.003zm.178.423a.124.124 0 0 1-.005.002"
+                opacity="1"
+                data-original="#ffffff"
+              ></path>
+            </g>
+          </svg>
+          <div className="px-6 bg-white shadow-lg rounded-lg text-center">
+            <h3 className="text-2xl font-semibold text-primary">Level 2</h3>
+            <p className="mt-2 text-gray-600">
+              Highest you earn from level 2 to
+              <strong> ${250000 * 3}</strong>
+            </p>
+            <p className="mt-4 text-gray-500">
+              250,000 - 500,000 sales — <strong> $3</strong> per sale
+            </p>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            width="25"
+            height="25"
+            x="0"
+            y="0"
+            viewBox="0 0 2.54 2.54"
+            xmlSpace="preserve"
+            fillRule="evenodd"
+            className="self-center"
+          >
+            <g>
+              <circle
+                cx="1.27"
+                cy="1.27"
+                r="1.27"
+                fill="#ff4141"
+                opacity="1"
+                data-original="#ff4141"
+              ></circle>
+              <path
+                fill="#ffffff"
+                d="M1.143 1.658V.575c0-.07.058-.127.127-.127.07 0 .127.058.127.127v1.083l.346-.345c.05-.05.13-.05.18 0a.128.128 0 0 1 0 .18l-.127.126a.124.124 0 0 1-.004.004l-.429.428-.003.004a.124.124 0 0 1-.036.025l-.003.001a.128.128 0 0 1-.14-.027H1.18l-.128-.128a.119.119 0 0 1-.003-.003l-.431-.431a.127.127 0 0 1 .18-.18l.128.129a.138.138 0 0 1 .003.003zm.178.423a.124.124 0 0 1-.005.002"
+                opacity="1"
+                data-original="#ffffff"
+              ></path>
+            </g>
+          </svg>
+          <div className="px-6 bg-white shadow-lg rounded-lg text-center">
+            <h3 className="text-2xl font-semibold text-primary">Level 3</h3>
+            <p className="mt-2 text-gray-600">
+              Highest you earn from level 3 to <strong> $2.5M</strong>
+            </p>
+            <p className="mt-4 text-gray-500">
+              500,000 - 1M sales — <strong>$5</strong> per sale
+            </p>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            width="25"
+            height="25"
+            x="0"
+            y="0"
+            viewBox="0 0 2.54 2.54"
+            xmlSpace="preserve"
+            fillRule="evenodd"
+            className="self-center"
+          >
+            <g>
+              <circle
+                cx="1.27"
+                cy="1.27"
+                r="1.27"
+                fill="#ff4141"
+                opacity="1"
+                data-original="#ff4141"
+              ></circle>
+              <path
+                fill="#ffffff"
+                d="M1.143 1.658V.575c0-.07.058-.127.127-.127.07 0 .127.058.127.127v1.083l.346-.345c.05-.05.13-.05.18 0a.128.128 0 0 1 0 .18l-.127.126a.124.124 0 0 1-.004.004l-.429.428-.003.004a.124.124 0 0 1-.036.025l-.003.001a.128.128 0 0 1-.14-.027H1.18l-.128-.128a.119.119 0 0 1-.003-.003l-.431-.431a.127.127 0 0 1 .18-.18l.128.129a.138.138 0 0 1 .003.003zm.178.423a.124.124 0 0 1-.005.002"
+                opacity="1"
+                data-original="#ffffff"
+              ></path>
+            </g>
+          </svg>
+          <div className="px-6 bg-white shadow-lg rounded-lg text-center">
+            <h3 className="text-2xl font-semibold text-primary">Level 4</h3>
+            <p className="mt-2 text-gray-600">
+              Highest you earn from level 4 to <strong> $7M</strong>
+            </p>
+            <p className="mt-4 text-gray-500">
+              1M - 2M sales — <strong>$7</strong> per sale
+            </p>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
