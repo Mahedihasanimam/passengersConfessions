@@ -138,18 +138,7 @@ const Navbar = () => {
                 Books
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/Confession"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-[#262626] text-[16px]  font-bold"
-                    : "text-[#6D6D6D] text-[16px]  font-bold"
-                }
-              >
-                CRAZY Confession
-              </NavLink>
-            </li>
+
             <li>
               <NavLink
                 to="/Confession"

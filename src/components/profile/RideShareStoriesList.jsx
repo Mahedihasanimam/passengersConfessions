@@ -78,7 +78,7 @@ const RideShareStoriesList = () => {
           }}
           className="border-none text-white px-6 py-2 rounded-lg"
         >
-          Add confession
+          Add Story
         </Button>
       </div>
 
