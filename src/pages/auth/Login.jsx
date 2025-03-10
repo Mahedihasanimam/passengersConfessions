@@ -34,7 +34,7 @@ const Login = () => {
           navigate("/");
         }
       } catch (error) {
-        console.log("Error logging in:", error);
+        // console.log("Error logging in:", error);
         message.error(error.data.message);
       }
     },
@@ -42,7 +42,7 @@ const Login = () => {
   );
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   const emailIcon = (

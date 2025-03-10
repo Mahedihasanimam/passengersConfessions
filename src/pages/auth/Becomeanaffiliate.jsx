@@ -28,7 +28,7 @@ const Becomeanaffiliate = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.warn("Failed:", errorInfo);
     if (errorInfo.errorFields.some((field) => field.name[0] === "agreement")) {
       setShowAlert(true);
     }

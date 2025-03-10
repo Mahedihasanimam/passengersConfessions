@@ -1,8 +1,8 @@
 import { Button, Form, Input, message } from "antd";
 
-import { useChangePasswordMutation } from "../../../redux/apiSlices/userApis";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useChangePasswordMutation } from "../../../redux/apiSlices/userApis";
 
 const ChageProfilePass = () => {
   const navigate = useNavigate();
@@ -16,17 +16,17 @@ const ChageProfilePass = () => {
     values.email = user?.email;
     try {
       const res = await changePassword(values).unwrap();
-      console.log(res);
+      // console.log(res);
       message.success(res.message);
       form.resetFields();
     } catch (error) {
-      console.log(error);
+      console.warn(error);
       message.error(error.data.message);
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.warn("Failed:", errorInfo);
   };
 
   return (

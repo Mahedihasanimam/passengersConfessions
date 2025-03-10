@@ -10,7 +10,7 @@ const ForgetPassword = () => {
   const [forgotPassword] = useForgotPasswordMutation();
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     if (values) {
       try {
         const res = await forgotPassword(values).unwrap();
@@ -29,7 +29,7 @@ const ForgetPassword = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.warn("Failed:", errorInfo);
   };
 
   return (

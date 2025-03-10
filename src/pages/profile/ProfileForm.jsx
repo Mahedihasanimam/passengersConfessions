@@ -60,7 +60,7 @@ const ProfileForm = () => {
     const validFiles = newFileList.map((file) => {
       if (file.status === "error") {
         // message.error(`Error uploading: ${file.name}`);
-        console.log(`Error uploading: ${file.name}`);
+        // console.log(`Error uploading: ${file.name}`);
       }
       return {
         ...file,
@@ -71,7 +71,7 @@ const ProfileForm = () => {
   };
 
   const onFinish = (values) => {
-    console.log("Form Values:", values, fileList);
+    // console.log("Form Values:", values, fileList);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("phone", values.phone);

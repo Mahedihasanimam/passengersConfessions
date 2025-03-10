@@ -38,7 +38,7 @@ const PodCastDetails = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(Confession);
+  // console.log(Confession);
 
   const handleSubscribeClick = () => {
     setIsModalOpen(true);
@@ -65,7 +65,7 @@ const PodCastDetails = () => {
 
   const handleSubmit = async (values) => {
     try {
-      console.log(values);
+      // console.log(values);
       setSubmitting(true);
 
       await addComment({
@@ -97,28 +97,28 @@ const PodCastDetails = () => {
     // Add more video sources as needed
   ];
 
-  console.log(imageUrl + Confession?.data?.podcastVideo);
-  const videoProps = {
-    theme: "city", // 'city', 'fantasy', 'forest', 'sea'
-    height: 300,
-    width: 500,
-    autoPlay: false,
+  // console.log(imageUrl + Confession?.data?.podcastVideo);
+  // const videoProps = {
+  //   theme: "city", // 'city', 'fantasy', 'forest', 'sea'
+  //   height: 300,
+  //   width: 500,
+  //   autoPlay: false,
 
-    loop: false,
-    sources: videoSources,
-    controlBar: {
-      skipButtons: {
-        forward: 5,
-        backward: 5,
-      },
-    },
-    playbackRates: [0.5, 1, 1.5, 2],
-    disablePictureInPicture: false,
+  //   loop: false,
+  //   sources: videoSources,
+  //   controlBar: {
+  //     skipButtons: {
+  //       forward: 5,
+  //       backward: 5,
+  //     },
+  //   },
+  //   playbackRates: [0.5, 1, 1.5, 2],
+  //   disablePictureInPicture: false,
 
-    onReady: () => {
-      console.log("Video player is ready!");
-    },
-  };
+  //   onReady: () => {
+  //     console.log("Video player is ready!");
+  //   },
+  // };
 
   return (
     <div className="container mx-auto p-6  rounded-lg  min-h-[60vh]">

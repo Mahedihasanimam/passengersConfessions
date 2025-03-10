@@ -15,18 +15,18 @@ const Signup = () => {
     async (values) => {
       try {
         const response = await signUp(values).unwrap();
-        console.log(response);
+        // console.log(response);
         message.success("Signup successful");
         navigate("/auth/verify-email/?route=signup&email=" + values.email);
       } catch (error) {
-        console.error("Error signing up:", error);
+        // console.error("Error signing up:", error);
         message.error(error.data.message);
       }
     },
     [signUp, navigate]
   );
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
     if (errorInfo.errorFields.some((field) => field.name[0] === "agreement")) {
       setShowAlert(true);
     }

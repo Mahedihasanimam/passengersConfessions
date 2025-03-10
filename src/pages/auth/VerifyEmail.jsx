@@ -19,7 +19,7 @@ const Verify = () => {
   const emailParam = params.get("email");
   const route = params.get("route");
 
-  console.log(emailParam, route);
+  // console.log(emailParam, route);
 
   const inputRefs = [useRef(), useRef(), useRef(), useRef()];
 
@@ -45,9 +45,9 @@ const Verify = () => {
       };
 
       try {
-        console.log(requestBody);
+        // console.log(requestBody);
         const response = await emailVerified(requestBody).unwrap();
-        console.log(response);
+        // console.log(response);
 
         if (response?.success) {
           message.success(response?.message);
@@ -61,7 +61,7 @@ const Verify = () => {
           }
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         message.error(error?.data?.message);
       }
     },
@@ -69,7 +69,7 @@ const Verify = () => {
   );
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   return (
