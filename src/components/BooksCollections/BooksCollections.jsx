@@ -83,7 +83,9 @@ const BooksCollections = () => {
                     }}
                     className="w-full border-none text-white px-6 py-2 rounded-lg"
                   >
-                    Subscribe
+                    {user?.isBasicSubscribed || user?.isPremiumSubscribed
+                      ? "Read Now"
+                      : "Subscribe to read"}
                   </Button>
                 </Link>
               </div>

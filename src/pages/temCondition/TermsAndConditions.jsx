@@ -4,7 +4,7 @@ import { useGetTermsAndConditionQuery } from "../../../redux/apiSlices/settingAp
 const TermsAndConditions = () => {
   const { data: terms } = useGetTermsAndConditionQuery({});
 
-  console.log(terms?.data);
+  // console.log(terms?.data);
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg">

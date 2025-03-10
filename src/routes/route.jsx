@@ -1,34 +1,36 @@
-import AboutPage from "../pages/aboutpage/AboutPage";
-import AddAConfession from "../pages/confessions/addConfession/AddAConfession";
-import AffiliateProgram from "../pages/affiliate/AffiliateProgram";
-import Becomeanaffiliate from "../pages/auth/Becomeanaffiliate";
-import BookDetails from "../components/BooksCollections/BooksDetais/BookDetails";
-import BooksCollections from "../components/BooksCollections/BooksCollections";
-import ChageProfilePass from "./../pages/auth/ChageProfilePass";
-import ConfessionList from "../components/profile/ConfessionList";
-import Confessions from "../pages/confessions/Confessions";
-import ConfessionsDetails from "../pages/confessions/ConfessionsDetails";
-import CreateNewPassword from "../pages/auth/CreateNewPassword";
-import FAQPage from "../pages/FAQ/FAQpage";
-import ForgetPassWord from "../pages/auth/ForgetPassword";
-import ForumPage from "../pages/forum/ForumPage";
-import Home from "../pages/home/Home";
-import Login from "../pages/auth/Login";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
+import ProfileLayout from "../Layouts/profileLayout/profileLyout";
+import BooksCollections from "../components/BooksCollections/BooksCollections";
+import BookDetails from "../components/BooksCollections/BooksDetais/BookDetails";
+import ConfessionList from "../components/profile/ConfessionList";
 import MyForumList from "../components/profile/MyForumList";
 import Myaffiliatelist from "../components/profile/Myaffiliatelist";
+import RideShareStoriesList from "../components/profile/RideShareStoriesList";
 import Notifications from "../components/profile/components/Notifications";
+import FAQPage from "../pages/FAQ/FAQpage";
+import AboutPage from "../pages/aboutpage/AboutPage";
+import AffiliateProgram from "../pages/affiliate/AffiliateProgram";
+import Becomeanaffiliate from "../pages/auth/Becomeanaffiliate";
+import CreateNewPassword from "../pages/auth/CreateNewPassword";
+import ForgetPassWord from "../pages/auth/ForgetPassword";
+import Login from "../pages/auth/Login";
+import Signup from "../pages/auth/Signup";
+import Verify from "../pages/auth/VerifyEmail";
+import Confessions from "../pages/confessions/Confessions";
+import ConfessionsDetails from "../pages/confessions/ConfessionsDetails";
+import RideShareStories from "../pages/confessions/RideShareStories";
+import AddAConfession from "../pages/confessions/addConfession/AddAConfession";
+import ForumPage from "../pages/forum/ForumPage";
+import Home from "../pages/home/Home";
 import PaymentProducer from "../pages/paymentsProducer/PaymentProducer";
+import ProductPurchase from "../pages/paymentsProducer/ProductPurchase";
 import PodCast from "../pages/podCast/PodCast";
 import PodCastDetails from "../pages/podCast/podCastDetails/PodCastDetails";
-import PrivateRoute from "./PrivateRoute";
-import ProductPurchase from "../pages/paymentsProducer/ProductPurchase";
-import ProfileForm from "./../pages/profile/ProfileForm";
-import ProfileLayout from "../Layouts/profileLayout/profileLyout";
-import Signup from "../pages/auth/Signup";
 import TermsAndConditions from "../pages/temCondition/TermsAndConditions";
-import Verify from "../pages/auth/VerifyEmail";
-import { createBrowserRouter } from "react-router-dom";
+import ChageProfilePass from "./../pages/auth/ChageProfilePass";
+import ProfileForm from "./../pages/profile/ProfileForm";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: "/Confession",
         element: <Confessions />,
+      },
+      {
+        path: "/RideShareStories",
+        element: <RideShareStories />,
       },
       {
         path: "/addConfession",
@@ -149,6 +155,10 @@ export const router = createBrowserRouter([
       {
         path: "/profile/confessionsList",
         element: <ConfessionList />,
+      },
+      {
+        path: "/profile/RideShareStoriesList",
+        element: <RideShareStoriesList />,
       },
       {
         path: "/profile/affiliates",

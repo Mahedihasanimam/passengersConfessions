@@ -6,17 +6,17 @@ import { Button } from "antd";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { imageUrl } from "../../../redux/api/baseApi";
-import { useLazyGetAllConfessionsQuery } from "../../../redux/apiSlices/confessionApiSlice";
+import { useLazyGetAllStoriesQuery } from "../../../redux/apiSlices/stroeisApiSlices";
 import confession from "../../assets/confession.webp";
-import { AddConfessionModal } from "../../components/common/AddConfessionModal";
+import { AddRideShareStoriesModal } from "../../components/common/AddRideShareStoriesModal";
 import GLoading from "../../components/GLoading";
 
-const Confessions = () => {
+const RideShareStories = () => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [page, setPage] = useState(1);
   const [allData, setAllData] = useState([]);
 
-  const [getData, { isLoading, isFetching }] = useLazyGetAllConfessionsQuery({
+  const [getData, { isLoading, isFetching }] = useLazyGetAllStoriesQuery({
     limit: 8,
     page,
   });
@@ -47,7 +47,8 @@ const Confessions = () => {
       <div className="pb-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold  mt-8 text-secondary pb-2 ">
-            <span className="text-red-500">CRAZY</span> Confessions
+            Ride Share Drivers <span className="text-red-500">CRAZY </span>
+            Stories
           </h1>
           {user?._id && (
             <Button
@@ -208,7 +209,7 @@ const Confessions = () => {
         </div>
       )}
 
-      <AddConfessionModal
+      <AddRideShareStoriesModal
         visible={visibleModal}
         onCancel={() => setVisibleModal(false)}
       />
@@ -216,4 +217,4 @@ const Confessions = () => {
   );
 };
 
-export default Confessions;
+export default RideShareStories;

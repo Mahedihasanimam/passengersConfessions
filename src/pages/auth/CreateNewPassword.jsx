@@ -16,7 +16,7 @@ const CreateNewPassword = () => {
 
   const onFinish = async (values) => {
     values.email = emailParam;
-    console.log("Success:", values);
+    // console.log("Success:", values);
     if (values) {
       try {
         const res = await resetPass(values).unwrap();
@@ -33,7 +33,7 @@ const CreateNewPassword = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.warn("Failed:", errorInfo);
   };
 
   return (

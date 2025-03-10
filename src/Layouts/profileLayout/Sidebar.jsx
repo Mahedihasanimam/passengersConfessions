@@ -1,8 +1,8 @@
 import { CloseOutlined, LeftOutlined, MenuOutlined } from "@ant-design/icons";
-import { BiBell } from "react-icons/bi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import React from "react";
+import { BiBell } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -160,6 +160,76 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     )}
                   </span>
                   confessions List
+                </>
+              )}
+            </NavLink>
+          </li>
+          <li className="mb-4">
+            <NavLink
+              to="/profile/RideShareStoriesList"
+              className={({ isActive }) =>
+                isActive
+                  ? "flex items-center text-[#FF6691] font-bold bg-white shadow-xl px-4 py-1 rounded-[20px] transition-all ease-out duration-300"
+                  : "flex items-center text-[#B0B0B0] font-bold"
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <span className="mr-2">
+                    {isActive ? (
+                      // SVG icon when active
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <mask
+                          id="mask0_74_1594"
+                          maskUnits="userSpaceOnUse"
+                          x="0"
+                          y="0"
+                          width="16"
+                          height="16"
+                        >
+                          <rect width="16" height="16" fill="#D9D9D9" />
+                        </mask>
+                        <g mask="url(#mask0_74_1594)">
+                          <path
+                            d="M10.6667 13.3333C10.1111 13.3333 9.63889 13.1389 9.25 12.75C8.86111 12.3611 8.66667 11.8889 8.66667 11.3333C8.66667 10.7778 8.86111 10.3056 9.25 9.91667C9.63889 9.52778 10.1111 9.33333 10.6667 9.33333C10.7889 9.33333 10.9056 9.34167 11.0167 9.35833C11.1278 9.375 11.2333 9.41111 11.3333 9.46667V4H14.6667V5.33333H12.6667V11.3333C12.6667 11.8889 12.4722 12.3611 12.0833 12.75C11.6944 13.1389 11.2222 13.3333 10.6667 13.3333ZM2 10.6667V9.33333H7.33333V10.6667H2ZM2 8V6.66667H10V8H2ZM2 5.33333V4H10V5.33333H2Z"
+                            fill="#FF6691"
+                          />
+                        </g>
+                      </svg>
+                    ) : (
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <mask
+                          id="mask0_74_1594"
+                          maskUnits="userSpaceOnUse"
+                          x="0"
+                          y="0"
+                          width="16"
+                          height="16"
+                        >
+                          <rect width="16" height="16" fill="#D9D9D9" />
+                        </mask>
+                        <g mask="url(#mask0_74_1594)">
+                          <path
+                            d="M10.6667 13.3333C10.1111 13.3333 9.63889 13.1389 9.25 12.75C8.86111 12.3611 8.66667 11.8889 8.66667 11.3333C8.66667 10.7778 8.86111 10.3056 9.25 9.91667C9.63889 9.52778 10.1111 9.33333 10.6667 9.33333C10.7889 9.33333 10.9056 9.34167 11.0167 9.35833C11.1278 9.375 11.2333 9.41111 11.3333 9.46667V4H14.6667V5.33333H12.6667V11.3333C12.6667 11.8889 12.4722 12.3611 12.0833 12.75C11.6944 13.1389 11.2222 13.3333 10.6667 13.3333ZM2 10.6667V9.33333H7.33333V10.6667H2ZM2 8V6.66667H10V8H2ZM2 5.33333V4H10V5.33333H2Z"
+                            fill="#B0B0B0"
+                          />
+                        </g>
+                      </svg>
+                    )}
+                  </span>
+                  Ride Share Stories List
                 </>
               )}
             </NavLink>

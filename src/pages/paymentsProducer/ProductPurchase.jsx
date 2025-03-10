@@ -13,6 +13,7 @@ import {
 } from "../../../redux/apiSlices/paymentApisSlice";
 
 import { loadStripe } from "@stripe/stripe-js";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { imageUrl } from "../../../redux/api/baseApi";
@@ -22,6 +23,8 @@ import PaySuccessModal from "../../components/util/paySuccessModal";
 const stripePromise = loadStripe(import.meta.env.VITE_ADMIN_STRIPE_KEY);
 
 const PaymentForm = ({ onPaymentSuccess, data }) => {
+  const user = useSelector((state) => state?.user?.user);
+
   const stripe = useStripe();
   const elements = useElements();
   const [cardholderName, setCardholderName] = useState("");
@@ -105,7 +108,7 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
           // Process the referral code
           const res = await confirmPayment({
             paymentIntentId: paymentIntent.id,
-            subscriptionPlan: "premium",
+            subscriptionPlan: user?.booksBought?.length ? "" : "premium",
             affiliateCode: referralCode,
             price: data?.price,
             bookId: data?._id,
@@ -118,7 +121,7 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
         } else {
           const confirmData = await confirmPayment({
             paymentIntentId: paymentIntent.id,
-            subscriptionPlan: "premium",
+            subscriptionPlan: user?.booksBought?.length ? "" : "premium",
             affiliateCode: referralCode,
             bookId: data?._id,
             price: data?.price,

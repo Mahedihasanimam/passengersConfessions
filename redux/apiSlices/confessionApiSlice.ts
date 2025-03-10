@@ -8,6 +8,18 @@ const confessionsApi = api.injectEndpoints({
       }),
       providesTags: ["confession"],
     }),
+    getAllStories: builder.query({
+      query: ({ limit, page, status }) => ({
+        url: `/stories/get-all-stories?limit=${limit}&page=${page}&status=${status}`,
+      }),
+      providesTags: ["confession"],
+    }),
+    getStoryById: builder.query({
+      query: (id) => ({
+        url: `/stories/get-story-by-id/${id}`,
+      }),
+      providesTags: ["confession"],
+    }),
     getConfessionById: builder.query({
       query: (id) => ({
         url: `/confessions/get-confession-by-id/${id}`,
