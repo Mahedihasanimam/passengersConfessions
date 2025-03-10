@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../../../redux/apiSlices/userApis";
 import { setUser } from "../../../redux/apiSlices/userSlices";
 import logoimage from "../../assets/login.png";
-import { DashboardUrl } from "../../main";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,18 +28,10 @@ const Login = () => {
         message.success(response?.message);
         localStorage.setItem("token", response?.data?.token);
 
-        if (
-          response?.data?.user?.role == "admin" ||
-          response?.data?.user?.role == "superadmin"
-        ) {
-          window.location.href =
-            DashboardUrl + "?token=" + response?.data?.token;
+        if (location?.state?.pathname) {
+          navigate(location?.state?.pathname);
         } else {
-          if (location?.state?.pathname) {
-            navigate(location?.state?.pathname);
-          } else {
-            navigate("/");
-          }
+          navigate("/");
         }
       } catch (error) {
         console.log("Error logging in:", error);

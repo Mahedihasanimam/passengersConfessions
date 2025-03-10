@@ -1,12 +1,12 @@
 import { Drawer, Dropdown, Menu, Modal, Select } from "antd";
-import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
-import { imageUrl } from "../../../redux/api/baseApi";
-import logo from "../../assets/logo.png";
-import { setUser } from "../../../redux/apiSlices/userSlices";
-import { useGetUserProfileQuery } from "../../../redux/apiSlices/userApis";
 import { useState } from "react";
+import { imageUrl } from "../../../redux/api/baseApi";
+import { useGetUserProfileQuery } from "../../../redux/apiSlices/userApis";
+import { setUser } from "../../../redux/apiSlices/userSlices";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -147,10 +147,35 @@ const Navbar = () => {
                     : "text-[#6D6D6D] text-[16px]  font-bold"
                 }
               >
-                Confession
+                CRAZY Confession
               </NavLink>
             </li>
             <li>
+              <NavLink
+                to="/Confession"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+              >
+                <span className="text-red-500">CRAZY</span> Confession
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/RideShareStories"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+              >
+                Ride Share Drivers <span className="text-red-500">CRAZY</span>{" "}
+                Stories
+              </NavLink>
+            </li>
+            {/* <li>
               <NavLink
                 to="/Podcast"
                 className={({ isActive }) =>
@@ -161,7 +186,7 @@ const Navbar = () => {
               >
                 Podcast
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/Forum"
