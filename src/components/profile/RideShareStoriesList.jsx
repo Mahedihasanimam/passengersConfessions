@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { imageUrl } from "../../../redux/api/baseApi";
 import confessionImage from "../../assets/confession.webp";
 import { AddRideShareStoriesModal } from "../common/AddRideShareStoriesModal";
-import ViewConfessionModal from "../common/ViewConfessionModal";
+import ViewStoryModal from "../common/ViewStoryModal";
 
 const RideShareStoriesList = () => {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -89,8 +89,7 @@ const RideShareStoriesList = () => {
             className="border rounded-lg p-4 shadow-md hover:shadow-lg bg-[#C7C7C740]"
           >
             <div className="relative">
-              {confession?.confessionAudioUrl &&
-              !confession?.confessionVideoUrl ? (
+              {confession?.storyAudioUrl && !confession?.storyVideoUrl ? (
                 <img
                   src={confessionImage}
                   alt={confession.title}
@@ -106,7 +105,7 @@ const RideShareStoriesList = () => {
                         className="w-[50%] h-56 object-cover rounded-l-md "
                       />
                       <video
-                        src={imageUrl + confession?.confessionVideoUrl}
+                        src={imageUrl + confession?.storyVideoUrl}
                         className="w-[50%] h-56 object-cover rounded-r-md "
                       />
                     </div>
@@ -221,7 +220,7 @@ const RideShareStoriesList = () => {
         existingConfession={selectedConfession} // Pass the selected confession for editing
       />
       {/* View Modal  */}
-      <ViewConfessionModal
+      <ViewStoryModal
         visible={viewModal}
         confession={selectedConfession}
         onCancel={() => {

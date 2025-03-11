@@ -2,6 +2,7 @@ import { Drawer, Dropdown, Menu, Modal, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
+import { MenuOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { imageUrl } from "../../../redux/api/baseApi";
 import { useGetUserProfileQuery } from "../../../redux/apiSlices/userApis";
@@ -11,6 +12,8 @@ import logo from "../../assets/logo.png";
 const Navbar = () => {
   const navigate = useNavigate();
   useGetUserProfileQuery();
+
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
@@ -106,6 +109,14 @@ const Navbar = () => {
       <nav className="w-full p-4 container mx-auto flex justify-between items-center">
         {/* Left Side: Logo */}
         <div className="flex items-center space-x-4">
+          <div
+            className="lg:hidden"
+            onClick={() => {
+              setIsNavOpen(!isNavOpen);
+            }}
+          >
+            <MenuOutlined style={{ fontSize: "24px" }} />
+          </div>
           <Link to="/">
             <img src={logo} alt="Logo" />
           </Link>
@@ -196,6 +207,143 @@ const Navbar = () => {
                     ? "text-[#262626] text-[16px]  font-bold"
                     : "text-[#6D6D6D] text-[16px]  font-bold"
                 }
+              >
+                Affiliate Program
+              </NavLink>
+            </li>
+            {/* Add more links as needed */}
+          </ul>
+        </div>
+        <div
+          id="mySidebar"
+          className={`lg:hidden  transition-all duration-500 ease-in-out  z-50  rounded-r-lg fixed h-full  bg-white  w-[60%] shadow-2xl ${
+            isNavOpen ? "left-0 top-0" : "-left-[1000px] top-0"
+          }`}
+        >
+          <div className="flex items-center justify-between p-4">
+            <div className="flex items-center">
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-full h-8 object-contain mr-2"
+              />
+            </div>
+            <button
+              onClick={() => {
+                setIsNavOpen(false);
+              }}
+              className="text-gray-600 hover:text-gray-800"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          {/* navigation parts  */}
+
+          <ul className=" flex flex-col gap-5 px-3 py-3">
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+                to="/"
+                onClick={() => setIsNavOpen(false)}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/allBooksCollections"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+                onClick={() => setIsNavOpen(false)}
+              >
+                Books
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/Confession"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+                onClick={() => setIsNavOpen(false)}
+              >
+                <span className="text-red-500">CRAZY</span> Confession
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/RideShareStories"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+              >
+                onClick={() => setIsNavOpen(false)}
+                Ride Share Drivers <span className="text-red-500">
+                  CRAZY
+                </span>{" "}
+                Stories
+              </NavLink>
+            </li>
+            {/* <li>
+              <NavLink
+                to="/Podcast"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+            onClick={() => setIsNavOpen(false)}
+                >
+                Podcast
+              </NavLink>
+            </li> */}
+            <li>
+              <NavLink
+                to="/Forum"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+                onClick={() => setIsNavOpen(false)}
+              >
+                Forum
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/affiliate-program"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#262626] text-[16px]  font-bold"
+                    : "text-[#6D6D6D] text-[16px]  font-bold"
+                }
+                onClick={() => setIsNavOpen(false)}
               >
                 Affiliate Program
               </NavLink>

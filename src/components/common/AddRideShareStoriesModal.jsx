@@ -37,8 +37,8 @@ export const AddRideShareStoriesModal = ({
         description: existingConfession.description,
       });
       // Prepopulate existing audio/video files
-      if (existingConfession.confessionAudioUrl) {
-        setFile(imageUrl + existingConfession.confessionAudioUrl);
+      if (existingConfession.storyAudioUrl) {
+        setFile(imageUrl + existingConfession.storyAudioUrl);
       }
       if (existingConfession.videoFile) {
         setVideoFile(imageUrl + existingConfession.videoFile);
@@ -240,13 +240,13 @@ export const AddRideShareStoriesModal = ({
                 </p>
               </div>
 
-              {(existingConfession?.confessionAudioUrl || file) && (
+              {(existingConfession?.storyAudioUrl || file) && (
                 <div className="p-6 border text-secondary rounded-lg">
                   <audio
                     controls
                     src={
-                      existingConfession?.confessionAudioUrl
-                        ? imageUrl + existingConfession?.confessionAudioUrl
+                      existingConfession?.storyAudioUrl
+                        ? imageUrl + existingConfession?.storyAudioUrl
                         : file?.preview
                     }
                     className="w-full"
@@ -275,13 +275,13 @@ export const AddRideShareStoriesModal = ({
                 </p>
               </div>
 
-              {(existingConfession?.confessionVideoUrl || videoFile) && (
+              {(existingConfession?.storyVideoUrl || videoFile) && (
                 <div className="p-6 border text-secondary rounded-lg">
                   <video
                     controls
                     src={
-                      existingConfession?.confessionVideoUrl
-                        ? imageUrl + existingConfession?.confessionVideoUrl
+                      existingConfession?.storyVideoUrl
+                        ? imageUrl + existingConfession?.storyVideoUrl
                         : videoFile?.preview
                     }
                     className="w-full"

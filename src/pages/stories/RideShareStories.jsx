@@ -89,8 +89,7 @@ const RideShareStories = () => {
               >
                 <div className="relative">
                   <div className="relative">
-                    {Confession?.confessionAudioUrl &&
-                    !Confession?.confessionVideoUrl ? (
+                    {Confession?.storyAudioUrl && !Confession?.storyVideoUrl ? (
                       <img
                         src={confession}
                         alt={Confession.title}
@@ -106,7 +105,7 @@ const RideShareStories = () => {
                               className="w-[50%] h-56 object-cover rounded-l-md "
                             />
                             <video
-                              src={imageUrl + Confession?.confessionVideoUrl}
+                              src={imageUrl + Confession?.storyVideoUrl}
                               className="w-[50%] h-56 object-cover rounded-r-md "
                             />
                           </div>
@@ -155,7 +154,7 @@ const RideShareStories = () => {
                 </h2>
                 <p className="text-tertiary">{Confession.author}</p>
 
-                <Link to={`/confessionDetails/${Confession._id}`}>
+                <Link to={`/stories/${Confession._id}`}>
                   <Button
                     type="primary"
                     style={{
