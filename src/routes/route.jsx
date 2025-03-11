@@ -19,7 +19,6 @@ import Signup from "../pages/auth/Signup";
 import Verify from "../pages/auth/VerifyEmail";
 import Confessions from "../pages/confessions/Confessions";
 import ConfessionsDetails from "../pages/confessions/ConfessionsDetails";
-import RideShareStories from "../pages/confessions/RideShareStories";
 import AddAConfession from "../pages/confessions/addConfession/AddAConfession";
 import ForumPage from "../pages/forum/ForumPage";
 import Home from "../pages/home/Home";
@@ -27,6 +26,8 @@ import PaymentProducer from "../pages/paymentsProducer/PaymentProducer";
 import ProductPurchase from "../pages/paymentsProducer/ProductPurchase";
 import PodCast from "../pages/podCast/PodCast";
 import PodCastDetails from "../pages/podCast/podCastDetails/PodCastDetails";
+import RideShareStories from "../pages/stories/RideShareStories";
+import StoriesDetails from "../pages/stories/StoriesDetails";
 import TermsAndConditions from "../pages/temCondition/TermsAndConditions";
 import ChageProfilePass from "./../pages/auth/ChageProfilePass";
 import ProfileForm from "./../pages/profile/ProfileForm";
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
       {
         path: "/confessionDetails/:id",
         element: <ConfessionsDetails />,
+      },
+      {
+        path: "/stories/:id",
+        element: <StoriesDetails />,
       },
       {
         path: "/Confession",
