@@ -2,18 +2,18 @@ import "tailwindcss/tailwind.css"; // Ensure Tailwind CSS is imported
 
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import {
   useAddNewBookReviewMutation,
   useGetReviewByBookIdQuery,
 } from "../../../../redux/apiSlices/reviewRatingApiSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
+import GLoading from "../../GLoading";
 import { LeftOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { SubscriptionModal } from "../../common/SubsciptionModal";
 import { imageUrl } from "../../../../redux/api/baseApi";
 import { useGetBookByIdQuery } from "../../../../redux/apiSlices/bookApiSlice";
-import { SubscriptionModal } from "../../common/SubsciptionModal";
-import GLoading from "../../GLoading";
+import { useSelector } from "react-redux";
 
 const BookDetails = () => {
   const navigate = useNavigate();
@@ -195,7 +195,7 @@ const BookDetails = () => {
                         </div>
                       );
                     }
-                    if (language === "chinese") {
+                    if (language === "simplified_chinese") {
                       return (
                         <div
                           key={language}
@@ -205,7 +205,21 @@ const BookDetails = () => {
                             src={"/public/chinaa.svg"} // Replace with actual image
                             className="w-6 h-6"
                           />
-                          <span className="text-sm ">China</span>
+                          <span className="text-sm ">SIMPLIFIED CHINESE</span>
+                        </div>
+                      );
+                    }
+                    if (language === "traditional_chinese") {
+                      return (
+                        <div
+                          key={language}
+                          className="flex items-center p-2  bg-gray-100 rounded-md gap-2"
+                        >
+                          <img
+                            src={"/public/chinaa.svg"} // Replace with actual image
+                            className="w-6 h-6"
+                          />
+                          <span className="text-sm ">TRADITIONAL CHINESE</span>
                         </div>
                       );
                     }

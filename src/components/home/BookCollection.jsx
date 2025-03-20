@@ -1,14 +1,14 @@
 import "tailwindcss/tailwind.css";
 
 import { Button } from "antd";
-import React from "react";
 import { Link } from "react-router-dom";
+import React from "react";
 import { imageUrl } from "../../../redux/api/baseApi";
 import { useGetAllBooksQuery } from "../../../redux/apiSlices/bookApiSlice";
 
 const BookCollection = () => {
   const { data: book } = useGetAllBooksQuery({});
-  // console.log(book?.data?.result);
+  console.log(book?.data?.result);
   return (
     <div className="container mx-auto px-4 py-[80px]">
       <div className="max-w-4xl mx-auto">
@@ -34,6 +34,67 @@ const BookCollection = () => {
               alt={book.bookName}
               className="w-full h-56 object-cover rounded-md mb-4"
             />
+            {book?.languages?.map((language) => {
+              if (language === "english") {
+                return (
+                  <div key={language} className="flex items-center gap-2 pb-2">
+                    <img
+                      src={"/public/english.svg"} // Replace with actual image
+                      className="w-4 h-4"
+                    />
+                    <span className="text-xs text-gray-500 ">English</span>
+                  </div>
+                );
+              }
+              if (language === "simplified_chinese") {
+                return (
+                  <div key={language} className="flex items-center gap-2 pb-2">
+                    <img
+                      src={"/public/chinaa.svg"} // Replace with actual image
+                      className="w-4 h-4"
+                    />
+                    <span className="text-xs text-gray-500 ">
+                      SIMPLIFIED CHINESE
+                    </span>
+                  </div>
+                );
+              }
+              if (language === "traditional_chinese") {
+                return (
+                  <div key={language} className="flex items-center gap-2 pb-2">
+                    <img
+                      src={"/public/chinaa.svg"} // Replace with actual image
+                      className="w-4 h-4"
+                    />
+                    <span className="text-xs text-gray-500 ">
+                      TRADITIONAL CHINESE
+                    </span>
+                  </div>
+                );
+              }
+              if (language === "spanish") {
+                return (
+                  <div key={language} className="flex items-center gap-2 pb-2">
+                    <img
+                      src={"/public/spania.svg"} // Replace with actual image
+                      className="w-4 h-4"
+                    />
+                    <span className="text-xs text-gray-500 ">Spanish</span>
+                  </div>
+                );
+              }
+              if (language === "french") {
+                return (
+                  <div key={language} className="flex items-center gap-2 pb-2">
+                    <img
+                      src={"/public/france.svg"} // Replace with actual image
+                      className="w-4 h-4"
+                    />
+                    <span className="text-xs text-gray-500 ">France</span>
+                  </div>
+                );
+              }
+            })}
             <h2 className="text-lg font-semibold text-secondary max-w-[250px]">
               {book.bookName}
             </h2>

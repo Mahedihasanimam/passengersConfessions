@@ -159,7 +159,7 @@ const Navbar = () => {
                     : "text-[#6D6D6D] text-[16px]  font-bold"
                 }
               >
-                <span className="text-red-500">CRAZY</span> Confession
+                <span className="text-red-500">CRAZY</span> Confessions
               </NavLink>
             </li>
             <li>
@@ -171,7 +171,7 @@ const Navbar = () => {
                     : "text-[#6D6D6D] text-[16px]  font-bold"
                 }
               >
-                Ride Share Drivers <span className="text-red-500">CRAZY</span>{" "}
+                RideShare Drivers <span className="text-red-500">CRAZY</span>{" "}
                 Stories
               </NavLink>
             </li>
