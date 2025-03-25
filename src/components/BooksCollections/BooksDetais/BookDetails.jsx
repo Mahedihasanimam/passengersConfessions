@@ -2,22 +2,21 @@ import "tailwindcss/tailwind.css"; // Ensure Tailwind CSS is imported
 
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useAddNewBookReviewMutation,
   useGetReviewByBookIdQuery,
 } from "../../../../redux/apiSlices/reviewRatingApiSlice";
-import { useNavigate, useParams } from "react-router-dom";
 
-import GLoading from "../../GLoading";
 import { LeftOutlined } from "@ant-design/icons";
-import { SubscriptionModal } from "../../common/SubsciptionModal";
+import { useSelector } from "react-redux";
 import { imageUrl } from "../../../../redux/api/baseApi";
 import { useGetBookByIdQuery } from "../../../../redux/apiSlices/bookApiSlice";
-import { useSelector } from "react-redux";
+import { SubscriptionModal } from "../../common/SubsciptionModal";
+import GLoading from "../../GLoading";
 
 const BookDetails = () => {
   const navigate = useNavigate();
-
   const params = useParams();
 
   const {
@@ -33,11 +32,7 @@ const BookDetails = () => {
   } = useGetReviewByBookIdQuery(params.id);
 
   const [addReview] = useAddNewBookReviewMutation({});
-
   const user = useSelector((state) => state.user.user);
-
-  // console.log(user);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubscribeClick = () => {
@@ -53,9 +48,7 @@ const BookDetails = () => {
 
   const handleSubmit = async (values) => {
     try {
-      console.log(values);
       setSubmitting(true);
-
       await addReview({
         ...values,
         bookId: params.id,
@@ -73,14 +66,8 @@ const BookDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // console.log(user);
-
-  // if (isLoading || isFetching) {
-  //   return <GLoading />;
-  // }
-
   return (
-    <div className="container mx-auto p-6  rounded-lg min-h-[60vh]">
+    <div className="container mx-auto p-6 rounded-lg min-h-[60vh]">
       {bookIsLoading ||
       bookIsFetching ||
       reviewIsFetching ||
@@ -95,19 +82,19 @@ const BookDetails = () => {
             />
             <h1 className="text-3xl font-bold mb-1">{Book?.data?.bookName}</h1>
           </div>
-          <div className="lg:flex  flex-row items-center justify-between gap-4">
-            <div className=" lg:max-w-sm w-full mx-auto">
+          <div className="lg:flex flex-row items-center justify-between gap-4">
+            <div className="lg:max-w-sm w-full mx-auto">
               <img
-                src={imageUrl + Book?.data?.bookCoverImage} // Replace with actual image
-                alt="Immortal Chase"
-                className="w-full  rounded-lg mb-4"
+                src={imageUrl + Book?.data?.bookCoverImage}
+                alt="Book Cover"
+                className="w-full rounded-lg mb-4"
               />
             </div>
 
-            <div className="w-full ">
-              <div className="flex-1 pl-6 ">
+            <div className="w-full">
+              <div className="flex-1 pl-6">
                 {(user?.isBasicSubscribed || user?.isPremiumSubscribed) && (
-                  <div className="flex flex-wrap gap-4  mb-3">
+                  <div className="flex flex-wrap gap-4 mb-3">
                     {Book?.data?.pdfUrls?.map((pdf) => (
                       <a
                         key={pdf}
@@ -117,7 +104,7 @@ const BookDetails = () => {
                         className="flex items-center gap-2 border border-red-400 p-2 rounded-md"
                       >
                         <img
-                          src={"/public/pdf.svg"} // Replace with actual image
+                          src={"/public/pdf.svg"}
                           className="w-20 aspect-square rounded-md"
                         />
                       </a>
@@ -137,6 +124,32 @@ const BookDetails = () => {
                 </h1>
                 <h2 className="text-gray-600 mb-4">{Book?.data?.authorName}</h2>
                 <p className="mb-4">{Book?.data?.description}</p>
+
+                {/* Show preview PDF button if preview PDF exists */}
+                {Book?.data?.previewPdfUrls?.length > 0 && (
+                  <div className="mb-4">
+                    <Button
+                      onClick={() =>
+                        window.open(
+                          imageUrl + Book?.data?.previewPdfUrls[0],
+                          "_blank"
+                        )
+                      }
+                      type="primary"
+                      style={{
+                        backgroundColor: "#000",
+                        color: "white",
+                        height: "35px",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                      className="w-full border-none text-white px-6 py-2 rounded-lg"
+                    >
+                      Preview PDF
+                    </Button>
+                  </div>
+                )}
+
                 {!user?.isBasicSubscribed && !user?.isPremiumSubscribed && (
                   <div className="flex flex-col md:flex-row gap-4">
                     <Button
@@ -176,7 +189,7 @@ const BookDetails = () => {
               </div>
             </div>
 
-            <div className="flex-shrink-0 w-fit   ">
+            <div className="flex-shrink-0 w-fit">
               <h3 className="text-lg font-semibold mb-2">Language Option</h3>
               <div className="grid grid-cols-2 gap-2">
                 {Book?.data?.languages?.length > 0 &&
@@ -185,13 +198,13 @@ const BookDetails = () => {
                       return (
                         <div
                           key={language}
-                          className="flex items-center p-2  bg-gray-100 rounded-md gap-2"
+                          className="flex items-center p-2 bg-gray-100 rounded-md gap-2"
                         >
                           <img
-                            src={"/public/english.svg"} // Replace with actual image
+                            src={"/public/english.svg"}
                             className="w-6 h-6"
                           />
-                          <span className="text-sm ">English</span>
+                          <span className="text-sm">English</span>
                         </div>
                       );
                     }
@@ -199,13 +212,10 @@ const BookDetails = () => {
                       return (
                         <div
                           key={language}
-                          className="flex items-center p-2  bg-gray-100 rounded-md gap-2"
+                          className="flex items-center p-2 bg-gray-100 rounded-md gap-2"
                         >
-                          <img
-                            src={"/public/chinaa.svg"} // Replace with actual image
-                            className="w-6 h-6"
-                          />
-                          <span className="text-sm ">SIMPLIFIED CHINESE</span>
+                          <img src={"/public/chinaa.svg"} className="w-6 h-6" />
+                          <span className="text-sm">SIMPLIFIED CHINESE</span>
                         </div>
                       );
                     }
@@ -213,13 +223,10 @@ const BookDetails = () => {
                       return (
                         <div
                           key={language}
-                          className="flex items-center p-2  bg-gray-100 rounded-md gap-2"
+                          className="flex items-center p-2 bg-gray-100 rounded-md gap-2"
                         >
-                          <img
-                            src={"/public/chinaa.svg"} // Replace with actual image
-                            className="w-6 h-6"
-                          />
-                          <span className="text-sm ">TRADITIONAL CHINESE</span>
+                          <img src={"/public/chinaa.svg"} className="w-6 h-6" />
+                          <span className="text-sm">TRADITIONAL CHINESE</span>
                         </div>
                       );
                     }
@@ -227,13 +234,10 @@ const BookDetails = () => {
                       return (
                         <div
                           key={language}
-                          className="flex items-center p-2  bg-gray-100 rounded-md gap-2"
+                          className="flex items-center p-2 bg-gray-100 rounded-md gap-2"
                         >
-                          <img
-                            src={"/public/spania.svg"} // Replace with actual image
-                            className="w-6 h-6"
-                          />
-                          <span className="text-sm ">Spanish</span>
+                          <img src={"/public/spania.svg"} className="w-6 h-6" />
+                          <span className="text-sm">Spanish</span>
                         </div>
                       );
                     }
@@ -241,13 +245,10 @@ const BookDetails = () => {
                       return (
                         <div
                           key={language}
-                          className="flex items-center p-2  bg-gray-100 rounded-md gap-2"
+                          className="flex items-center p-2 bg-gray-100 rounded-md gap-2"
                         >
-                          <img
-                            src={"/public/france.svg"} // Replace with actual image
-                            className="w-6 h-6"
-                          />
-                          <span className="text-sm ">France</span>
+                          <img src={"/public/france.svg"} className="w-6 h-6" />
+                          <span className="text-sm">France</span>
                         </div>
                       );
                     }
@@ -266,9 +267,8 @@ const BookDetails = () => {
                   className="p-4 border border-gray-200 rounded-lg bg-white shadow-sm flex"
                 >
                   <div className="w-12 h-12 rounded-full bg-gray-300 mr-4 flex-shrink-0">
-                    {/* Placeholder for the profile image */}
                     <img
-                      src={imageUrl + review?.user?.image} // Replace with actual image URL or asset path
+                      src={imageUrl + review?.user?.image}
                       alt="Profile"
                       className="w-full h-full object-cover rounded-full"
                     />
@@ -277,7 +277,6 @@ const BookDetails = () => {
                     <h2 className="font-semibold text-secondary">
                       {review?.user?.name}
                     </h2>
-
                     <p className="text-tertiary mt-2">{review?.review}</p>
                   </div>
                 </div>
