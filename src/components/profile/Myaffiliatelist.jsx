@@ -3,9 +3,9 @@ import "antd/dist/reset.css";
 import { Button, Card, Col, Row, Statistic, Table, message } from "antd";
 
 import React from "react";
-import { useConnectToStripMutation } from "../../../redux/apiSlices/userApis";
-import { useGetAllTransactionsByIdQuery } from "../../../redux/apiSlices/paymentApisSlice";
 import { useSelector } from "react-redux";
+import { useGetAllTransactionsByIdQuery } from "../../../redux/apiSlices/paymentApisSlice";
+import { useConnectToStripMutation } from "../../../redux/apiSlices/userApis";
 
 const Myaffiliatelist = () => {
   const user = useSelector((state) => state?.user?.user);
@@ -37,9 +37,7 @@ const Myaffiliatelist = () => {
       dataIndex: "subscription",
       key: "subscription",
       render: (text) => (
-        <span className="text-green-500">
-          ${text?.affiliateComission / 100}
-        </span>
+        <span className="text-green-500">${text?.affiliateComission}</span>
       ),
     },
     {
@@ -100,7 +98,7 @@ const Myaffiliatelist = () => {
                       (total, transaction) =>
                         total + transaction?.subscription?.affiliateComission,
                       0
-                    ) / 100
+                    ) || 0
                   }
                   precision={2}
                   prefix="$"
