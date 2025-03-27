@@ -51,7 +51,7 @@ const BookDetails = () => {
       setSubmitting(true);
       await addReview({
         ...values,
-        bookId: params.id,
+        bookId: params?.id,
       }).unwrap();
       message.success("Review submitted successfully!");
       form.resetFields();
@@ -93,7 +93,7 @@ const BookDetails = () => {
 
             <div className="w-full">
               <div className="flex-1 pl-6">
-                {(user?.isBasicSubscribed || user?.isPremiumSubscribed) && (
+                {/* {(user?.isBasicSubscribed || user?.isPremiumSubscribed) && (
                   <div className="flex flex-wrap gap-4 mb-3">
                     {Book?.data?.pdfUrls?.map((pdf) => (
                       <a
@@ -110,7 +110,7 @@ const BookDetails = () => {
                       </a>
                     ))}
                   </div>
-                )}
+                )} */}
                 {Book?.data?.price &&
                   !user?.isBasicSubscribed &&
                   !user?.isPremiumSubscribed && (
@@ -126,18 +126,40 @@ const BookDetails = () => {
                 <p className="mb-4">{Book?.data?.description}</p>
 
                 {/* Show preview PDF button if preview PDF exists */}
-                {Book?.data?.previewPdfUrls?.length > 0 && (
+                {!user?.isBasicSubscribed &&
+                  !user?.isPremiumSubscribed &&
+                  Book?.data?.previewPdfUrls?.length > 0 && (
+                    <div className="mb-4">
+                      <Button
+                        onClick={() =>
+                          window.open(
+                            imageUrl + Book?.data?.previewPdfUrls[0],
+                            "_blank"
+                          )
+                        }
+                        type="primary"
+                        style={{
+                          backgroundColor: "#000",
+                          color: "white",
+                          height: "35px",
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                        }}
+                        className="w-full border-none text-white px-6 py-2 rounded-lg"
+                      >
+                        Preview PDF
+                      </Button>
+                    </div>
+                  )}
+                {(user?.isBasicSubscribed || user?.isPremiumSubscribed) && (
                   <div className="mb-4">
                     <Button
                       onClick={() =>
-                        window.open(
-                          imageUrl + Book?.data?.previewPdfUrls[0],
-                          "_blank"
-                        )
+                        window.open(imageUrl + Book?.data?.pdfUrls[0], "_blank")
                       }
                       type="primary"
                       style={{
-                        backgroundColor: "#000",
+                        backgroundColor: "#FF0048",
                         color: "white",
                         height: "35px",
                         fontSize: "16px",
@@ -145,7 +167,7 @@ const BookDetails = () => {
                       }}
                       className="w-full border-none text-white px-6 py-2 rounded-lg"
                     >
-                      Preview PDF
+                      Read PDF
                     </Button>
                   </div>
                 )}
@@ -154,7 +176,7 @@ const BookDetails = () => {
                   <div className="flex flex-col md:flex-row gap-4">
                     <Button
                       onClick={() =>
-                        navigate(`/product-payment/${params.id}`, {
+                        navigate(`/product-payment/${params?.id}`, {
                           state: Book?.data,
                         })
                       }

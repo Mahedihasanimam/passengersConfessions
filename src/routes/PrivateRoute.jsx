@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
   const user = useSelector((state) => state?.user?.user);
   const location = useLocation();
   const token = localStorage.getItem("token");
-  if (!user._id && !token) {
+  if (!user?._id && !token) {
     return (
       <Navigate
         to={"/auth/login"}
