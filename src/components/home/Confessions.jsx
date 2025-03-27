@@ -2,11 +2,11 @@ import "tailwindcss/tailwind.css";
 
 import { Button } from "antd";
 import { Link } from "react-router-dom";
-import confession from "../../assets/confession.webp";
 import { imageUrl } from "../../../redux/api/baseApi";
+import confession from "../../assets/confession.webp";
 // import { isSubscriber } from "../util/utils";
-import { useGetAllConfessionsQuery } from "../../../redux/apiSlices/confessionApiSlice";
 import { useSelector } from "react-redux";
+import { useGetAllConfessionsQuery } from "../../../redux/apiSlices/confessionApiSlice";
 
 const Confessions = () => {
   const { data: confessionData } = useGetAllConfessionsQuery({
@@ -23,7 +23,7 @@ const Confessions = () => {
     <div className="container mx-auto px-4 pb-[80px]">
       <div className="max-w-4xl mx-auto">
         <h1 className="lg:text-6xl md:text-4xl text-2xl font-bold text-center mt-8 text-secondary pb-2 ">
-          Confessions
+          <span className="text-red-500">CRAZY</span> Confessions
         </h1>
         <p className="text-center mt-2 mb-8 text-tertiary">
           Confession typically refers to the act of admitting or revealing
