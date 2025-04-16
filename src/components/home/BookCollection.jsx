@@ -1,8 +1,8 @@
 import "tailwindcss/tailwind.css";
 
 import { Button } from "antd";
-import { Link } from "react-router-dom";
 import React from "react";
+import { Link } from "react-router-dom";
 import { imageUrl } from "../../../redux/api/baseApi";
 import { useGetAllBooksQuery } from "../../../redux/apiSlices/bookApiSlice";
 
@@ -13,7 +13,7 @@ const BookCollection = () => {
     <div className="container mx-auto px-4 py-[80px]">
       <div className="max-w-4xl mx-auto">
         <h1 className="lg:text-6xl md:text-4xl text-2xl font-bold text-center mt-8 text-secondary pb-2 ">
-          Books Collections
+          Books Picture Cover
         </h1>
         <p className="text-center mt-2 mb-8 text-tertiary">
           Here you can explore all types of books in various languages. Explore

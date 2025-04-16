@@ -58,6 +58,14 @@ const Footer = () => {
                         Become an affiliate
                       </Link>
                     </li>
+                    <li>
+                      <a
+                        target="_blank"
+                        href={`${import.meta.env.VITE_DASHBOARD_URL}login`}
+                      >
+                        Admin Dashboard
+                      </a>
+                    </li>
 
                     {/* Add more menu items here */}
                   </ul>

@@ -62,7 +62,7 @@ const AffiliateProgram = () => {
           >
             <h3 className="text-xl font-semibold text-primary">Level 1</h3>
             <p className="mt-2 text-gray-600">
-              Highest you earn from level 1 to
+              Highest you can earn on level 1 to
               <strong> ${250000 * 1.5}</strong>
             </p>
             <p className="mt-4 text-gray-500">
@@ -75,7 +75,7 @@ const AffiliateProgram = () => {
           >
             <h3 className="text-xl font-semibold text-primary">Level 2</h3>
             <p className="mt-2 text-gray-600">
-              Highest you earn from level 2 to
+              Highest you can earn on level 2 to
               <strong> $1.5M</strong>
             </p>
             <p className="mt-4 text-gray-500">
@@ -88,7 +88,7 @@ const AffiliateProgram = () => {
           >
             <h3 className="text-xl font-semibold text-primary">Level 3</h3>
             <p className="mt-2 text-gray-600">
-              Highest you earn from level 3 to <strong> $5M</strong>
+              Highest you can earn on level 3 to <strong> $5M</strong>
             </p>
             <p className="mt-4 text-gray-500">
               500,000 - 1M sales — <strong>$5</strong> per sale
@@ -100,7 +100,7 @@ const AffiliateProgram = () => {
           >
             <h3 className="text-xl font-semibold text-primary">Level 4</h3>
             <p className="mt-2 text-gray-600">
-              Highest you earn from level 4 to <strong> $14M</strong>
+              Highest you can earn on level 4 to <strong> $14M</strong>
             </p>
             <p className="mt-4 text-gray-500">
               1M - 2M sales — <strong>$7</strong> per sale
@@ -210,7 +210,7 @@ const AffiliateProgram = () => {
           <div className="px-6 bg-white shadow-lg rounded-lg text-center">
             <h3 className="text-2xl font-semibold text-primary">Level 1</h3>
             <p className="mt-2 text-gray-600">
-              Highest you earn from level 1 to
+              Highest you can earn on level 1 to
               <strong> ${250000 * 1.5}</strong>
             </p>
             <p className="mt-4 text-gray-500">
@@ -250,7 +250,7 @@ const AffiliateProgram = () => {
           <div className="px-6 bg-white shadow-lg rounded-lg text-center">
             <h3 className="text-2xl font-semibold text-primary">Level 2</h3>
             <p className="mt-2 text-gray-600">
-              Highest you earn from level 2 to
+              Highest you can earn on level 2 to
               <strong> $1.5M</strong>
             </p>
             <p className="mt-4 text-gray-500">
@@ -290,7 +290,7 @@ const AffiliateProgram = () => {
           <div className="px-6 bg-white shadow-lg rounded-lg text-center">
             <h3 className="text-2xl font-semibold text-primary">Level 3</h3>
             <p className="mt-2 text-gray-600">
-              Highest you earn from level 3 to <strong> $5M</strong>
+              Highest you can earn on level 3 to <strong> $5M</strong>
             </p>
             <p className="mt-4 text-gray-500">
               500,000 - 1M sales — <strong>$5</strong> per sale
@@ -329,7 +329,7 @@ const AffiliateProgram = () => {
           <div className="px-6 bg-white shadow-lg rounded-lg text-center">
             <h3 className="text-2xl font-semibold text-primary">Level 4</h3>
             <p className="mt-2 text-gray-600">
-              Highest you earn from level 4 to <strong> $14M</strong>
+              Highest you can earn on level 4 to <strong> $14M</strong>
             </p>
             <p className="mt-4 text-gray-500">
               1M - 2M sales — <strong>$7</strong> per sale

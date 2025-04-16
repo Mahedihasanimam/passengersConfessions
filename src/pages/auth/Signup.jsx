@@ -20,7 +20,7 @@ const Signup = () => {
         navigate("/auth/verify-email/?route=signup&email=" + values.email);
       } catch (error) {
         // console.error("Error signing up:", error);
-        message.error(error.data.message);
+        message.error(error?.data?.message);
       }
     },
     [signUp, navigate]
