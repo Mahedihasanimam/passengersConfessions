@@ -24,6 +24,7 @@ import ForumPage from "../pages/forum/ForumPage";
 import Home from "../pages/home/Home";
 import PaymentProducer from "../pages/paymentsProducer/PaymentProducer";
 import ProductPurchase from "../pages/paymentsProducer/ProductPurchase";
+import PdfView from "../pages/pdf/PdfView";
 import PodCast from "../pages/podCast/PodCast";
 import PodCastDetails from "../pages/podCast/podCastDetails/PodCastDetails";
 import RideShareStories from "../pages/stories/RideShareStories";
@@ -142,6 +143,10 @@ export const router = createBrowserRouter([
   {
     path: "/auth/Becomeanaffiliate",
     element: <Becomeanaffiliate />,
+  },
+  {
+    path: "/read-mode",
+    element: <PdfView />,
   },
 
   // profile routes -----------

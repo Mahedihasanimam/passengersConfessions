@@ -18,6 +18,17 @@ body {
   }
 }
 
+/* // Add these to your main CSS */
+.pdf-viewer-container {
+  --viewer-toolbar-bg: theme('colors.gray.50');
+  --viewer-toolbar-bg-dark: theme('colors.gray.800');
+  --viewer-toolbar-border: theme('colors.gray.200');
+  --viewer-toolbar-border-dark: theme('colors.gray.700');
+  --viewer-toolbar-text: theme('colors.gray.700');
+  --viewer-toolbar-text-dark: theme('colors.gray.300');
+
+}
+
 .custom-checkbox .ant-checkbox-inner {
   width: 20px;
   height: 20px;

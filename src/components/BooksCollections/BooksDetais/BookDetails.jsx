@@ -1,4 +1,7 @@
-import "tailwindcss/tailwind.css"; // Ensure Tailwind CSS is imported
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+// Import the styles
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
@@ -9,15 +12,25 @@ import {
 } from "../../../../redux/apiSlices/reviewRatingApiSlice";
 
 import { LeftOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
 import { imageUrl } from "../../../../redux/api/baseApi";
 import { useGetBookByIdQuery } from "../../../../redux/apiSlices/bookApiSlice";
 import { SubscriptionModal } from "../../common/SubsciptionModal";
 import GLoading from "../../GLoading";
+// Import the main component
+import { useSelector } from "react-redux";
+
+// Create new plugin instance
+// const characterMap = {
+//   isCompressed: true,
+//   // The url has to end with "/"
+//   url: "https://unpkg.com/pdfjs-dist@2.6.347/cmaps/",
+// };
 
 const BookDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
+
+  // Create custom plugin instance without download button
 
   const {
     data: Book,
@@ -66,6 +79,8 @@ const BookDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  console.log(Book?.data);
+
   return (
     <div className="container mx-auto p-6 rounded-lg min-h-[60vh]">
       {bookIsLoading ||
@@ -93,24 +108,6 @@ const BookDetails = () => {
 
             <div className="w-full">
               <div className="flex-1 pl-6">
-                {/* {(user?.isBasicSubscribed || user?.isPremiumSubscribed) && (
-                  <div className="flex flex-wrap gap-4 mb-3">
-                    {Book?.data?.pdfUrls?.map((pdf) => (
-                      <a
-                        key={pdf}
-                        href={imageUrl + pdf}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 border border-red-400 p-2 rounded-md"
-                      >
-                        <img
-                          src={"/public/pdf.svg"}
-                          className="w-20 aspect-square rounded-md"
-                        />
-                      </a>
-                    ))}
-                  </div>
-                )} */}
                 {Book?.data?.price &&
                   !user?.isBasicSubscribed &&
                   !user?.isPremiumSubscribed && (
@@ -125,17 +122,16 @@ const BookDetails = () => {
                 <h2 className="text-gray-600 mb-4">{Book?.data?.authorName}</h2>
                 <p className="mb-4">{Book?.data?.description}</p>
 
-                {/* Show preview PDF button if preview PDF exists */}
+                {/* Preview PDF Button */}
                 {!user?.isBasicSubscribed &&
                   !user?.isPremiumSubscribed &&
                   Book?.data?.previewPdfUrls?.length > 0 && (
                     <div className="mb-4">
                       <Button
                         onClick={() =>
-                          window.open(
-                            imageUrl + Book?.data?.previewPdfUrls[0],
-                            "_blank"
-                          )
+                          navigate(`/read-mode`, {
+                            state: imageUrl + Book?.data?.previewPdfUrls[0],
+                          })
                         }
                         type="primary"
                         style={{
@@ -151,11 +147,16 @@ const BookDetails = () => {
                       </Button>
                     </div>
                   )}
+
+                {/* PDF Preview Modal */}
+
                 {(user?.isBasicSubscribed || user?.isPremiumSubscribed) && (
                   <div className="mb-4">
                     <Button
                       onClick={() =>
-                        window.open(imageUrl + Book?.data?.pdfUrls[0], "_blank")
+                        navigate(`/read-mode`, {
+                          state: imageUrl + Book?.data?.pdfUrls[0],
+                        })
                       }
                       type="primary"
                       style={{
