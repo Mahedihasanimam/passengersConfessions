@@ -13,13 +13,15 @@ const BookCollection = () => {
     <div className="container mx-auto px-4 py-[80px]">
       <div className="max-w-4xl mx-auto">
         <h1 className="lg:text-6xl md:text-4xl text-2xl font-bold text-center mt-8 text-secondary pb-2 ">
-          Books Picture Cover
+          Book Picture Cover{" "}
+          <sup className="lg:text-3xl md:text-4xl text-2xl font-bold text-center text-primary pb-2 ">
+            (Adults Only)
+          </sup>
         </h1>
+
         <p className="text-center mt-2 mb-8 text-tertiary">
-          Here you can explore all types of books in various languages. Explore
-          our full library of provocative, bold, and steamy stories. Each book
-          invites you to dive deeper into a world where passion knows no
-          boundaries.
+          Here you can explore my book in various languages. My book invites you
+          to dive deeper into a world where passion knows no boundaries.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">

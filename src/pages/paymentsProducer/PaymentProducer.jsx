@@ -101,6 +101,12 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
 
         if (referralCode) {
           // Process the referral code
+          console.log({
+            paymentIntentId: paymentIntent.id,
+            subscriptionPlan: data?.name,
+            affiliateCode: referralCode,
+            price: data?.price,
+          });
           const res = await confirmPayment({
             paymentIntentId: paymentIntent.id,
             subscriptionPlan: data?.name,

@@ -106,29 +106,59 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
 
         if (referralCode) {
           // Process the referral code
-          const res = await confirmPayment({
-            paymentIntentId: paymentIntent.id,
-            subscriptionPlan: user?.booksBought?.length ? "" : "premium",
-            affiliateCode: referralCode,
-            price: data?.price,
-            bookId: data?._id,
-          }).unwrap();
-          setLoading(false);
-          if (res?.success) {
-            onPaymentSuccess();
+
+          if (user?.booksBought?.length) {
+            const res = await confirmPayment({
+              paymentIntentId: paymentIntent.id,
+              affiliateCode: referralCode,
+              price: data?.price,
+              bookId: data?._id,
+            }).unwrap();
             setLoading(false);
+            if (res?.success) {
+              onPaymentSuccess();
+              setLoading(false);
+            }
+          } else {
+            const res = await confirmPayment({
+              paymentIntentId: paymentIntent.id,
+              subscriptionPlan: "premium",
+              affiliateCode: referralCode,
+              price: data?.price,
+              bookId: data?._id,
+            }).unwrap();
+            setLoading(false);
+            if (res?.success) {
+              onPaymentSuccess();
+              setLoading(false);
+            }
           }
         } else {
-          const confirmData = await confirmPayment({
-            paymentIntentId: paymentIntent.id,
-            subscriptionPlan: user?.booksBought?.length ? "" : "premium",
-            affiliateCode: referralCode,
-            bookId: data?._id,
-            price: data?.price,
-          }).unwrap();
-          if (confirmData?.success) {
-            onPaymentSuccess();
+          if (user?.booksBought?.length) {
+            const res = await confirmPayment({
+              paymentIntentId: paymentIntent.id,
+
+              price: data?.price,
+              bookId: data?._id,
+            }).unwrap();
             setLoading(false);
+            if (res?.success) {
+              onPaymentSuccess();
+              setLoading(false);
+            }
+          } else {
+            const res = await confirmPayment({
+              paymentIntentId: paymentIntent.id,
+              subscriptionPlan: "premium",
+
+              price: data?.price,
+              bookId: data?._id,
+            }).unwrap();
+            setLoading(false);
+            if (res?.success) {
+              onPaymentSuccess();
+              setLoading(false);
+            }
           }
         }
       }

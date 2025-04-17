@@ -301,11 +301,9 @@ const Navbar = () => {
                     ? "text-[#262626] text-[16px]  font-bold"
                     : "text-[#6D6D6D] text-[16px]  font-bold"
                 }
-              >
                 onClick={() => setIsNavOpen(false)}
-                Ride Share Drivers <span className="text-red-500">
-                  CRAZY
-                </span>{" "}
+              >
+                Ride Share Drivers <span className="text-red-500">CRAZY</span>{" "}
                 Stories
               </NavLink>
             </li>

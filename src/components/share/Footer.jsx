@@ -8,17 +8,17 @@ const Footer = () => {
     <div>
       <footer className="px-4 divide-y bg-[#000000] text-decriptioncolor relative z-40">
         <div className="container mx-auto">
-          <div className="flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 py-8 lg:justify-items-center">
             {/* left side menu */}
-            <div className="lg:w-1/3 text-sm font-normal space-y-4">
+            <div className=" text-sm font-normal space-y-4">
               <div className="flex justify-start pl-2 lg:justify-start pb-4">
                 <img src={logo} alt="Pantagonostis" />
               </div>
-              <div className="max-w-[120px] text-[16px] pl-2">
+              {/* <div className="max-w-[120px] text-[16px] pl-2">
                 <h4>
                   Street name, Area address <br /> goes here
                 </h4>
-              </div>
+              </div> */}
               <div className="text-decriptioncolor text-[16px] font-normal space-y-2 pt-2">
                 <div>
                   <PhoneOutlined className="rotate-90 text-[16px] text-decriptioncolor pr-2" />
@@ -36,67 +36,71 @@ const Footer = () => {
             </div>
 
             {/* right side menu items */}
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 text-sm gap-x-3 gap-y-8 lg:w-2/3 w-full">
-              {/* MENU ITEM ONE */}
-              <div className="space-y-3 text-start">
-                <h3 className="font-semibold text-[18px] pb-3 text-white">
-                  Programs
-                </h3>
-                <div className="gap-6">
-                  <ul className="space-y-[12px] text-decriptioncolor font-medium text-sm">
-                    <li>
-                      <Link to={"/allBooksCollections"}>Books</Link>
-                    </li>
-                    <li>
-                      <Link to={"/Confession"}>Confessions</Link>
-                    </li>
-                    <li>
-                      <Link to={"/Podcast"}>Podcast</Link>
-                    </li>
-                    <li>
-                      <Link to={"/auth/Becomeanaffiliate"}>
-                        Become an affiliate
-                      </Link>
-                    </li>
-                    <li>
-                      <a
-                        target="_blank"
-                        href={`${import.meta.env.VITE_DASHBOARD_URL}login`}
-                      >
-                        Admin Dashboard
-                      </a>
-                    </li>
 
-                    {/* Add more menu items here */}
-                  </ul>
-                </div>
+            <div className="space-y-3 text-start">
+              <h3 className="font-semibold text-[18px] pb-3 text-white">
+                Programs
+              </h3>
+              <div className="gap-6">
+                <ul className="space-y-[12px] text-decriptioncolor font-medium text-sm">
+                  <li>
+                    <Link to={"/allBooksCollections"}>Books</Link>
+                  </li>
+                  <li>
+                    <Link to={"/Confession"}>Confessions</Link>
+                  </li>
+                  <li>
+                    <Link to={"/RideShareStories"}>
+                      {" "}
+                      RideShare Drivers Stories{" "}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/Forum"}>Forum</Link>
+                  </li>
+                  <li>
+                    <Link to={"/auth/Becomeanaffiliate"}>
+                      Become an affiliate
+                    </Link>
+                  </li>
+                  <li>
+                    <a
+                      target="_blank"
+                      href={`${import.meta.env.VITE_DASHBOARD_URL}login`}
+                    >
+                      Admin Dashboard
+                    </a>
+                  </li>
+
+                  {/* Add more menu items here */}
+                </ul>
               </div>
+            </div>
 
-              <div className="space-y-3 text-start">
-                <h3 className="font-semibold text-[18px] pb-3 text-white">
-                  Help & Support
-                </h3>
-                <div className="gap-6">
-                  <ul className="space-y-[12px] text-decriptioncolor font-medium text-sm">
-                    <li>
-                      <Link to={"/FAQ"}>FAQ</Link>
-                    </li>
-                    {/* <li>
+            <div className="space-y-3 text-start">
+              <h3 className="font-semibold text-[18px] pb-3 text-white">
+                Help & Support
+              </h3>
+              <div className="gap-6">
+                <ul className="space-y-[12px] text-decriptioncolor font-medium text-sm">
+                  <li>
+                    <Link to={"/FAQ"}>FAQ</Link>
+                  </li>
+                  {/* <li>
                       <Link to={"/contact"}>Contact us</Link>
                     </li> */}
-                    <li>
-                      <Link to={"/termsAndConditions"}>Terms & conditions</Link>
-                    </li>
-                    <li>
-                      <Link to={"/aboutus"}>About Us</Link>
-                    </li>
+                  <li>
+                    <Link to={"/termsAndConditions"}>Terms & conditions</Link>
+                  </li>
+                  <li>
+                    <Link to={"/aboutus"}>About Us</Link>
+                  </li>
 
-                    {/* Add more menu items here */}
-                  </ul>
-                </div>
+                  {/* Add more menu items here */}
+                </ul>
               </div>
 
-              <div className="space-y-[24px] text-start">
+              {/* <div className="space-y-[24px] text-start">
                 <h3 className="font-semibold text-[18px] pb-3 text-white">
                   Social Media
                 </h3>
@@ -216,12 +220,9 @@ const Footer = () => {
                       </Link>
                     </li>
 
-                    {/* Add more menu items here */}
                   </ul>
                 </div>
-              </div>
-
-              {/* Add more sections as needed */}
+              </div> */}
             </div>
           </div>
         </div>
