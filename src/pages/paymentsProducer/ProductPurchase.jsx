@@ -29,7 +29,6 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
   const elements = useElements();
   const [cardholderName, setCardholderName] = useState("");
   const [email, setEmail] = useState("");
-  const [referCode, setReferCode] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -91,7 +90,6 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
           confirmButtonColor: "#17a2b8",
           cancelButtonColor: "#FF0048",
           inputValidator: async (value) => {
-            setReferCode(value);
             if (!value) {
               return "Please enter a referral code!";
             }
@@ -178,7 +176,7 @@ const PaymentForm = ({ onPaymentSuccess, data }) => {
     }
   };
   //   console.log(data);
-  const isYearly = data?.duration === 365;
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* <Card className="rounded-lg shadow-lg border ">
