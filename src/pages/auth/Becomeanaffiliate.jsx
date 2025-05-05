@@ -2,6 +2,7 @@ import { Alert, Button, Divider, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { BiLeftArrowAlt } from "react-icons/bi";
 import { useSingUpAsAffiliateMutation } from "../../../redux/apiSlices/userApis";
 
 const Becomeanaffiliate = () => {
@@ -80,13 +81,20 @@ const Becomeanaffiliate = () => {
   );
 
   return (
-    <div className=" lg:flex md:flex flex-row items-center justify-between max-w-6xl mx-auto min-h-screen  ">
-      <div className="max-w-lg w-full  mx-auto px-4 bg-[#FFFFFF]  border p-4 rounded-xl shadow-md">
+    <div className=" lg:flex md:flex flex-row items-center justify-between max-w-6xl mx-auto overflow-y-auto min-h-screen  ">
+      <div
+        onClick={() => navigate("/")}
+        className=" cursor-pointer md:hidden h-10 w-10 bg-primary rounded-full absolute top-4 left-4 flex items-center justify-center"
+      >
+        <BiLeftArrowAlt className="text-2xl text-white" size={20} />
+      </div>
+
+      <div className="max-w-lg w-full  mx-auto px-4 bg-[#FFFFFF]  border p-4 rounded-xl shadow-md ">
         <div className="text-center pb-[34px]">
-          <h1 className="text-4xl font-bold mb-4 text-secondary">
+          <h1 className="text-4xl md:text-5xl  font-bold my-4 mt-16 md:mt-4 lg:mt-8  text-primary">
             Become An Affiliate
           </h1>
-          <h3 className="text-tertiary text-[16px] max-w-sm mx-auto">
+          <h3 className="text-tertiary text-base max-w-sm mx-auto">
             If you want to make money, please fill up the information for sign
             in
           </h3>
@@ -205,7 +213,7 @@ const Becomeanaffiliate = () => {
                   fontWeight: "bold",
                   border: "2px solid #D1D1D1",
                 }}
-                className="w-full border-none text-white px-6 py-2 rounded-lg"
+                className="w-full border-none text-white px-6 py-2 rounded-lg mb-8"
               >
                 Create a new acount
               </Button>
