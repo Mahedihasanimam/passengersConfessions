@@ -16,6 +16,7 @@ const Becomeanaffiliate = () => {
       try {
         const res = await singAsAffiliate(values).unwrap();
         if (res.success) {
+          // console.log(res);
           message.success(res.message);
           navigate("/");
         }

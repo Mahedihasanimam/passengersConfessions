@@ -64,6 +64,11 @@ const userApis = api.injectEndpoints({
         body: data,
       }),
     }),
+    checkTransactionEnable: builder.query({
+      query: ({ stripeAccountId }) => ({
+        url: `/payment/ensure-transfers-capability?stripeAccountId=${stripeAccountId}`,
+      }),
+    }),
     singUpAsGoogle: builder.mutation({
       query: (data) => ({
         url: `/auth/google-signup`,
@@ -169,4 +174,5 @@ export const {
   useVerifyEmailMutation,
   useSendOtpAgainMutation,
   useConnectToStripMutation,
+  useCheckTransactionEnableQuery,
 } = userApis;

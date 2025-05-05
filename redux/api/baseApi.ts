@@ -1,7 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import Swal from "sweetalert2";
-
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BACKEND_URL,
   // timeout: 10000,
@@ -26,18 +24,6 @@ const baseQueryWithRath: typeof baseQuery = async (args, api, extraOptions) => {
 
   let result = await baseQuery(args, api, extraOptions);
   // console.log(result);
-
-  if (result?.error?.status) {
-    if (result?.error?.status === 403) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Session Expired. Please Login Again",
-        confirmButtonText: "Ok",
-      });
-    }
-    // localStorage?.removeItem("token");
-  }
 
   if (result?.error?.status === 401) {
     // Handle token refresh logic here if needed

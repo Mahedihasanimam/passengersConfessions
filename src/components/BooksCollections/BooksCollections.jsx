@@ -3,11 +3,11 @@ import "tailwindcss/tailwind.css";
 import React, { useState } from "react";
 
 import { Button } from "antd";
-import GLoading from "../GLoading";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { imageUrl } from "../../../redux/api/baseApi";
 import { useLazyGetAllBooksQuery } from "../../../redux/apiSlices/bookApiSlice";
-import { useSelector } from "react-redux";
+import GLoading from "../GLoading";
 
 const BooksCollections = () => {
   const [page, setPage] = useState(1);
@@ -46,10 +46,8 @@ const BooksCollections = () => {
           Books Collections
         </h1>
         <p className=" mt-2 mb-8 text-tertiary font-normal">
-          Here you can explore all types of books in various languages. Explore
-          our full library of provocative, bold, and steamy stories. Each book
-          invites you to dive deeper into a world where passion knows no
-          boundaries.
+          Here you can explore my book in various languages. My book invites you
+          to dive deeper into a world where passion knows no boundaries.
         </p>
       </div>
       {isLoading ? (
