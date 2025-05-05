@@ -170,7 +170,8 @@ html {
 
 .ant-form-item-required {
   font-size: large !important;
-  color: #656565 !important;
+  color: #616161 !important;
+  font-weight: 500;
 }
 
 .ant-input .ant-input-lg .css-dev-only-do-not-override-49qm{
