@@ -2,6 +2,7 @@ import { Alert, Button, Checkbox, Form, Input, message } from "antd";
 import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { BiLeftArrowAlt } from "react-icons/bi";
 import { useSingUpUserMutation } from "../../../redux/apiSlices/userApis";
 import logoimage from "../../assets/signup.png";
 
@@ -80,14 +81,21 @@ const Signup = () => {
     <div className=" lg:flex md:flex flex-row items-center justify-between max-w-6xl mx-auto min-h-screen  ">
       <div className="">
         <div className="">
-          <img src={logoimage} alt="Logo" />
+          <img className="hidden md:block" src={logoimage} alt="Logo" />
         </div>
       </div>
 
-      <div className="max-w-lg w-full  mx-auto px-4 ">
+      <div
+        onClick={() => navigate("/")}
+        className=" cursor-pointer md:hidden h-10 w-10 bg-primary rounded-full absolute top-4 left-4 flex items-center justify-center"
+      >
+        <BiLeftArrowAlt className="text-2xl text-white" size={20} />
+      </div>
+
+      <div className="max-w-lg w-full pt-20 lg:pt-0 md:pt-0 mx-auto px-4 ">
         <div className="text-center pb-[34px]">
-          <h1 className="text-4xl font-bold mb-4 text-secondary">Sign up</h1>
-          <h3 className="text-tertiary text-[16px] max-w-sm mx-auto">
+          <h1 className="text-6xl font-bold mb-4 text-primary">Sign up</h1>
+          <h3 className="text-tertiary text-base max-w-sm mx-auto">
             Fill up some information to create a new account in Passenger
             Confession
           </h3>
@@ -114,7 +122,8 @@ const Signup = () => {
               <Input
                 prefix={userIcon}
                 placeholder="Enter your name"
-                className="border h-[44px] bg-[#FFE5ED4D] p-2 text-[16px] text-[#667085] focus:border-[#dde2eb]"
+                size="large"
+                className="border h-12 gap-1 bg-[#FFE5ED4D] p-2 text-base  text-[#667085] focus:border-[#dde2eb]"
               />
             </Form.Item>
             <Form.Item
@@ -131,7 +140,8 @@ const Signup = () => {
               <Input
                 prefix={emailIcon}
                 placeholder="Enter your email"
-                className="border h-[44px] bg-[#FFE5ED4D] p-2 text-[16px] text-[#667085] focus:border-[#dde2eb]"
+                size="large"
+                className="border h-12 gap-1 bg-[#FFE5ED4D] p-2 text-base  text-[#667085] focus:border-[#dde2eb]"
               />
             </Form.Item>
             <Form.Item
@@ -144,7 +154,8 @@ const Signup = () => {
               <Input.Password
                 prefix={passwordIcon}
                 placeholder="Enter your password"
-                className="border h-[44px] bg-[#FFE5ED4D] p-2 text-[16px] text-[#667085] focus:border-[#dde2eb]"
+                size="large"
+                className="border h-12 gap-1 bg-[#FFE5ED4D] p-2 text-base  text-[#667085] focus:border-[#dde2eb]"
               />
             </Form.Item>
 

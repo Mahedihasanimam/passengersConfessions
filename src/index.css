@@ -168,3 +168,12 @@ html {
   scroll-snap-type: y mandatory;
 }
 
+.ant-form-item-required {
+  font-size: large !important;
+  color: #656565 !important;
+}
+
+.ant-input .ant-input-lg .css-dev-only-do-not-override-49qm{
+  font-size: large !important;
+  color: #656565 !important;
+}
