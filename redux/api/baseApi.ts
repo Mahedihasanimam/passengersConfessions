@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_BACKEND_URL,
+  baseUrl: (import.meta as any).env.VITE_BACKEND_URL,
   // timeout: 10000,
   prepareHeaders: async (headers, { getState }) => {
     // const token = localStorage.getItem("token");
@@ -65,4 +65,4 @@ export const api = createApi({
   ],
 });
 
-export const imageUrl = import.meta.env.VITE_BACKEND_URL;
+export const imageUrl = (import.meta as any).env.VITE_BACKEND_URL;
